@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KRNL.WebMVC", "KRNL.WebMVC\KRNL.WebMVC.csproj", "{6C4777DA-C787-4C18-BDC6-B7177308A9B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KRNL.Data", "KRNL.Data\KRNL.Data.csproj", "{21624F4B-2A01-4F50-9769-417DDDF17AE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KRNL.Models", "KRNL.Models\KRNL.Models.csproj", "{BD00EA95-DF2E-4AD1-BE12-ED913A1B4D20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KRNL.Services", "KRNL.Services\KRNL.Services.csproj", "{765F1C88-013D-497E-86F3-98CD1301ADCF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KRNL.Contracts", "KRNL.Contracts\KRNL.Contracts.csproj", "{3129CFC6-612E-437A-98C2-FF7BD69B23C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KRNL.Tests", "KRNL.Tests\KRNL.Tests.csproj", "{33DF4712-5BE9-4444-A2CA-60AE222B9C7D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6C4777DA-C787-4C18-BDC6-B7177308A9B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C4777DA-C787-4C18-BDC6-B7177308A9B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C4777DA-C787-4C18-BDC6-B7177308A9B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C4777DA-C787-4C18-BDC6-B7177308A9B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21624F4B-2A01-4F50-9769-417DDDF17AE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21624F4B-2A01-4F50-9769-417DDDF17AE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21624F4B-2A01-4F50-9769-417DDDF17AE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21624F4B-2A01-4F50-9769-417DDDF17AE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD00EA95-DF2E-4AD1-BE12-ED913A1B4D20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD00EA95-DF2E-4AD1-BE12-ED913A1B4D20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD00EA95-DF2E-4AD1-BE12-ED913A1B4D20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD00EA95-DF2E-4AD1-BE12-ED913A1B4D20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{765F1C88-013D-497E-86F3-98CD1301ADCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{765F1C88-013D-497E-86F3-98CD1301ADCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{765F1C88-013D-497E-86F3-98CD1301ADCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{765F1C88-013D-497E-86F3-98CD1301ADCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3129CFC6-612E-437A-98C2-FF7BD69B23C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3129CFC6-612E-437A-98C2-FF7BD69B23C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3129CFC6-612E-437A-98C2-FF7BD69B23C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3129CFC6-612E-437A-98C2-FF7BD69B23C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33DF4712-5BE9-4444-A2CA-60AE222B9C7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33DF4712-5BE9-4444-A2CA-60AE222B9C7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33DF4712-5BE9-4444-A2CA-60AE222B9C7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33DF4712-5BE9-4444-A2CA-60AE222B9C7D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CD0AE9D8-86DE-4427-91C9-35E7EB7C4C3B}
+	EndGlobalSection
+EndGlobal
