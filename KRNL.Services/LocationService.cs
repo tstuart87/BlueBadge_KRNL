@@ -54,7 +54,10 @@ namespace KRNL.Services
                                     LocationName = e.LocationName,
                                     LocationCode = e.LocationCode,
                                     IsStaked = e.IsStaked,
-                                    GDUs = e.GDUs
+                                    GDUs = e.GDUs,
+                                    Latitude = e.Latitude,
+                                    Longitude = e.Longitude,
+                                    MapLink = "https://www.google.com/maps/dir/?api=1&destination="+e.Latitude+","+e.Longitude
                                 }
                         );
 
@@ -106,7 +109,8 @@ namespace KRNL.Services
                             DatePlanted = entity.DatePlanted,
                             IsStaked = entity.IsStaked,
                             CooperatorId = entity.CooperatorId,
-                            FullName = entity.Cooperators.FirstName + " " + entity.Cooperators.LastName
+                            FullName = entity.Cooperators.FirstName + " " + entity.Cooperators.LastName,
+                            MapLink = "https://www.google.com/maps/dir/?api=1&destination=" + entity.Latitude + "," + entity.Longitude
                         };
                 }
 

@@ -19,8 +19,8 @@ namespace KRNL.Models
         [Required]
         [Display(Name = "LocID")]
         public string LocationCode { get; set; }
-        public string Longitude { get; set; }
-        public string Latitude { get; set; }
+        public decimal? Longitude { get; set; }
+        public decimal? Latitude { get; set; }
         [Display(Name ="# of Plots")]
         public int? NumberOfPlots { get; set; }
         public Dimension? KnownDimension { get; set; }
@@ -31,6 +31,7 @@ namespace KRNL.Models
         [Display(Name ="Staked")]
         public bool IsStaked { get; set; }
         public int? Year { get; set; }
+        [Display(Name ="Cooperator")]
         public int CooperatorId { get; set; }
     }
 }

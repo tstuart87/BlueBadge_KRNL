@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "WeatherJS";
+}
+
+<h2>WeatherJS</h2>
+
+<p id="reply">
+
+</p>
+
+<button>Get Weather</button>
+
+<script>
+    $(document).ready(function () {
+        $("button").click(function () { 
+            $.get("api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&APPID=3d849b6f1c5c4f4bef355f7bdddaa813&units=imperial", function (response) {
+                //response
+            });
+        });
+    });
+</script>

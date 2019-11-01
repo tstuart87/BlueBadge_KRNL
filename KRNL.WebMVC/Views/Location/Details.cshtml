@@ -70,5 +70,6 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.LocationId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index") | 
+    <a href=@Model.MapLink target="_blank">Directions</a>
 </p>
