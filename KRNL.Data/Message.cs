@@ -15,5 +15,9 @@ namespace KRNL.Data
         public Guid OwnerId { get; set; }
         public string Comment { get; set; }
         public DateTimeOffset DateCreated { get; set; }
+
+        [ForeignKey("Locations")]
+        public int? LocationId { get; set; }
+        public virtual Location Locations { get; set; }
     }
 }

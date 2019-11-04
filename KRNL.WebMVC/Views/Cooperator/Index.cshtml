@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Cooperators</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -24,7 +24,7 @@
             @Html.DisplayNameFor(model => model.State)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Zip)
+            @Html.DisplayNameFor(model => model.Phone)
         </th>
         <th></th>
     </tr>
@@ -44,12 +44,12 @@
             @Html.DisplayFor(modelItem => item.State)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Zip)
+            @Html.DisplayFor(modelItem => item.Phone)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CooperatorId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CooperatorId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CooperatorId})
+            @Html.ActionLink("Edit", "Edit", new { id = item.CooperatorId })  |
+            @Html.ActionLink("View", "Details", new { id = item.CooperatorId })  |
+            @Html.ActionLink("Delete", "Delete", new { id = item.CooperatorId })
         </td>
     </tr>
 }

@@ -24,7 +24,8 @@ namespace KRNL.WebMVC
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/Site.css"));
+                      "~/Content/Site.css",
+                      "~/Content/style.css"));
         }
     }
 }

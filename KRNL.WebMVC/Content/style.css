@@ -1,0 +1,214 @@
+﻿body {
+    /*font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;*/
+    font-family: 'Arial Narrow', Arial, sans-serif;
+    background-color: #261c1c;
+    color: white;
+}
+
+img.navbarLogo{
+    height: 40px;
+    padding: 6px 8px 0px 4px;
+}
+
+img.navbarLogoFooter {
+    height: 80px;
+    padding: 26px 8px 4px 0px;
+}
+
+.navbar{
+    text-transform: uppercase;
+    letter-spacing: 0px;
+    font-size: 12px;
+}
+
+
+
+a {
+    color: #48427D;
+    text-transform: uppercase;
+}
+
+.btn {
+    color: white;
+    background-color: #48427D;
+    border-radius: 0;
+    border: none;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.btn:hover {
+    color: white;
+    background-color: #48427D;
+    border-radius: 0;
+    border: none;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+a.home{
+    color: white;
+    text-decoration: none;
+}
+
+a.home:hover{
+    text-decoration: none;
+}
+
+img.homescreen{
+    width: 100%;
+    position: fixed;
+    padding: 0;
+    margin: 0;
+    left: 0;
+    right: 0;
+}
+
+
+/*Home Screen Buttons*/
+p.btn.btn-default > a {
+    color: #F0EFE4 !important;
+}
+
+p.btn.btn-default > a:hover {
+    color: #FCDB38 !important;
+    text-decoration: none;
+}
+/*Home Screen Buttons*/
+
+.text-box {
+    border-radius: 20px;
+
+}
+
+
+/*Table formatting*/
+th, td {
+    border: none !important;
+}
+
+th {
+    background-color: #212036;
+    color: #F0EFE4;
+    font-family: Arial, sans-serif, 'Arial Narrow';
+    font-weight: normal;
+}
+
+tr:nth-child(odd) {
+    background-color: #401b1e;
+}
+
+body > div.container.body-content > table > tbody > tr:nth-child(2) > td:nth-child(6) > a:nth-child(4){
+    color: white !important;
+}
+
+
+/*Check Box Formatting*/
+input.check-box {
+    margin: 4px 0px 0px 17px;
+    max-width: 20px;
+    max-height: 20px;
+    background-color: #FCDB38;
+    color: #FCDB38;
+}
+
+hr {
+    border: 1px solid grey;
+}
+
+a {
+    /*color: #3B8927 !important;*/
+    color: #6cbd6c !important;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #FCDB38 !important;
+}
+
+/*NAVBAR FONT***************************/
+body > div.navbar.navbar-inverse.navbar-fixed-top > div > div.navbar-collapse.collapse > ul > li:nth-child(1) > a {
+    color: lightgray !important;
+}
+
+body > div.navbar.navbar-inverse.navbar-fixed-top > div > div.navbar-collapse.collapse > ul > li:nth-child(1) > a:hover {
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 6px;
+}
+
+body > div.navbar.navbar-inverse.navbar-fixed-top > div > div.navbar-collapse.collapse > ul > li:nth-child(2) > a {
+    color: lightgray !important;
+}
+
+body > div.navbar.navbar-inverse.navbar-fixed-top > div > div.navbar-collapse.collapse > ul > li:nth-child(2) > a:hover {
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 6px;
+}
+
+body > div.navbar.navbar-inverse.navbar-fixed-top > div > div.navbar-collapse.collapse > ul > li:nth-child(3) > a {
+    color: lightgray !important;
+}
+
+body > div.navbar.navbar-inverse.navbar-fixed-top > div > div.navbar-collapse.collapse > ul > li:nth-child(3) > a:hover {
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 6px;
+}
+
+body > div.navbar.navbar-inverse.navbar-fixed-top > div > div.navbar-collapse.collapse > ul > li:nth-child(4) > a {
+    color: lightgray !important;
+}
+
+body > div.navbar.navbar-inverse.navbar-fixed-top > div > div.navbar-collapse.collapse > ul > li:nth-child(4) > a:hover {
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 6px;
+}
+
+#logoutForm > ul > li:nth-child(1) > a {
+    color: lightgray !important;
+}
+
+#logoutForm > ul > li:nth-child(1) > a:hover {
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 6px;
+}
+
+#logoutForm > ul > li:nth-child(2) > a {
+    color: lightgray !important;
+}
+
+
+#logoutForm > ul > li:nth-child(2) > a:hover {
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 6px;
+}
+
+a.directions {
+    background-color: #48427D;
+    padding: 8px;
+    color: white !important;
+}
+
+a.directions:hover {
+    color: #FCDB38 !important;
+    text-decoration: none;
+}
+
+/*NAVBAR FONT***************************/

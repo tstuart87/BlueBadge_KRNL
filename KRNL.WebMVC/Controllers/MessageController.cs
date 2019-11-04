@@ -22,6 +22,9 @@ namespace KRNL.WebMVC.Controllers
 
         public ActionResult Create()
         {
+            var locService = new LocationService();
+            ViewBag.locations = locService.GetLocations();
+
             return View();
         }
 
@@ -29,6 +32,9 @@ namespace KRNL.WebMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(MessageCreate model)
         {
+            //var locService = new LocationService();
+            //ViewBag.locations = locService.GetLocations();
+
             if (ModelState.IsValid)
             {
                 var service = new MessageService(Guid.Parse(User.Identity.GetUserId()));

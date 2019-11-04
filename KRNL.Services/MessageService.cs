@@ -30,7 +30,8 @@ namespace KRNL.Services
                 MessageId = model.MessageId,
                 Comment = model.Comment,
                 OwnerId = _userId,
-                DateCreated = DateTimeOffset.Now
+                DateCreated = DateTimeOffset.Now,
+                LocationId = model.LocationId
             };
 
             using (var ctx = new ApplicationDbContext())
@@ -53,7 +54,8 @@ namespace KRNL.Services
                                 {
                                     MessageId = e.MessageId,
                                     Comment = e.Comment,
-                                    DateCreated = e.DateCreated
+                                    DateCreated = e.DateCreated,
+                                    LocationCode = e.Locations.LocationCode
                                 }
                         );
 
@@ -87,7 +89,8 @@ namespace KRNL.Services
                     {
                         MessageId = entity.MessageId,
                         Comment = entity.Comment,
-                        DateCreated = entity.DateCreated
+                        DateCreated = entity.DateCreated,
+                        LocationCode = entity.Locations.LocationCode
                     };
             }
         }

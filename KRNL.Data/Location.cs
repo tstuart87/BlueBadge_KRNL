@@ -30,10 +30,10 @@ namespace KRNL.Data
         public DateTimeOffset? DatePlanted { get; set; }
         public bool IsStaked { get; set; }
         public int? Year { get; set; }
-        
+        public string MapLink { get; set; }
+
         [ForeignKey("Cooperators")]
         public int? CooperatorId { get; set; }
         public virtual Cooperator Cooperators { get; set; }
-        public string MapLink { get; set; }
     }
 }

@@ -124,7 +124,8 @@ namespace KRNL.Services
                         DatePlanted = entity.DatePlanted,
                         IsStaked = entity.IsStaked,
                         CooperatorId = entity.CooperatorId,
-                        FullName = null
+                        FullName = null,
+                        MapLink = "https://www.google.com/maps/dir/?api=1&destination=" + entity.Latitude + "," + entity.Longitude
                     };
         }
     }

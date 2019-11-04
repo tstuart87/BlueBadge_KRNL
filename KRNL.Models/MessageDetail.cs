@@ -15,5 +15,7 @@ namespace KRNL.Models
         [Display(Name = "Date")]
         public DateTimeOffset DateCreated { get; set; }
         public int LocationId { get; set; }
+        [Display(Name ="LocID")]
+        public string LocationCode { get; set; }
     }
 }

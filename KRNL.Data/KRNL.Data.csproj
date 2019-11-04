@@ -62,29 +62,13 @@
     <Compile Include="Migrations\201910221756567_InitialCreate.Designer.cs">
       <DependentUpon>201910221756567_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201910221800420_Initial.cs" />
-    <Compile Include="Migrations\201910221800420_Initial.Designer.cs">
-      <DependentUpon>201910221800420_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201911020130166_Ninth.cs" />
+    <Compile Include="Migrations\201911020130166_Ninth.Designer.cs">
+      <DependentUpon>201911020130166_Ninth.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201910291331264_Second.cs" />
-    <Compile Include="Migrations\201910291331264_Second.Designer.cs">
-      <DependentUpon>201910291331264_Second.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201910291522032_Third.cs" />
-    <Compile Include="Migrations\201910291522032_Third.Designer.cs">
-      <DependentUpon>201910291522032_Third.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201910291905073_Fourth.cs" />
-    <Compile Include="Migrations\201910291905073_Fourth.Designer.cs">
-      <DependentUpon>201910291905073_Fourth.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201910311539500_Fifth.cs" />
-    <Compile Include="Migrations\201910311539500_Fifth.Designer.cs">
-      <DependentUpon>201910311539500_Fifth.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201910311928343_Sixth.cs" />
-    <Compile Include="Migrations\201910311928343_Sixth.Designer.cs">
-      <DependentUpon>201910311928343_Sixth.cs</DependentUpon>
+    <Compile Include="Migrations\201911020153578_Tenth.cs" />
+    <Compile Include="Migrations\201911020153578_Tenth.Designer.cs">
+      <DependentUpon>201911020153578_Tenth.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,23 +81,11 @@
     <EmbeddedResource Include="Migrations\201910221756567_InitialCreate.resx">
       <DependentUpon>201910221756567_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910221800420_Initial.resx">
-      <DependentUpon>201910221800420_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201911020130166_Ninth.resx">
+      <DependentUpon>201911020130166_Ninth.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910291331264_Second.resx">
-      <DependentUpon>201910291331264_Second.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910291522032_Third.resx">
-      <DependentUpon>201910291522032_Third.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910291905073_Fourth.resx">
-      <DependentUpon>201910291905073_Fourth.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910311539500_Fifth.resx">
-      <DependentUpon>201910311539500_Fifth.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910311928343_Sixth.resx">
-      <DependentUpon>201910311928343_Sixth.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201911020153578_Tenth.resx">
+      <DependentUpon>201911020153578_Tenth.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -204,7 +204,7 @@ th {
   }
   a,
   a:visited {
-    text-decoration: underline;
+    text-decoration: none;
   }
   a[href]:after {
     content: " (" attr(href) ")";
@@ -6830,5 +6830,11 @@ button.close {
   .hidden-print {
     display: none !important;
   }
+}
+
+/*//////////////////*/
+
+#navbarLogo{
+    height: 20px;
 }
 /*# sourceMappingURL=bootstrap.css.map */

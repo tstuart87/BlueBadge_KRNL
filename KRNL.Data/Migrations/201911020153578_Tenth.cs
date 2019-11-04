@@ -3,16 +3,16 @@ namespace KRNL.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Sixth : DbMigration
+    public partial class Tenth : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.Location", "MapLink", c => c.String());
+            DropColumn("dbo.Message", "LocationCode");
         }
         
         public override void Down()
         {
-            DropColumn("dbo.Location", "MapLink");
+            AddColumn("dbo.Message", "LocationCode", c => c.String());
         }
     }
 }
