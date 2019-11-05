@@ -18,6 +18,7 @@ namespace KRNL.Models
         public decimal? Longitude { get; set; }
         public int? GDUs { get; set; }
         public DateTimeOffset? DatePlanted { get; set; }
+        [Display(Name = "Staked")]
         public bool IsStaked { get; set; }
         public int? CooperatorId { get; set; }
         [Display(Name ="Cooperator")]
