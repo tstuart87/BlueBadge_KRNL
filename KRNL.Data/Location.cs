@@ -31,6 +31,7 @@ namespace KRNL.Data
         public bool IsStaked { get; set; }
         public int? Year { get; set; }
         public string MapLink { get; set; }
+        public string Zip { get; set; }
 
         [ForeignKey("Cooperators")]
         public int? CooperatorId { get; set; }

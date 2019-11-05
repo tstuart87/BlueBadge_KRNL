@@ -29,6 +29,7 @@ namespace KRNL.Services
             {
                 LocationName = model.LocationName,
                 LocationCode = model.LocationCode,
+                Zip = model.Zip,
                 OwnerId = _userId
             };
 
@@ -57,6 +58,7 @@ namespace KRNL.Services
                                     GDUs = e.GDUs,
                                     Latitude = e.Latitude,
                                     Longitude = e.Longitude,
+                                    Zip = e.Zip,
                                     MapLink = "https://www.google.com/maps/dir/?api=1&destination="+e.Latitude+","+e.Longitude
                                 }
                         );
@@ -82,6 +84,7 @@ namespace KRNL.Services
                 entity.IsStaked = model.IsStaked;
                 entity.Year = model.Year;
                 entity.CooperatorId = model.CooperatorId;
+                entity.Zip = model.Zip;
 
 
                 return ctx.SaveChanges() == 1;
@@ -110,6 +113,7 @@ namespace KRNL.Services
                             IsStaked = entity.IsStaked,
                             CooperatorId = entity.CooperatorId,
                             FullName = entity.Cooperators.FirstName + " " + entity.Cooperators.LastName,
+                            Zip = entity.Zip,
                             MapLink = "https://www.google.com/maps/dir/?api=1&destination=" + entity.Latitude + "," + entity.Longitude
                         };
                 }
@@ -125,6 +129,7 @@ namespace KRNL.Services
                         IsStaked = entity.IsStaked,
                         CooperatorId = entity.CooperatorId,
                         FullName = null,
+                        Zip = entity.Zip,
                         MapLink = "https://www.google.com/maps/dir/?api=1&destination=" + entity.Latitude + "," + entity.Longitude
                     };
         }
@@ -151,6 +156,7 @@ namespace KRNL.Services
                     Width = entity.Width,
                     DatePlanted = entity.DatePlanted,
                     IsStaked = entity.IsStaked,
+                    Zip = entity.Zip
                 };
         }
     }

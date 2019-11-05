@@ -33,5 +33,6 @@ namespace KRNL.Models
         public int? Year { get; set; }
         [Display(Name ="Cooperator")]
         public int CooperatorId { get; set; }
+        public string Zip { get; set; }
     }
 }

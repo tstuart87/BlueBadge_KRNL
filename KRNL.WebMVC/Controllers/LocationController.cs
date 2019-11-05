@@ -70,7 +70,8 @@ namespace KRNL.WebMVC.Controllers
                 DatePlanted = detail.DatePlanted,
                 IsStaked = detail.IsStaked,
                 Year = detail.Year,
-                CooperatorId = detail.CooperatorId
+                CooperatorId = detail.CooperatorId,
+                Zip = detail.Zip
             };
             return View(model);
         }

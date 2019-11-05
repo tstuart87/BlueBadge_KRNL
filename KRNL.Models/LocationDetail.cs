@@ -23,5 +23,6 @@ namespace KRNL.Models
         [Display(Name ="Cooperator")]
         public string FullName { get; set; }
         public string MapLink { get; set; }
+        public string Zip { get; set; }
     }
 }

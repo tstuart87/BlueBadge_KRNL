@@ -13,5 +13,6 @@ namespace KRNL.Models
         public string LocationName { get; set; }
         [Display(Name = "LocID")]
         public string LocationCode { get; set; }
+        public string Zip { get; set; }
     }
 }

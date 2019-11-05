@@ -20,5 +20,6 @@ namespace KRNL.Models
         [Display(Name = "Staked")]
         public bool IsStaked { get; set; }
         public string MapLink { get; set; }
+        public string Zip { get; set; }
     }
 }

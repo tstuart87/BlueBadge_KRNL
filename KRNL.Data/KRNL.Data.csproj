@@ -70,6 +70,10 @@
     <Compile Include="Migrations\201911020153578_Tenth.Designer.cs">
       <DependentUpon>201911020153578_Tenth.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911050324132_Eleven.cs" />
+    <Compile Include="Migrations\201911050324132_Eleven.Designer.cs">
+      <DependentUpon>201911050324132_Eleven.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -86,6 +90,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911020153578_Tenth.resx">
       <DependentUpon>201911020153578_Tenth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911050324132_Eleven.resx">
+      <DependentUpon>201911050324132_Eleven.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
