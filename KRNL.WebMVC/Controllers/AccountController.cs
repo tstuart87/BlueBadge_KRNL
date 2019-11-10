@@ -13,6 +13,12 @@ using KRNL.WebMVC.Data;
 
 namespace KRNL.WebMVC.Controllers
 {
+
+#if !DEBUG
+    [RequireHttps]
+
+#endif
+
     [Authorize]
     public class AccountController : Controller
     {
@@ -424,7 +430,7 @@ namespace KRNL.WebMVC.Controllers
             base.Dispose(disposing);
         }
 
-        #region Helpers
+#region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -481,6 +487,6 @@ namespace KRNL.WebMVC.Controllers
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
         }
-        #endregion
+#endregion
     }
 }
