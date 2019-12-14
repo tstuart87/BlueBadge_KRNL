@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace KRNL.Data
 {
-    public enum Dimension { Length, Width}
+    public enum Dimension { Length, Width }
     public class Location
     {
         [Key]
