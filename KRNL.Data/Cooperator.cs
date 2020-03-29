@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -19,17 +20,11 @@ namespace KRNL.Data
         [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
-        public string Phone { get; set; }
         public string Email { get; set; }
-        [Display(Name = "Street")]
-        public string StreetAddress { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public string Zip { get; set; }
-        [Display(Name ="Contact Preference")]
-        public Contact ContactPreference { get; set; }
-
-        [Display(Name = "Full Name")]
+        public string AreaCode { get; set; }
+        public string PhoneFirst { get; set; }
+        public string PhoneSecond { get; set; }
         public string FullName { get; set; }
+        public string Phone { get; set; }
     }
 }

@@ -27,9 +27,15 @@ namespace KRNL.Services
         {
             var entity = new Cooperator()
             {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                OwnerId = _userId
+                FirstName = model.FirstName[0].ToString().ToUpper() + model.FirstName.Substring(1).ToLower(),
+                LastName = model.LastName.ToUpper(),
+                OwnerId = _userId,
+                FullName = model.LastName.ToUpper() + ", " + model.FirstName[0].ToString().ToUpper() + model.FirstName.Substring(1).ToLower(),
+                Email = model.Email.ToLower(),
+                AreaCode = model.AreaCode,
+                PhoneFirst = model.PhoneFirst,
+                PhoneSecond = model.PhoneSecond,
+                Phone = "(" + model.AreaCode + ") " + model.PhoneFirst + "-" + model.PhoneSecond
             };
 
             using (var ctx = new ApplicationDbContext())
@@ -55,10 +61,7 @@ namespace KRNL.Services
                                     LastName = e.LastName,
                                     Phone = e.Phone,
                                     Email = e.Email,
-                                    City = e.City,
-                                    State = e.State,
-                                    Zip = e.Zip,
-                                    FullName = e.FirstName + " " + e.LastName
+                                    FullName = e.FullName
                                 }
                                 );
                 return query.ToArray();
@@ -75,10 +78,6 @@ namespace KRNL.Services
                 entity.LastName = model.LastName;
                 entity.Phone = model.Phone;
                 entity.Email = model.Email;
-                entity.StreetAddress = model.StreetAddress;
-                entity.City = model.City;
-                entity.State = model.State;
-                entity.Zip = model.Zip;
                 entity.OwnerId = model.OwnerId;
                 entity.CooperatorId = model.CooperatorId;
 
@@ -102,11 +101,7 @@ namespace KRNL.Services
                         FirstName = entity.FirstName,
                         LastName = entity.LastName,
                         Phone = entity.Phone,
-                        Email = entity.Email,
-                        StreetAddress = entity.StreetAddress,
-                        City = entity.City,
-                        State = entity.State,
-                        Zip = entity.Zip
+                        Email = entity.Email
                     };
             }
         }
@@ -127,11 +122,7 @@ namespace KRNL.Services
                         FirstName = entity.FirstName,
                         LastName = entity.LastName,
                         Phone = entity.Phone,
-                        Email = entity.Email,
-                        StreetAddress = entity.StreetAddress,
-                        City = entity.City,
-                        State = entity.State,
-                        Zip = entity.Zip
+                        Email = entity.Email
                     };
             }
         }

@@ -18,10 +18,8 @@ namespace KRNL.Models
         public string LastName { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public string Zip { get; set; }
         public Guid OwnerId { get; set; }
+        [Display(Name = "Name")]
         public string FullName { get; set; }
     }
 }

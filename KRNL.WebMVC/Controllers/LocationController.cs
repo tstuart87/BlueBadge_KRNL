@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -16,10 +17,51 @@ namespace KRNL.WebMVC.Controllers
     public class LocationController : Controller
     {
         // GET: Message
-        public ActionResult Index()
+        //public ActionResult Index()
+        //{
+        //    var service = new LocationService();
+        //    var model = service.GetLocations();
+        //    return View(model);
+        //}
+
+        public ActionResult Index(string sortOrder, string searchString)
         {
+            ViewBag.LocationSortParm = sortOrder == "locationName_desc" ? "locationName" : "locationName_desc";
+            ViewBag.GDUSortParm = sortOrder == "GDUs" ? "GDUs_desc" : "GDUs";
+            ViewBag.LocIDSortParm = sortOrder == "LocID" ? "LocID_desc" : "LocID";
             var service = new LocationService();
             var model = service.GetLocations();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                model = model.Where(e => e.LocationCode.Contains(searchString.ToUpper()));
+            }
+
+            switch (sortOrder)
+            {
+                case "locationName":
+                    model = model.OrderBy(s => s.LocationName);
+                    break;
+                case "locationName_desc":
+                    model = model.OrderByDescending(s => s.LocationName);
+                    break;
+                case "GDUs":
+                    model = model.OrderByDescending(s => s.GDUs);
+                    break;
+                case "GDUs_desc":
+                    model = model.OrderBy(s => s.GDUs);
+                    break;
+                case "LocID":
+                    model = model.OrderBy(s => s.LocationCode);
+                    break;
+                case "LocID_desc":
+                    model = model.OrderByDescending(s => s.LocationCode);
+                    break;
+                default:
+                    model = model.OrderBy(s => s.LocationName);
+                    break;
+            }
+
             return View(model);
         }
 
@@ -61,17 +103,16 @@ namespace KRNL.WebMVC.Controllers
             {
                 LocationId = detail.LocationId,
                 LocationName = detail.LocationName,
+                State = detail.State,
                 LocationCode = detail.LocationCode,
                 Longitude = detail.Longitude,
                 Latitude = detail.Latitude,
-                NumberOfPlots = detail.NumberOfPlots,
-                Length = detail.Length,
-                Width = detail.Width,
-                DatePlanted = detail.DatePlanted,
+                MonthOfPlanting = detail.MonthOfPlanting,
+                DayOfPlanting = detail.DayOfPlanting,
+                YearOfPlanting = detail.YearOfPlanting,
                 IsStaked = detail.IsStaked,
-                Year = detail.Year,
                 CooperatorId = detail.CooperatorId,
-                Zip = detail.Zip
+                
             };
             return View(model);
         }

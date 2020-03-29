@@ -1,22 +1,12 @@
 ﻿@model KRNL.Models.LocationDetail
 
-@{
-    ViewBag.Title = "Delete";
-}
-
-<h2>Delete Location</h2>
-
-<h3>Are you sure you want to delete this Location?</h3>
+<h3>Are you sure you want to delete this?</h3>
 <div>
-    <br />
+    <h4>LocationDetail</h4>
+    <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.LocationId)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.LocationId)
-        </dd>
+        @Html.HiddenFor(model => model.LocationId)
 
         <dt>
             @Html.DisplayNameFor(model => model.LocationName)
@@ -34,37 +24,13 @@
             @Html.DisplayFor(model => model.LocationCode)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.GDUs)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GDUs)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DatePlanted)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DatePlanted)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsStaked)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsStaked)
-        </dd>
-
     </dl>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> 
+            <input type="submit" value="Delete" class="btn btn-default" /> |
             @Html.ActionLink("Back to List", "Index")
         </div>
     }

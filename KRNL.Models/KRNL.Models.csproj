@@ -96,5 +96,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KRNL.Data\KRNL.Data.csproj">
+      <Project>{21624f4b-2a01-4f50-9769-417dddf17ae6}</Project>
+      <Name>KRNL.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

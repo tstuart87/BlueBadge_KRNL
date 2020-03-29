@@ -16,10 +16,17 @@ namespace KRNL.WebMVC.Controllers
     public class CooperatorController : Controller
     {
         // GET: Cooperator
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
             var service = new CooperatorService();
             var model = service.GetCooperators();
+            model.OrderBy(s => s.FullName);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                model = model.Where(e => e.FullName.Contains(searchString.ToUpper()));
+            }
+
             return View(model);
         }
 
@@ -61,10 +68,6 @@ namespace KRNL.WebMVC.Controllers
                 LastName = detail.LastName,
                 Phone = detail.Phone,
                 Email = detail.Email,
-                StreetAddress = detail.StreetAddress,
-                City = detail.City,
-                State = detail.State,
-                Zip = detail.Zip,
                 OwnerId = detail.OwnerId
             };
             return View(model);

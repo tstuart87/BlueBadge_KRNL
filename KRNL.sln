@@ -15,8 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KRNL.Contracts", "KRNL.Cont
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KRNL.Tests", "KRNL.Tests\KRNL.Tests.csproj", "{33DF4712-5BE9-4444-A2CA-60AE222B9C7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KRNL.WebAPI", "KRNL.WebAPI\KRNL.WebAPI.csproj", "{95C7575C-07B2-42E9-8A62-5DE991E07F21}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,10 +45,6 @@ Global
 		{33DF4712-5BE9-4444-A2CA-60AE222B9C7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33DF4712-5BE9-4444-A2CA-60AE222B9C7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33DF4712-5BE9-4444-A2CA-60AE222B9C7D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{95C7575C-07B2-42E9-8A62-5DE991E07F21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{95C7575C-07B2-42E9-8A62-5DE991E07F21}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{95C7575C-07B2-42E9-8A62-5DE991E07F21}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{95C7575C-07B2-42E9-8A62-5DE991E07F21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

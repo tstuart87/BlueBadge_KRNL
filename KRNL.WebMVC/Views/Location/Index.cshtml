@@ -10,7 +10,17 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-@if (TempData.ContainsKey("SaveResult"))
+@using (Html.BeginForm())
+{
+    <p>
+        <div class="searchBar">
+            @Html.TextBox("searchString")
+            <input type="submit" value="Filter by LocID" class="searchButton" />
+        </div>
+    </p>
+}
+
+@*@if (TempData.ContainsKey("SaveResult"))
 {
     <div class="alert alert-success fade in" role="alert">
 
@@ -19,18 +29,27 @@
         </button>
         @TempData["SaveResult"]
     </div>
-}
+}*@
 
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.LocationName)
+        <th class="header">
+            @*@Html.DisplayNameFor(model => model.LocationCode)*@
+            @Html.ActionLink("LocID", "Index", new { sortOrder = ViewBag.LocIDSortParm })
+
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LocationCode)
+        <th class="header">
+            @*@Html.DisplayNameFor(model => model.LocationName)*@
+            @Html.ActionLink("Location", "Index", new { sortOrder = ViewBag.LocationSortParm })
+
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsStaked)
+        @*<th>
+                @Html.DisplayNameFor(model => model.State)
+        </th>*@
+        <th class="header">
+            @*@Html.DisplayNameFor(model => model.GDUs)*@
+            @Html.ActionLink("GDUs", "Index", new { sortOrder = ViewBag.GDUSortParm })
+
         </th>
         <th></th>
     </tr>
@@ -39,17 +58,23 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.LocationName)
+                @Html.ActionLink(item.LocationCode.ToUpper(), "Edit", new { id = item.LocationId })
+                @if (item.IsStaked == true)
+                {
+                    <img class="stakePhoto" src="/img/stake.png" alt="KRNL">
+                }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LocationCode)
+                @*@Html.DisplayFor(modelItem => item.LocationName)*@
+                @Html.ActionLink(item.LocationName, "Edit", new { id = item.LocationId })
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.State)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.GDUs)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsStaked)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.LocationId }) |
-                @Html.ActionLink("View", "Details", new { id = item.LocationId }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.LocationId })
             </td>
         </tr>

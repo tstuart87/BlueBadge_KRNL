@@ -28,7 +28,7 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("LOCATIONS", "Index", "Location")</li>
-                        <li>@Html.ActionLink("MESSAGES", "Index", "Message")</li>
+                        @*<li>@Html.ActionLink("MESSAGES", "Index", "Message")</li>*@
                         <li>@Html.ActionLink("COOPERATORS", "Index", "Cooperator")</li>
                     }
                     @*<li>@Html.ActionLink("About", "About", "Home")</li>
@@ -41,11 +41,13 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-    <img class="navbarLogoFooter" src="/img/kernel.png" alt="KRNL">
+        @*<img class="navbarLogoFooter" src="/img/kernel.png" alt="KRNL">*@
         <footer>
 
             <p>&copy; @DateTime.Now.Year | Trevor R. Stuart</p>
         </footer>
+        <img class="footerLogo" src="/img/krnlTransparent.png" alt="KRNL">
+        <img class="footerLogo" src="/img/corn.png" alt="KRNL">
     </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

@@ -5,11 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KRNL.Data;
 
 namespace KRNL.Models
 {
-    public enum Dimension { Length, Width }
-
     public class LocationEdit
     {
         public int LocationId { get; set; }
@@ -19,20 +18,16 @@ namespace KRNL.Models
         [Required]
         [Display(Name = "LocID")]
         public string LocationCode { get; set; }
+        public state State { get; set; }
+        public month MonthOfPlanting { get; set; }
+        public int DayOfPlanting { get; set; }
+        public int YearOfPlanting { get; set; }
         public decimal? Longitude { get; set; }
         public decimal? Latitude { get; set; }
-        [Display(Name ="# of Plots")]
-        public int? NumberOfPlots { get; set; }
-        public Dimension? KnownDimension { get; set; }
-        public decimal? Length { get; set; }
-        public decimal? Width { get; set; }
-        [Display(Name ="Planting Date")]
-        public DateTimeOffset? DatePlanted { get; set; }
-        [Display(Name ="Staked")]
         public bool IsStaked { get; set; }
-        public int? Year { get; set; }
-        [Display(Name ="Cooperator")]
         public int CooperatorId { get; set; }
-        public string Zip { get; set; }
+        [Display(Name = "Cooperator")]
+        public string FullName { get; set; }
+
     }
 }

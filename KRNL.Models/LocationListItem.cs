@@ -1,9 +1,6 @@
-﻿using System;
+﻿using KRNL.Data;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KRNL.Models
 {
@@ -12,14 +9,14 @@ namespace KRNL.Models
         public int LocationId { get; set; }
         [Display(Name = "Location")]
         public string LocationName { get; set; }
+        public state State { get; set; }
         [Display(Name = "LocID")]
         public string LocationCode { get; set; }
         public decimal? Latitude { get; set; }
         public decimal? Longitude { get; set; }
-        public int? GDUs { get; set; }
+        public string GDUs { get; set; }
         [Display(Name = "Staked")]
         public bool IsStaked { get; set; }
         public string MapLink { get; set; }
-        public string Zip { get; set; }
     }
 }

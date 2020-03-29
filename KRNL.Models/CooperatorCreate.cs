@@ -15,5 +15,12 @@ namespace KRNL.Models
         [Required]
         [Display(Name ="Last Name")]
         public string LastName { get; set; }
+        public string Email { get; set; }
+        [Display(Name ="")]
+        public string AreaCode { get; set; }
+        [Display(Name = "")]
+        public string PhoneFirst { get; set; }
+        [Display(Name = "")]
+        public string PhoneSecond { get; set; }
     }
 }
