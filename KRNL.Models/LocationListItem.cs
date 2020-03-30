@@ -12,9 +12,11 @@ namespace KRNL.Models
         public state State { get; set; }
         [Display(Name = "LocID")]
         public string LocationCode { get; set; }
-        public decimal? Latitude { get; set; }
-        public decimal? Longitude { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
         public string GDUs { get; set; }
+        [Display(Name = "Growth Stage")]
+        public string GrowthStage { get; set; }
         [Display(Name = "Staked")]
         public bool IsStaked { get; set; }
         public string MapLink { get; set; }

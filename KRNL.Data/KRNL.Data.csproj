@@ -86,13 +86,13 @@
     <Compile Include="Cooperator.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="IdentityModels.cs" />
-    <Compile Include="Migrations\202003282020158_eighteen.cs" />
-    <Compile Include="Migrations\202003282020158_eighteen.Designer.cs">
-      <DependentUpon>202003282020158_eighteen.cs</DependentUpon>
+    <Compile Include="Migrations\202003291946151_five.cs" />
+    <Compile Include="Migrations\202003291946151_five.Designer.cs">
+      <DependentUpon>202003291946151_five.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003282253122_one.cs" />
-    <Compile Include="Migrations\202003282253122_one.Designer.cs">
-      <DependentUpon>202003282253122_one.cs</DependentUpon>
+    <Compile Include="Migrations\202003292011179_six.cs" />
+    <Compile Include="Migrations\202003292011179_six.Designer.cs">
+      <DependentUpon>202003292011179_six.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -102,11 +102,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202003282020158_eighteen.resx">
-      <DependentUpon>202003282020158_eighteen.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003291946151_five.resx">
+      <DependentUpon>202003291946151_five.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003282253122_one.resx">
-      <DependentUpon>202003282253122_one.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003292011179_six.resx">
+      <DependentUpon>202003292011179_six.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

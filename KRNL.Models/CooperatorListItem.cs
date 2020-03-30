@@ -10,6 +10,7 @@ namespace KRNL.Models
     public enum Contact { Email, Text, Phone }
     public class CooperatorListItem
     {
+        [Display(Name = "Cooperator")]
         public int CooperatorId { get; set; }
         [Display(Name = "First Name")]
         public string FirstName { get; set; }

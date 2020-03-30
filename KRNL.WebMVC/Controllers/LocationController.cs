@@ -61,7 +61,6 @@ namespace KRNL.WebMVC.Controllers
                     model = model.OrderBy(s => s.LocationName);
                     break;
             }
-
             return View(model);
         }
 
@@ -112,7 +111,32 @@ namespace KRNL.WebMVC.Controllers
                 YearOfPlanting = detail.YearOfPlanting,
                 IsStaked = detail.IsStaked,
                 CooperatorId = detail.CooperatorId,
-                
+                FullName = detail.FullName
+            };
+            return View(model);
+        }
+
+        public ActionResult EditCoop(int id)
+        {
+            var coopService = new CooperatorService();
+            ViewBag.cooperators = coopService.GetCooperators();
+
+            var service = CreateLocationService();
+            var detail = service.GetLocationEditById(id);
+            var model = new LocationEdit
+            {
+                LocationId = detail.LocationId,
+                LocationName = detail.LocationName,
+                State = detail.State,
+                LocationCode = detail.LocationCode,
+                Longitude = detail.Longitude,
+                Latitude = detail.Latitude,
+                MonthOfPlanting = detail.MonthOfPlanting,
+                DayOfPlanting = detail.DayOfPlanting,
+                YearOfPlanting = detail.YearOfPlanting,
+                IsStaked = detail.IsStaked,
+                CooperatorId = detail.CooperatorId,
+                FullName = detail.FullName
             };
             return View(model);
         }
@@ -120,6 +144,30 @@ namespace KRNL.WebMVC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, LocationEdit model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            if (model.LocationId != id)
+            {
+                ModelState.AddModelError("", "Id Mismatch");
+                return View(model);
+            }
+
+            var service = CreateLocationService();
+
+            if (service.UpdateLocation(model))
+            {
+                TempData["SaveResult"] = "Your location was updated.";
+                return RedirectToAction("Index");
+            }
+
+            ModelState.AddModelError("", "Your location could not be updated.");
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditCoop(int id, LocationEdit model)
         {
             if (!ModelState.IsValid) return View(model);
 

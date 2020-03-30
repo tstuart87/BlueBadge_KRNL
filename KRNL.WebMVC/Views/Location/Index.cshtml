@@ -10,6 +10,8 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
+
+
 @using (Html.BeginForm())
 {
     <p>
@@ -21,35 +23,36 @@
 }
 
 @*@if (TempData.ContainsKey("SaveResult"))
-{
-    <div class="alert alert-success fade in" role="alert">
+    {
+        <div class="alert alert-success fade in" role="alert">
 
-        <button type="button" class="close" data-dismiss="alert">
-            <span>&times;</span>
-        </button>
-        @TempData["SaveResult"]
-    </div>
-}*@
+            <button type="button" class="close" data-dismiss="alert">
+                <span>&times;</span>
+            </button>
+            @TempData["SaveResult"]
+        </div>
+    }*@
 
 <table class="table">
+
     <tr>
         <th class="header">
             @*@Html.DisplayNameFor(model => model.LocationCode)*@
             @Html.ActionLink("LocID", "Index", new { sortOrder = ViewBag.LocIDSortParm })
-
         </th>
         <th class="header">
             @*@Html.DisplayNameFor(model => model.LocationName)*@
             @Html.ActionLink("Location", "Index", new { sortOrder = ViewBag.LocationSortParm })
-
         </th>
         @*<th>
-                @Html.DisplayNameFor(model => model.State)
-        </th>*@
+                    @Html.DisplayNameFor(model => model.State)
+            </th>*@
         <th class="header">
             @*@Html.DisplayNameFor(model => model.GDUs)*@
             @Html.ActionLink("GDUs", "Index", new { sortOrder = ViewBag.GDUSortParm })
-
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GrowthStage)
         </th>
         <th></th>
     </tr>
@@ -69,10 +72,13 @@
                 @Html.ActionLink(item.LocationName, "Edit", new { id = item.LocationId })
             </td>
             @*<td>
-                    @Html.DisplayFor(modelItem => item.State)
-            </td>*@
+                        @Html.DisplayFor(modelItem => item.State)
+                </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.GDUs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GrowthStage)
             </td>
             <td>
                 @Html.ActionLink("Delete", "Delete", new { id = item.LocationId })

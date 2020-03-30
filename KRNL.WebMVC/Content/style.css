@@ -1,7 +1,7 @@
 ﻿body {
     font-family: Arial, Verdana, Geneva, Tahoma, sans-serif;
     background-color: #30302b !important;
-    color: #cfcfca !important;
+    color: floralwhite !important;
 }
 
 hr {
@@ -66,7 +66,6 @@ p.btn.btn-default > a {
 }
 
     p.btn.btn-default > a:hover {
-        color: #FCDB38 !important;
         text-decoration: none;
     }
 /*Home Screen Buttons*/
@@ -83,14 +82,14 @@ th, td {
 
 th {
     background-color: #212116;
-    color: #F0EFE4 ;
+    color: #F0EFE4;
     font-family: Arial, sans-serif, 'Arial Narrow';
     font-weight: normal;
     text-transform: none !important;
 }
 
     th.header {
-        color: #F0EFE4 ;
+        color: #F0EFE4;
     }
 
 tr:nth-child(odd) {
@@ -122,7 +121,7 @@ hr {
 }
 
 a {
-    color: #b2b9eb;    
+    color: #b2b9eb;
 }
 
     a:hover {
@@ -198,7 +197,6 @@ a.directions {
 
 div.enumDropDown {
     color: #cfcfca !important;
-    border-radius: 200px !important;
 }
 
 div.form-group {
@@ -244,7 +242,7 @@ input.searchButton {
     padding-top: 5px;
     padding-bottom: 3px;
     margin-left: 3px;
-    border-radius: 4px;
+    border-radius: 0px;
 }
 
     input.searchButton:hover {
@@ -255,5 +253,62 @@ p.phone {
     font-size: 10px;
     margin-top: 3px;
     color: floralwhite;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.form-control {
+    border-radius: 0 !important;
+    background-color: #d9d9d7 !important;
+    color: #363630 !important;
+    border: none !important;
+}
+
+    .form-control:hover {
+        background-color: #f0f0e6 !important;
+        border: 1px solid #4f4f46;
+        box-shadow: 0 0 10px black;
+        -moz-box-shadow: 0 0 10px black;
+        -webkit-box-shadow: 0 0 10px black;
+    }
+
+/*:active {
+    box-shadow: none !important;
+    border: none !important;
+}*/
+
+.homeButton1 {
+    padding: 20px;
+}
+
+.homeButton2 {
+    padding: 20px;
+}
+
+.homeButton {
+    margin: 2em 0 0 0;
+    background-color: #30302b !important;
+    text-align: center !important;
+    border: 1px solid #4f4f46;
+    font-size: larger;
+    display: block;
+}
+
+    .homeButton:hover {
+        margin: 2em 0 0 0;
+        background-color: #3d3d36 !important;
+        text-align: center !important;
+        border: 1px solid #4f4f46;
+        font-size: larger;
+    }
+
+.homeButtonDiv {
+    text-align: center;
+}
+
+.footer {
+    font-size: smaller;
+    color: #4f4f46;
+    position: fixed !important;
+    bottom: 0px !important;
+    right: 6px !important;
 }

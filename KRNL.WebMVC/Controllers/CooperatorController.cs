@@ -20,7 +20,7 @@ namespace KRNL.WebMVC.Controllers
         {
             var service = new CooperatorService();
             var model = service.GetCooperators();
-            model.OrderBy(s => s.FullName);
+            model.OrderBy(s => s.LastName);
 
             if (!String.IsNullOrEmpty(searchString))
             {

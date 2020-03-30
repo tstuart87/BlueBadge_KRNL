@@ -29,16 +29,17 @@ namespace KRNL.Data
         public string LocationCode { get; set; }
 
         public Guid OwnerId { get; set; }
-        public decimal? Longitude { get; set; }
-        public decimal? Latitude { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
         public string GDUs { get; set; }
+        public string CumulativePrecip { get; set; }
+        public string GrowthStage { get; set; }
         public month MonthOfPlanting { get; set; }
         public int DayOfPlanting { get; set; }
         public int YearOfPlanting { get; set; }
-        public DateTimeOffset? DatePlanted { get; set; }
+        public DateTimeOffset DatePlanted { get; set; }
         public bool IsStaked { get; set; }
         public string MapLink { get; set; }
-        //public string Zip { get; set; }
 
         [ForeignKey("Cooperators")]
         public int? CooperatorId { get; set; }

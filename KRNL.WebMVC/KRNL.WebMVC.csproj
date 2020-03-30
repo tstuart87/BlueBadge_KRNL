@@ -283,6 +283,7 @@
     <Content Include="Views\Location\Delete.cshtml" />
     <Content Include="Views\Cooperator\Create.cshtml" />
     <Content Include="Views\Cooperator\Index.cshtml" />
+    <Content Include="Views\Location\EditCoop.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -24,7 +24,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("HOME", "Index", "Home")</li>
+                    @*<li>@Html.ActionLink("HOME", "Index", "Home")</li>*@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("LOCATIONS", "Index", "Location")</li>
@@ -40,12 +40,13 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
+        @*<br />*@
         @*<img class="navbarLogoFooter" src="/img/kernel.png" alt="KRNL">*@
-        <footer>
 
-            <p>&copy; @DateTime.Now.Year | Trevor R. Stuart</p>
+        <footer class="footer">
+            <p>&copy; @DateTime.Now.Year | KRNL | Trevor R. Stuart</p>
         </footer>
+
         <img class="footerLogo" src="/img/krnlTransparent.png" alt="KRNL">
         <img class="footerLogo" src="/img/corn.png" alt="KRNL">
     </div>

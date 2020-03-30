@@ -16,12 +16,14 @@ namespace KRNL.Models
         [Display(Name = "LocID")]
         public state State { get; set; }
         public string LocationCode { get; set; }
-        public decimal? Latitude { get; set; }
-        public decimal? Longitude { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
         public string GDUs { get; set; }
+        public string GrowthStage { get; set; }
         public DateTimeOffset? DatePlanted { get; set; }
         [Display(Name = "Staked")]
         public bool IsStaked { get; set; }
+        [Display(Name = "Cooperator")]
         public int? CooperatorId { get; set; }
         [Display(Name ="Cooperator")]
         public string FullName { get; set; }
