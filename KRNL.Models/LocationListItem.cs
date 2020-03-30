@@ -18,7 +18,7 @@ namespace KRNL.Models
         [Display(Name = "Growth Stage")]
         public string GrowthStage { get; set; }
         [Display(Name = "Staked")]
-        public bool IsStaked { get; set; }
+        public stake IsStaked { get; set; }
         public string MapLink { get; set; }
     }
 }

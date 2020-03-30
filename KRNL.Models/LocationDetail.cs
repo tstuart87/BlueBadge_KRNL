@@ -22,7 +22,7 @@ namespace KRNL.Models
         public string GrowthStage { get; set; }
         public DateTimeOffset? DatePlanted { get; set; }
         [Display(Name = "Staked")]
-        public bool IsStaked { get; set; }
+        public stake IsStaked { get; set; }
         [Display(Name = "Cooperator")]
         public int? CooperatorId { get; set; }
         [Display(Name ="Cooperator")]

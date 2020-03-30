@@ -5,8 +5,13 @@
 }
 
 <h2>Cooperator Details</h2>
+<p>
+    @Html.ActionLink("Edit Cooperator Details", "Edit", new { id = Model.CooperatorId }) 
+    @*@Html.ActionLink("Back to List", "Index")*@
+</p>
 
 <div>
+    <hr />
     <br />
     <dl class="dl-horizontal">
         <dt>
@@ -43,7 +48,3 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CooperatorId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

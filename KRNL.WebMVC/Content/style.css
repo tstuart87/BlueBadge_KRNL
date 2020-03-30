@@ -29,7 +29,7 @@ img.navbarLogo {
 }
 
     .btn:hover {
-        color: white;
+        color: white !important;
         background-color: #322d61;
         border-radius: 0;
         border: none;
@@ -220,7 +220,9 @@ img.footerLogo {
 }
 
 div.searchBar {
-    color: #4f4f46 !important;
+    color: #9e9e95 !important;
+    padding-left: 0px !important;
+    margin-left: 0px !important;
 }
 
 #searchString {
@@ -228,7 +230,8 @@ div.searchBar {
     border: 1px solid #4f4f46;
     padding-top: 4px;
     padding-bottom: 3px;
-    margin-left: 3px;
+    padding-left: 5px !important;
+    margin-left: 0px;
 }
 
     #searchString:hover {

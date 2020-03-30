@@ -30,7 +30,7 @@ namespace KRNL.Models
         public double Longitude { get; set; }
         public double Latitude { get; set; }
         [Display(Name = "Staked")]
-        public bool IsStaked { get; set; }
+        public stake IsStaked { get; set; }
         [Display(Name = "Cooperator")]
         public int? CooperatorId { get; set; }
         [Display(Name = "Cooperator")]

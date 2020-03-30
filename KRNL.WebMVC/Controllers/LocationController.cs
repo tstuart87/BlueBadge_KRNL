@@ -46,10 +46,10 @@ namespace KRNL.WebMVC.Controllers
                     model = model.OrderByDescending(s => s.LocationName);
                     break;
                 case "GDUs":
-                    model = model.OrderByDescending(s => s.GDUs);
+                    model = model.OrderByDescending(s => Convert.ToInt32(s.GDUs));
                     break;
                 case "GDUs_desc":
-                    model = model.OrderBy(s => s.GDUs);
+                    model = model.OrderBy(s => Convert.ToInt32(s.GDUs));
                     break;
                 case "LocID":
                     model = model.OrderBy(s => s.LocationCode);
@@ -111,7 +111,8 @@ namespace KRNL.WebMVC.Controllers
                 YearOfPlanting = detail.YearOfPlanting,
                 IsStaked = detail.IsStaked,
                 CooperatorId = detail.CooperatorId,
-                FullName = detail.FullName
+                FullName = detail.FullName,
+                MapLink = "https://www.google.com/maps/dir/?api=1&destination=" + detail.Latitude + "," + detail.Longitude
             };
             return View(model);
         }

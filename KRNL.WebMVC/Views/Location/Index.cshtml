@@ -7,7 +7,7 @@
 <h2>Locations</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Add Location", "Create")
 </p>
 
 
@@ -62,7 +62,7 @@
         <tr>
             <td>
                 @Html.ActionLink(item.LocationCode.ToUpper(), "Edit", new { id = item.LocationId })
-                @if (item.IsStaked == true)
+                @if (item.IsStaked == 0)
                 {
                     <img class="stakePhoto" src="/img/stake.png" alt="KRNL">
                 }

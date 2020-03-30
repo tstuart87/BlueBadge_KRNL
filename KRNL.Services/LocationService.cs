@@ -216,7 +216,7 @@ namespace KRNL.Services
             {
                 foreach (Location x in ctx.Locations)
                 {
-                    if (x.DayOfPlanting > 0 && x.MonthOfPlanting > 0)
+                    if (x.DayOfPlanting > 0 && x.YearOfPlanting > 2)
                     {
                         x.GDUs = SetGDUsForLocation(x).ToString();
                         x.CumulativePrecip = SetCumulativePrecipForLocation(x).ToString();

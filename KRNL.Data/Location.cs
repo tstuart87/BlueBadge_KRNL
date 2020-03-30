@@ -12,6 +12,7 @@ namespace KRNL.Data
 {
     public enum month { January = 1, February, March, April, May, June, July, August, September, October, November, December }
     public enum state { IA, IL, IN, KY, MI, MN, MO, OH, TN, WI}
+    public enum stake { Yes, No}
     public class Location
     {
         [Key]
@@ -38,7 +39,7 @@ namespace KRNL.Data
         public int DayOfPlanting { get; set; }
         public int YearOfPlanting { get; set; }
         public DateTimeOffset DatePlanted { get; set; }
-        public bool IsStaked { get; set; }
+        public stake IsStaked { get; set; }
         public string MapLink { get; set; }
 
         [ForeignKey("Cooperators")]
@@ -46,3 +47,4 @@ namespace KRNL.Data
         public virtual Cooperator Cooperators { get; set; }
     }
 }
+
