@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KRNL.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -22,5 +23,7 @@ namespace KRNL.Models
         public string PhoneFirst { get; set; }
         [Display(Name = "")]
         public string PhoneSecond { get; set; }
+        [Display(Name = "Role")]
+        public contact ContactType { get; set; }
     }
 }

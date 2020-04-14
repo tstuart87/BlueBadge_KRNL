@@ -27,7 +27,7 @@ namespace KRNL.WebMVC.Controllers
                 model = model.Where(e => e.FullName.Contains(searchString.ToUpper()));
             }
 
-            return View(model);
+            return View(model.OrderBy(e => e.FullName));
         }
 
         public ActionResult Create()
@@ -68,6 +68,7 @@ namespace KRNL.WebMVC.Controllers
                 LastName = detail.LastName,
                 Phone = detail.Phone,
                 Email = detail.Email,
+                ContactType = detail.ContactType,
                 OwnerId = detail.OwnerId
             };
             return View(model);

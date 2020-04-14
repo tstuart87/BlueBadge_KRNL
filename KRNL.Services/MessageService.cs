@@ -27,12 +27,24 @@ namespace KRNL.Services
         {
             var entity = new Message()
             {
-                MessageId = model.MessageId,
                 Comment = model.Comment,
                 OwnerId = _userId,
                 DateCreated = DateTimeOffset.Now,
-                LocationId = model.LocationId
+                LocationId = model.LocationId,
+                HumanGrowthStage = model.HumanGrowthStage,
+                JobOne = model.JobOne,
+                JobTwo = model.JobTwo,
+                JobThree = model.JobThree,
+                Rating = model.Rating
+                //LocationCode = model.LocationCode,
+                //PredictedGrowthStage = model.PredictedGrowthStage
             };
+
+            if (model.JobOne == job.Staking || model.JobTwo == job.Staking || model.JobThree == job.Staking)
+            {
+                var locationService = new LocationService();
+                locationService.SetLocationIsStakedToYes(model.LocationId);
+            }
 
             using (var ctx = new ApplicationDbContext())
             {
@@ -53,13 +65,51 @@ namespace KRNL.Services
                                 new MessageListItem
                                 {
                                     MessageId = e.MessageId,
-                                    Comment = e.Comment,
+                                    OwnerId = e.OwnerId,
+                                    LocationId = e.LocationId,
+                                    LocationCode = e.Locations.LocationCode,
                                     DateCreated = e.DateCreated,
-                                    LocationCode = e.Locations.LocationCode
+                                    PredictedGrowthStage = e.Locations.GrowthStage,
+                                    HumanGrowthStage = e.HumanGrowthStage,
+                                    JobOne = e.JobOne,
+                                    JobTwo = e.JobTwo,
+                                    JobThree = e.JobThree,
+                                    Rating = e.Rating,
+                                    Comment = e.Comment
                                 }
                         );
 
                 return query.ToArray();
+            }
+        }
+
+        public IEnumerable<MessageListItem> GetMessages(int locID)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var query =
+                    ctx
+                        .Messages
+                        .Where(e => e.LocationId == locID)
+                        .Select(
+                            e =>
+                                new MessageListItem
+                                {
+                                    MessageId = e.MessageId,
+                                    OwnerId = e.OwnerId,
+                                    LocationId = e.LocationId,
+                                    LocationCode = e.Locations.LocationCode,
+                                    DateCreated = e.DateCreated,
+                                    PredictedGrowthStage = e.Locations.GrowthStage,
+                                    HumanGrowthStage = e.HumanGrowthStage,
+                                    Rating = e.Rating,
+                                    JobOne = e.JobOne,
+                                    JobTwo = e.JobTwo,
+                                    JobThree = e.JobThree,
+                                    Comment = e.Comment
+                                }
+                        );
+                return query.ToArray().OrderByDescending(e => e.DateCreated);
             }
         }
 

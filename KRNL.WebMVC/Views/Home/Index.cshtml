@@ -2,17 +2,15 @@
     ViewBag.Title = "Home Page";
 }
 
-@*<img class="homescreen" src="/img/krnlProjectHome.png" />*@
+@using (Html.BeginForm())
+{
+    <p>
+        <div class="searchBar">
+            @Html.TextBox("searchString")
+            <input type="submit" value=" Search " class="searchButton" />
+        </div>
+    </p>
+}
 
 
-<img class="footerLogo" src="/img/krnlTransparent.png" alt="KRNL">
-<img class="footerLogo" src="/img/corn.png" alt="KRNL">
-
-<img class="footerLogo" src="/img/krnlTransparent.png" alt="KRNL">
-<img class="footerLogo" src="/img/corn.png" alt="KRNL">
-
-<img class="footerLogo" src="/img/krnlTransparent.png" alt="KRNL">
-<img class="footerLogo" src="/img/corn.png" alt="KRNL">
-<img class="footerLogo" src="/img/krnlTransparent.png" alt="KRNL">
-<img class="footerLogo" src="/img/krnlTransparent.png" alt="KRNL">
 

@@ -34,7 +34,7 @@ namespace KRNL.WebMVC.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                model = model.Where(e => e.LocationCode.Contains(searchString.ToUpper()));
+                model = model.Where(e => e.SearchString.Contains(searchString.ToUpper()));
             }
 
             switch (sortOrder)
@@ -96,6 +96,9 @@ namespace KRNL.WebMVC.Controllers
             var coopService = new CooperatorService();
             ViewBag.cooperators = coopService.GetCooperators();
 
+            var messageService = new MessageService();
+            ViewBag.messages = messageService.GetMessages(id);
+
             var service = CreateLocationService();
             var detail = service.GetLocationEditById(id);
             var model = new LocationEdit
@@ -112,15 +115,21 @@ namespace KRNL.WebMVC.Controllers
                 IsStaked = detail.IsStaked,
                 CooperatorId = detail.CooperatorId,
                 FullName = detail.FullName,
+                CRM = detail.CRM,
+                Messages = detail.Messages,
+                Tag = detail.Tag,
+                SearchString = detail.SearchString,
+                IsHarvested = detail.IsHarvested,
                 MapLink = "https://www.google.com/maps/dir/?api=1&destination=" + detail.Latitude + "," + detail.Longitude
             };
             return View(model);
         }
 
+
         public ActionResult EditCoop(int id)
         {
             var coopService = new CooperatorService();
-            ViewBag.cooperators = coopService.GetCooperators();
+            ViewBag.cooperators = coopService.GetCooperators().Where(e => e.ContactType == contact.Cooperator);
 
             var service = CreateLocationService();
             var detail = service.GetLocationEditById(id);

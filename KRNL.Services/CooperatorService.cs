@@ -35,6 +35,7 @@ namespace KRNL.Services
                 AreaCode = model.AreaCode,
                 PhoneFirst = model.PhoneFirst,
                 PhoneSecond = model.PhoneSecond,
+                ContactType = model.ContactType,
                 Phone = "(" + model.AreaCode + ") " + model.PhoneFirst + "-" + model.PhoneSecond
             };
 
@@ -61,6 +62,7 @@ namespace KRNL.Services
                                     LastName = e.LastName,
                                     Phone = e.Phone,
                                     Email = e.Email,
+                                    ContactType = e.ContactType,
                                     FullName = e.FullName
                                 }
                                 );
@@ -79,6 +81,7 @@ namespace KRNL.Services
                 entity.Phone = model.Phone;
                 entity.Email = model.Email;
                 entity.OwnerId = model.OwnerId;
+                entity.ContactType = model.ContactType;
                 entity.CooperatorId = model.CooperatorId;
 
                 return ctx.SaveChanges() == 1;
@@ -101,6 +104,7 @@ namespace KRNL.Services
                         FirstName = entity.FirstName,
                         LastName = entity.LastName,
                         Phone = entity.Phone,
+                        ContactType = entity.ContactType,
                         Email = entity.Email
                     };
             }
@@ -122,6 +126,7 @@ namespace KRNL.Services
                         FirstName = entity.FirstName,
                         LastName = entity.LastName,
                         Phone = entity.Phone,
+                        ContactType = entity.ContactType,
                         Email = entity.Email
                     };
             }

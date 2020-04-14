@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 
 namespace KRNL.Data
 {
-    public enum Contact { Email, Text, Phone}
+    public enum contact {
+        Employee, 
+        Cooperator }
     public class Cooperator
     {
         [Key]
@@ -26,5 +28,6 @@ namespace KRNL.Data
         public string PhoneSecond { get; set; }
         public string FullName { get; set; }
         public string Phone { get; set; }
+        public contact ContactType { get; set; }
     }
 }

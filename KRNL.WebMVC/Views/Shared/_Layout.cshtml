@@ -28,8 +28,8 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("LOCATIONS", "Index", "Location")</li>
-                        @*<li>@Html.ActionLink("MESSAGES", "Index", "Message")</li>*@
                         <li>@Html.ActionLink("COOPERATORS", "Index", "Cooperator")</li>
+                        <li>@Html.ActionLink("JOB LOG", "Index", "Message")</li>
                     }
                     @*<li>@Html.ActionLink("About", "About", "Home")</li>
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
@@ -38,17 +38,18 @@
             </div>
         </div>
     </div>
+
     <div class="container body-content">
         @RenderBody()
         @*<br />*@
         @*<img class="navbarLogoFooter" src="/img/kernel.png" alt="KRNL">*@
 
         <footer class="footer">
-            <p>&copy; @DateTime.Now.Year | KRNL | Trevor R. Stuart</p>
+            <p>&copy; @DateTime.Now.Year | Trevor R. Stuart | <img class="footerPic" src="/img/krnlTransparent.png" alt="KRNL"></p>
         </footer>
 
-        <img class="footerLogo" src="/img/krnlTransparent.png" alt="KRNL">
-        <img class="footerLogo" src="/img/corn.png" alt="KRNL">
+        @*<img class="footerLogo" src="/img/krnlTransparent.png" alt="KRNL">
+            <img class="footerLogo" src="/img/corn.png" alt="KRNL">*@
     </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

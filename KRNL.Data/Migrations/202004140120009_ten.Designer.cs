@@ -7,13 +7,13 @@ namespace KRNL.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class seven : IMigrationMetadata
+    public sealed partial class ten : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(seven));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ten));
         
         string IMigrationMetadata.Id
         {
-            get { return "202003301852143_seven"; }
+            get { return "202004140120009_ten"; }
         }
         
         string IMigrationMetadata.Source

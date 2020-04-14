@@ -1,4 +1,5 @@
-﻿using KRNL.Models;
+﻿using KRNL.Data;
+using KRNL.Models;
 using KRNL.Services;
 using Microsoft.AspNet.Identity;
 using System;
@@ -13,11 +14,17 @@ namespace KRNL.WebMVC.Controllers
     public class MessageController : Controller
     {
         // GET: Message
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
             var service = new MessageService();
             var model = service.GetMessages();
-            return View(model);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                model = model.Where(e => e.LocationCode.Contains(searchString.ToUpper()));
+            }
+
+            return View(model.OrderByDescending(s => s.DateCreated));
         }
 
         public ActionResult Create()
@@ -32,14 +39,16 @@ namespace KRNL.WebMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(MessageCreate model)
         {
-            //var locService = new LocationService();
-            //ViewBag.locations = locService.GetLocations();
+            var coopService = new CooperatorService();
+            ViewBag.cooperators = coopService.GetCooperators().Where(e => e.ContactType == contact.Employee);
+
+            var locService = new LocationService();
+            ViewBag.locations = locService.GetLocations();
 
             if (ModelState.IsValid)
             {
                 var service = new MessageService(Guid.Parse(User.Identity.GetUserId()));
                 var result = service.CreateMessage(model);
-                TempData["SaveResult"] = "New comment successfully created.";
                 return RedirectToAction("Index");
             }
             return View(model);

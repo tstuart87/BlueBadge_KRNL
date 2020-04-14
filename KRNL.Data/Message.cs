@@ -8,6 +8,46 @@ using System.Threading.Tasks;
 
 namespace KRNL.Data
 {
+    public enum growthStage {
+        [Display(Name = " ")]
+        blank, 
+        V0, VE, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14, V15, VT, R1, R2, R3, R4, R5, R6 }
+
+    public enum rating {
+        [Display(Name = " ")]
+        NoRating,
+        Excellent, 
+        [Display(Name = "Above Average")]
+        AboveAverage, 
+        Average,
+        [Display(Name = "Below Average")]
+        BelowAverage, 
+        Poor};
+
+    public enum job
+    {
+        [Display(Name = " ")]
+        blank,
+        Cultivating,
+        [Display(Name = "Drone Flight")]
+        DroneFlight,
+        [Display(Name = "Herbicide Application")]
+        HerbicideSpraying,
+        [Display(Name = "Insecticide Application")]
+        InsecticideSpraying,
+        [Display(Name = "Nitrogen Application")]
+        NitrogenApplication,
+        [Display(Name = "Note Taking")]
+        Notes,
+        [Display(Name = "Plant & Ear Heights")]
+        PlantEarHeights,
+        Staking,
+        [Display(Name = "Stand Counts")]
+        StandCounts,
+        [Display(Name = "Weed Management")]
+        WeedManagement
+    }
+
     public class Message
     {
         [Key]
@@ -16,8 +56,21 @@ namespace KRNL.Data
         public string Comment { get; set; }
         public DateTimeOffset DateCreated { get; set; }
 
+        [Display(Name = "LocID")]
+        public string LocationCode { get; set; }
+
+        public job JobOne { get; set; }
+        public job JobTwo { get; set; }
+        public job JobThree { get; set; }
+
+        public growthStage HumanGrowthStage { get; set; }
+        public string PredictedGrowthStage { get; set; }
+
+        public rating Rating { get; set; }
+
         [ForeignKey("Locations")]
-        public int? LocationId { get; set; }
+        [Required]
+        public int LocationId { get; set; }
         public virtual Location Locations { get; set; }
     }
 }

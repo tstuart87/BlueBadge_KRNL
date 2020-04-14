@@ -75,10 +75,11 @@
                 @Html.ValidationMessageFor(model => model.LocationCode, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <br />
         <div class="form-group">
             @Html.LabelFor(model => model.MonthOfPlanting, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10 enumDropDown">
+                Month:
                 @Html.EnumDropDownListFor(model => model.MonthOfPlanting, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.MonthOfPlanting, "", new { @class = "text-danger" })
             </div>
@@ -87,6 +88,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DayOfPlanting, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                Day:
                 @Html.EditorFor(model => model.DayOfPlanting, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.DayOfPlanting, "", new { @class = "text-danger" })
             </div>
@@ -95,8 +97,17 @@
         <div class="form-group">
             @Html.LabelFor(model => model.YearOfPlanting, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                Year:
                 @Html.EditorFor(model => model.YearOfPlanting, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.YearOfPlanting, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            @Html.LabelFor(model => model.Latitude, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Latitude, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -105,14 +116,6 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Longitude, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Longitude, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Latitude, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Latitude, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -126,11 +129,35 @@
                 </div>
             </div>*@
 
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.IsStaked, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10 enumDropDown">
+                    @Html.EnumDropDownListFor(model => model.IsStaked, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IsStaked, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
         <div class="form-group">
-            @Html.LabelFor(model => model.IsStaked, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.IsHarvested, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10 enumDropDown">
-                @Html.EnumDropDownListFor(model => model.IsStaked, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IsStaked, "", new { @class = "text-danger" })
+                @Html.EnumDropDownListFor(model => model.IsHarvested, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IsHarvested, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CRM, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 enumDropDown">
+                @Html.EnumDropDownListFor(model => model.CRM, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CRM, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tag, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Tag, new { htmlAttributes = new { @class = "form-control tagCreate" } })
+                @Html.ValidationMessageFor(model => model.Tag, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -142,9 +169,198 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("BACK", "Index")
-</div>
+<br />
+<hr />
+<br />
+
+<h4>
+    @Html.DisplayFor(model => model.LocationName) Job Log
+</h4>
+
+@if (Model.Messages != null && Model.Messages.Count() > 0)
+
+{
+
+    <table class="table message">
+        <tr class="messageHeader">
+            <th width=16% class="messageHeaderTopLeft">
+                @*@Html.DisplayNameFor(model => model.LocationCode)*@
+            </th>
+            <th width=28%>
+                @*@Html.DisplayNameFor(model => model.DateCreated)*@
+            </th>
+            <th width=28%>
+                @*@Html.DisplayNameFor(model => model.PredictedGrowthStage)*@
+            </th>
+            <th width=28% class="messageHeaderTopRight">
+                @*@Html.DisplayNameFor(model => model.HumanGrowthStage)*@
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Messages)
+        {
+            <tr class="spacer">
+                <td class="spacer" colspan="4"></td>
+            </tr>
+            <tbody class="comment">
+                <tr class="messageTop">
+                    <td class="message messageTopLeft">
+                        <div class="messageLabel">Location:</div>
+                        @Html.ActionLink(item.LocationCode.ToUpper(), "Edit", "Location", new { id = item.LocationId }, null)
+                    </td>
+                    <td class="message">
+                        <div class="messageLabel">Date:</div>
+                        @Html.DisplayFor(modelItem => item.DateCreated)
+                    </td>
+                    <td class="message ">
+                        <div class="messageLabel">Predicted:</div>
+                        @Html.DisplayFor(modelItem => item.PredictedGrowthStage)
+                    </td>
+                    <td class="message messageTopRight ">
+                        <div class="messageLabel">Actual:</div>
+                        @Html.DisplayFor(model => item.HumanGrowthStage)
+                    </td>
+                </tr>
+                <tr class="messageBottom">
+                    <td class="messageBottomLeft" colspan="2">
+                        <p class="comment">
+                            @Html.DisplayFor(modelItem => item.Comment)
+                        </p>
+                        @switch (item.Rating)
+                        {
+                            case KRNL.Data.rating.Excellent:
+                                <img class="ratingIcon" src="/img/rexcellent.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.rating.AboveAverage:
+                                <img class="ratingIcon" src="/img/raboveaverage.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.rating.Average:
+                                <img class="ratingIcon" src="/img/raverage.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.rating.BelowAverage:
+                                <img class="ratingIcon" src="/img/rbelowaverage.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.rating.Poor:
+                                <img class="ratingIcon" src="/img/rpoor.png" alt="KRNL">
+                                break;
+                            default:
+                                break;
+                        }
+                    </td>
+                    <td class="messageBottomRight alignRight" colspan="2">
+                        @switch (item.JobOne)
+                        {
+                            case KRNL.Data.job.Cultivating:
+                                <img class="messageIcon" src="/img/iplow.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.DroneFlight:
+                                <img class="messageIcon" src="/img/idrone.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.HerbicideSpraying:
+                                <img class="messageIcon" src="/img/iherbicide.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.InsecticideSpraying:
+                                <img class="messageIcon" src="/img/iinsecticide.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.NitrogenApplication:
+                                <img class="messageIcon" src="/img/initrogen.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.Notes:
+                                <img class="messageIcon" src="/img/inotes.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.PlantEarHeights:
+                                <img class="messageIcon" src="/img/ipande.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.Staking:
+                                <img class="messageIcon" src="/img/istake.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.StandCounts:
+                                <img class="messageIcon" src="/img/istandcounts.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.WeedManagement:
+                                <img class="messageIcon" src="/img/ihoe.png" alt="KRNL">
+                                break;
+                            default:
+                                break;
+                        }
+
+                        @switch (item.JobTwo)
+                        {
+                            case KRNL.Data.job.Cultivating:
+                                <img class="messageIcon" src="/img/iplow.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.DroneFlight:
+                                <img class="messageIcon" src="/img/idrone.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.HerbicideSpraying:
+                                <img class="messageIcon" src="/img/iherbicide.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.InsecticideSpraying:
+                                <img class="messageIcon" src="/img/iinsecticide.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.NitrogenApplication:
+                                <img class="messageIcon" src="/img/initrogen.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.Notes:
+                                <img class="messageIcon" src="/img/inotes.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.PlantEarHeights:
+                                <img class="messageIcon" src="/img/ipande.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.Staking:
+                                <img class="messageIcon" src="/img/istake.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.StandCounts:
+                                <img class="messageIcon" src="/img/istandcounts.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.WeedManagement:
+                                <img class="messageIcon" src="/img/ihoe.png" alt="KRNL">
+                                break;
+                            default:
+                                break;
+                        }
+
+                        @switch (item.JobThree)
+                        {
+                            case KRNL.Data.job.Cultivating:
+                                <img class="messageIcon" src="/img/iplow.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.DroneFlight:
+                                <img class="messageIcon" src="/img/idrone.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.HerbicideSpraying:
+                                <img class="messageIcon" src="/img/iherbicide.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.InsecticideSpraying:
+                                <img class="messageIcon" src="/img/iinsecticide.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.NitrogenApplication:
+                                <img class="messageIcon" src="/img/initrogen.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.Notes:
+                                <img class="messageIcon" src="/img/inotes.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.PlantEarHeights:
+                                <img class="messageIcon" src="/img/ipande.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.Staking:
+                                <img class="messageIcon" src="/img/istake.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.StandCounts:
+                                <img class="messageIcon" src="/img/istandcounts.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.WeedManagement:
+                                <img class="messageIcon" src="/img/ihoe.png" alt="KRNL">
+                                break;
+                            default:
+                                break;
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        }
+    </table>
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

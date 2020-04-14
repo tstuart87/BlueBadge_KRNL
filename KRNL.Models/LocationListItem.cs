@@ -19,6 +19,11 @@ namespace KRNL.Models
         public string GrowthStage { get; set; }
         [Display(Name = "Staked")]
         public stake IsStaked { get; set; }
+        public stake IsHarvested { get; set; }
         public string MapLink { get; set; }
+        public month MonthOfPlanting { get; set; }
+        public int DayOfPlanting { get; set; }
+        public int YearOfPlanting { get; set; }
+        public string SearchString { get; set; }
     }
 }

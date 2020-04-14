@@ -15,6 +15,7 @@ namespace KRNL.Models
         public state State { get; set; }
         [Display(Name = "LocID")]
         public string LocationCode { get; set; }
-        public string Zip { get; set; }
+        public crm CRM { get; set; }
+        public string SearchString { get; set; }
     }
 }

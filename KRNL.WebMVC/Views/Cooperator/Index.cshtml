@@ -6,9 +6,9 @@
 
 <h2>Cooperators</h2>
 
-<p>
+<h4>
     @Html.ActionLink("Add Cooperator", "Create")
-</p>
+</h4>
 
 @using (Html.BeginForm())
 {
@@ -20,9 +20,11 @@
     </p>
 }
 
-<table class="table">
-    <tr>
-        <th>
+<table class="table message">
+
+
+    <tr class="messageHeader">
+        <th class="messageHeader messageHeaderTopLeft">
             @Html.DisplayNameFor(model => model.FullName)
         </th>
         <th>
@@ -31,27 +33,39 @@
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactType)
+        </th>
+        <th class="messageHeaderTopRight"></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @*@Html.DisplayFor(modelItem => item.FullName)*@
-                @Html.ActionLink(item.FullName, "Edit", new { id = item.CooperatorId })
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @*@Html.ActionLink("Details", "Details", new { id = item.CooperatorId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.CooperatorId })*@
-            </td>
+        <tr class="spacer">
+            <td class="spacer" colspan="3"></td>
         </tr>
+        <tbody class="comment">
+            <tr class="comment">
+                <td class="messageLeftLocationCoop">
+                    @*@Html.DisplayFor(modelItem => item.FullName)*@
+                    @Html.ActionLink(item.FullName, "Edit", new { id = item.CooperatorId })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContactType)
+                </td>
+                <td class="messageRightLocationCoop">
+                    @*@Html.ActionLink("Details", "Details", new { id = item.CooperatorId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.CooperatorId })*@
+                </td>
+            </tr>
+        </tbody>
+
     }
 
 </table>

@@ -6,9 +6,9 @@
 
 <h2>Locations</h2>
 
-<p>
+<h4>
     @Html.ActionLink("Add Location", "Create")
-</p>
+</h4>
 
 
 
@@ -17,73 +17,90 @@
     <p>
         <div class="searchBar">
             @Html.TextBox("searchString")
-            <input type="submit" value="Filter by LocID" class="searchButton" />
+            <input type="submit" value=" Search " class="searchButton" />
         </div>
     </p>
 }
 
-@*@if (TempData.ContainsKey("SaveResult"))
-    {
-        <div class="alert alert-success fade in" role="alert">
+<table class="table message">
 
-            <button type="button" class="close" data-dismiss="alert">
-                <span>&times;</span>
-            </button>
-            @TempData["SaveResult"]
-        </div>
-    }*@
-
-<table class="table">
-
-    <tr>
-        <th class="header">
+    <tr class="messageHeader">
+        <th width=20% class="messageHeader messageHeaderTopLeft">
             @*@Html.DisplayNameFor(model => model.LocationCode)*@
             @Html.ActionLink("LocID", "Index", new { sortOrder = ViewBag.LocIDSortParm })
+
         </th>
-        <th class="header">
-            @*@Html.DisplayNameFor(model => model.LocationName)*@
-            @Html.ActionLink("Location", "Index", new { sortOrder = ViewBag.LocationSortParm })
-        </th>
-        @*<th>
-                    @Html.DisplayNameFor(model => model.State)
-            </th>*@
-        <th class="header">
+
+        @*<th class="header">*@
+        @*@Html.DisplayNameFor(model => model.LocationName)*@
+        @*@Html.ActionLink("Location", "Index", new { sortOrder = ViewBag.LocationSortParm })*@
+        @*</th>*@
+
+        <th width=20%>
+
             @*@Html.DisplayNameFor(model => model.GDUs)*@
             @Html.ActionLink("GDUs", "Index", new { sortOrder = ViewBag.GDUSortParm })
+
         </th>
-        <th>
+
+        <th width=30%>
             @Html.DisplayNameFor(model => model.GrowthStage)
         </th>
-        <th></th>
+
+        <th width=30% class="messageHeaderTopRight"></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.ActionLink(item.LocationCode.ToUpper(), "Edit", new { id = item.LocationId })
-                @if (item.IsStaked == 0)
-                {
-                    <img class="stakePhoto" src="/img/stake.png" alt="KRNL">
-                }
-            </td>
-            <td>
-                @*@Html.DisplayFor(modelItem => item.LocationName)*@
-                @Html.ActionLink(item.LocationName, "Edit", new { id = item.LocationId })
-            </td>
-            @*<td>
-                        @Html.DisplayFor(modelItem => item.State)
-                </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.GDUs)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GrowthStage)
-            </td>
-            <td>
-                @Html.ActionLink("Delete", "Delete", new { id = item.LocationId })
-            </td>
+        <tr class="spacer">
+            <td class="spacer" colspan="4"></td>
         </tr>
+        <tbody class="comment">
+            <tr class="comment">
+
+                <td colspan="1" class="messageLeftLocationCoop">
+                    <div class="messageLabel">LocID:</div>
+                    @Html.ActionLink(item.LocationCode.ToUpper(), "Edit", new { id = item.LocationId })
+                </td>
+                @*<td>*@
+                @*@Html.DisplayFor(modelItem => item.LocationName)*@
+                @*@Html.ActionLink(item.LocationName, "Edit", new { id = item.LocationId })*@
+                @*</td>*@
+                @*<td>
+                            @Html.DisplayFor(modelItem => item.State)
+                    </td>*@
+
+                <td colspan="1">
+                    <div class="messageLabel">GDUs:</div>
+                    @Html.DisplayFor(modelItem => item.GDUs)
+                </td>
+                <td colspan="1">
+                    <div class="messageLabel">Growth Stage:</div>
+                    @Html.DisplayFor(modelItem => item.GrowthStage)
+                </td>
+                <td colspan="1" class="messageRightLocationCoop locStatusDots">
+                    @if (item.YearOfPlanting > 2000 && item.IsStaked == KRNL.Data.stake.No && item.IsHarvested == KRNL.Data.stake.No)
+                    {
+                        <img class="locStatusDots" src="/img/dotsPLANTED.png" alt="KRNL">
+                    }
+                    else if (item.YearOfPlanting > 2000 && item.IsStaked == KRNL.Data.stake.Yes && item.IsHarvested == KRNL.Data.stake.No)
+                    {
+                        <img class="locStatusDots" src="/img/dotsSTAKED.png" alt="KRNL">
+                    }
+                    else if (item.YearOfPlanting > 2000 && item.IsHarvested == KRNL.Data.stake.Yes)
+                    {
+                        <img class="locStatusDots" src="/img/dotsHARVESTED.png" alt="KRNL">
+                    }
+                    else
+                    {
+                        <img class="locStatusDots" src="/img/dotsNULL.png" alt="KRNL">
+                    }
+                    @*@Html.ActionLink("Delete", "Delete", new { id = item.LocationId })*@
+                </td>
+            </tr>
+        </tbody>
     }
 
 </table>
+<br />
+@*<img class="locStatusDots" src="/img/dotsNULL.png" alt="KRNL">*@

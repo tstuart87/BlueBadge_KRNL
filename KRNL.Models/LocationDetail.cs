@@ -28,5 +28,11 @@ namespace KRNL.Models
         [Display(Name ="Cooperator")]
         public string FullName { get; set; }
         public string MapLink { get; set; }
+        public crm CRM { get; set; }
+        public month MonthOfPlanting { get; set; }
+        [Display(Name = "Planting Day")]
+        public int DayOfPlanting { get; set; }
+        [Display(Name = "Planting Year")]
+        public int YearOfPlanting { get; set; }
     }
 }

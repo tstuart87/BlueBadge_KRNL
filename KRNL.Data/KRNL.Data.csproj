@@ -71,6 +71,9 @@
     <Reference Include="System.Web.Http.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.7\lib\net45\System.Web.Http.Cors.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -86,17 +89,21 @@
     <Compile Include="Cooperator.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="IdentityModels.cs" />
-    <Compile Include="Migrations\202003291946151_five.cs" />
-    <Compile Include="Migrations\202003291946151_five.Designer.cs">
-      <DependentUpon>202003291946151_five.cs</DependentUpon>
+    <Compile Include="Migrations\202004132248316_eight.cs" />
+    <Compile Include="Migrations\202004132248316_eight.Designer.cs">
+      <DependentUpon>202004132248316_eight.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003292011179_six.cs" />
-    <Compile Include="Migrations\202003292011179_six.Designer.cs">
-      <DependentUpon>202003292011179_six.cs</DependentUpon>
+    <Compile Include="Migrations\202004140040595_nine.cs" />
+    <Compile Include="Migrations\202004140040595_nine.Designer.cs">
+      <DependentUpon>202004140040595_nine.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003301852143_seven.cs" />
-    <Compile Include="Migrations\202003301852143_seven.Designer.cs">
-      <DependentUpon>202003301852143_seven.cs</DependentUpon>
+    <Compile Include="Migrations\202004140120009_ten.cs" />
+    <Compile Include="Migrations\202004140120009_ten.Designer.cs">
+      <DependentUpon>202004140120009_ten.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004140317150_eleven.cs" />
+    <Compile Include="Migrations\202004140317150_eleven.Designer.cs">
+      <DependentUpon>202004140317150_eleven.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -106,14 +113,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202003291946151_five.resx">
-      <DependentUpon>202003291946151_five.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202004132248316_eight.resx">
+      <DependentUpon>202004132248316_eight.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003292011179_six.resx">
-      <DependentUpon>202003292011179_six.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202004140040595_nine.resx">
+      <DependentUpon>202004140040595_nine.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003301852143_seven.resx">
-      <DependentUpon>202003301852143_seven.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202004140120009_ten.resx">
+      <DependentUpon>202004140120009_ten.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004140317150_eleven.resx">
+      <DependentUpon>202004140317150_eleven.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

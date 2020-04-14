@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KRNL.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -17,9 +18,21 @@ namespace KRNL.Models
         [Display(Name ="Location")]
         public int LocationId { get; set; }
 
-        public MessageCreate()
-        {
-            this.DateCreated = DateTimeOffset.Now;
-        }
+        [Display(Name ="LocID")]
+        public string LocationCode { get; set; }
+        public stake IsStaked { get; set; }
+
+        [Display(Name = "Growth Stage")]
+        public growthStage HumanGrowthStage { get; set; }
+        public string PredictedGrowthStage { get; set; }
+
+        public rating Rating { get; set; }
+
+        [Display(Name = "Task:")]
+        public job JobOne { get; set; }
+        [Display(Name = "Task:")]
+        public job JobTwo { get; set; }
+        [Display(Name = "Task:")]
+        public job JobThree { get; set; }
     }
 }

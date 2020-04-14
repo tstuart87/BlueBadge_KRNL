@@ -19,11 +19,11 @@ namespace KRNL.Models
         [Display(Name = "LocID")]
         public string LocationCode { get; set; }
         public state State { get; set; }
-        [Display(Name = "Planting Month")]
+        [Display(Name = "Planting Date")]
         public month MonthOfPlanting { get; set; }
-        [Display(Name = "Planting Day")]
+        [Display(Name = " ")]
         public int DayOfPlanting { get; set; }
-        [Display(Name = "Planting Year")]
+        [Display(Name = " ")]
         public int YearOfPlanting { get; set; }
         public string GDUs { get; set; }
         public string GrowthStage { get; set; }
@@ -31,11 +31,19 @@ namespace KRNL.Models
         public double Latitude { get; set; }
         [Display(Name = "Staked")]
         public stake IsStaked { get; set; }
+        [Display(Name = "Harvested")]
+        public stake IsHarvested { get; set; }
         [Display(Name = "Cooperator")]
         public int? CooperatorId { get; set; }
         [Display(Name = "Cooperator")]
         public string FullName { get; set; }
         public string MapLink { get; set; }
+        public crm CRM { get; set; }
+        [Display(Name = "#Tag")]
+        public string Tag { get; set; }
+        public string SearchString { get; set; }
+
+        public IEnumerable<MessageListItem> Messages { get; set; }
 
     }
 }
