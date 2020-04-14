@@ -26,6 +26,10 @@ namespace KRNL.Models
         public growthStage HumanGrowthStage { get; set; }
         public string PredictedGrowthStage { get; set; }
 
+        [Display(Name = "Employee")]
+        public int CooperatorId { get; set; }
+        public string FullName { get; set; }
+
         public rating Rating { get; set; }
 
         [Display(Name = "Task:")]

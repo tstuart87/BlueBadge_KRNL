@@ -4,21 +4,32 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Location</h2>
+@*<h2>Location</h2>*@
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>
-            @Html.DisplayFor(model => model.LocationName)
-        </h4>
+        <div>
+            <h2>
+                @Html.DisplayFor(model => model.LocationName), @Html.DisplayFor(model => model.State)
+            </h2>
+        </div>
+
+        <div>
+
+                @if (Model.Latitude != 0 && Model.Longitude != 0)
+                {
+                    <a class="btn btn-default directionsButton" href=@Model.MapLink target="_blank">Directions</a>
+                }
+        </div>
+
 
         @if (Model.CooperatorId != null)
         {
             <div>
-                @Html.DisplayFor(model => model.FullName)
+                @Html.DisplayFor(model => model.FullName) |
                 @Html.ActionLink("VIEW", "Edit", "Cooperator", new { id = Model.CooperatorId }, null) |
                 @Html.ActionLink("CHANGE", "EditCoop", new { id = Model.LocationId }, null)
             </div>
@@ -31,11 +42,6 @@
             </div>
         }
 
-        @if (Model.Latitude != 0 && Model.Longitude != 0)
-        {
-            <br />
-            <a class="btn btn-default" href=@Model.MapLink target="_blank">Directions</a>
-        }
 
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -226,6 +232,8 @@
                         <p class="comment">
                             @Html.DisplayFor(modelItem => item.Comment)
                         </p>
+                        @Html.DisplayFor(modelItem => item.FullName)
+                        <br />
                         @switch (item.Rating)
                         {
                             case KRNL.Data.rating.Excellent:

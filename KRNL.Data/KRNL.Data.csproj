@@ -105,6 +105,14 @@
     <Compile Include="Migrations\202004140317150_eleven.Designer.cs">
       <DependentUpon>202004140317150_eleven.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004140426407_thirteen.cs" />
+    <Compile Include="Migrations\202004140426407_thirteen.Designer.cs">
+      <DependentUpon>202004140426407_thirteen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004140438518_fourteen.cs" />
+    <Compile Include="Migrations\202004140438518_fourteen.Designer.cs">
+      <DependentUpon>202004140438518_fourteen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -124,6 +132,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004140317150_eleven.resx">
       <DependentUpon>202004140317150_eleven.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004140426407_thirteen.resx">
+      <DependentUpon>202004140426407_thirteen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004140438518_fourteen.resx">
+      <DependentUpon>202004140438518_fourteen.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -35,7 +35,10 @@ namespace KRNL.Services
                 JobOne = model.JobOne,
                 JobTwo = model.JobTwo,
                 JobThree = model.JobThree,
+                CooperatorId = model.CooperatorId,
+                FullName = model.FullName,
                 Rating = model.Rating
+                
                 //LocationCode = model.LocationCode,
                 //PredictedGrowthStage = model.PredictedGrowthStage
             };
@@ -71,6 +74,8 @@ namespace KRNL.Services
                                     DateCreated = e.DateCreated,
                                     PredictedGrowthStage = e.Locations.GrowthStage,
                                     HumanGrowthStage = e.HumanGrowthStage,
+                                    CooperatorId = e.CooperatorId,
+                                    FullName = e.Cooperators.FullName,
                                     JobOne = e.JobOne,
                                     JobTwo = e.JobTwo,
                                     JobThree = e.JobThree,
@@ -103,6 +108,8 @@ namespace KRNL.Services
                                     PredictedGrowthStage = e.Locations.GrowthStage,
                                     HumanGrowthStage = e.HumanGrowthStage,
                                     Rating = e.Rating,
+                                    CooperatorId = e.CooperatorId,
+                                    FullName = e.Cooperators.FullName,
                                     JobOne = e.JobOne,
                                     JobTwo = e.JobTwo,
                                     JobThree = e.JobThree,

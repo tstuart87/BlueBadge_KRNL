@@ -4,10 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Cooperators</h2>
+<h2>Directory</h2>
 
 <h4>
-    @Html.ActionLink("Add Cooperator", "Create")
+    @Html.ActionLink("Add Contact", "Create")
 </h4>
 
 @using (Html.BeginForm())
@@ -28,10 +28,7 @@
             @Html.DisplayNameFor(model => model.FullName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Phone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
+            Contact
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ContactType)
@@ -50,14 +47,22 @@
                     @*@Html.DisplayFor(modelItem => item.FullName)*@
                     @Html.ActionLink(item.FullName, "Edit", new { id = item.CooperatorId })
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Phone)
-                </td>
-                <td>
+                <td class="phoneDirectory">
+                    @Html.DisplayFor(modelItem => item.Phone)<br/>
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ContactType)
+                    @switch (item.ContactType)
+                    {
+                        case KRNL.Data.contact.Employee:
+                            <p class="employeeContactType">@Html.DisplayFor(modelItem => item.ContactType)</p>
+                            break;
+                        case KRNL.Data.contact.Cooperator:
+                            <p class="cooperatorContactType">@Html.DisplayFor(modelItem => item.ContactType)</p>
+                            break;
+                        default:
+                            break;
+                    }
                 </td>
                 <td class="messageRightLocationCoop">
                     @*@Html.ActionLink("Details", "Details", new { id = item.CooperatorId }) |

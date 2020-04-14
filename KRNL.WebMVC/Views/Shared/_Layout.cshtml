@@ -18,8 +18,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @*@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
-                <img class="navbarLogo" src="/img/krnlTransparent.png" alt="KRNL">
+
+                <a href="@Url.Action("Index", "Home")">
+                    <img class="navbarLogo" src="/img/krnlTransparent.png" alt="KRNL">
+                </a>
+
+
+                    @*@Html.ActionLink(" ", "Index", "Home", new { @class="homePic"})*@
+                    @*<img class="navbarLogo" src="/img/krnlTransparent.png" alt="KRNL">*@
 
             </div>
             <div class="navbar-collapse collapse">
@@ -27,9 +33,9 @@
                     @*<li>@Html.ActionLink("HOME", "Index", "Home")</li>*@
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("LOCATIONS", "Index", "Location")</li>
-                        <li>@Html.ActionLink("COOPERATORS", "Index", "Cooperator")</li>
-                        <li>@Html.ActionLink("JOB LOG", "Index", "Message")</li>
+                        <li class="navText">@Html.ActionLink("LOCATIONS", "Index", "Location")</li>
+                        <li class="navText">@Html.ActionLink("DIRECTORY", "Index", "Cooperator")</li>
+                        <li class="navText">@Html.ActionLink("JOB LOG", "Index", "Message")</li>
                     }
                     @*<li>@Html.ActionLink("About", "About", "Home")</li>
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@

@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create New Location</h2>
+<h2>Create New Contact</h2>
 
 
 @using (Html.BeginForm())
@@ -32,8 +32,8 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.ContactType, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.ContactType, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-10 enumDropDown">
+                @Html.EnumDropDownListFor(model => model.ContactType, new { @class = "form-control" } )
                 @Html.ValidationMessageFor(model => model.ContactType, "", new { @class = "text-danger" })
             </div>
         </div>

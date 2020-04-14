@@ -68,6 +68,11 @@ namespace KRNL.Data
 
         public rating Rating { get; set; }
 
+        [ForeignKey("Cooperators")]
+        public int? CooperatorId { get; set; }
+        public virtual Cooperator Cooperators { get; set; }
+        public string FullName { get; set; }
+
         [ForeignKey("Locations")]
         [Required]
         public int LocationId { get; set; }

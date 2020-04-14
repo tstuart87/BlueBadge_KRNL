@@ -12,6 +12,7 @@ namespace KRNL.Models
         public int MessageId { get; set; }
         public Guid OwnerId { get; set; }
         public string Comment { get; set; }
+        public int CooperatorId { get; set; }
         [Display(Name = "Date")]
         public DateTimeOffset DateCreated { get; set; }
         //public int LocationId { get; set; }

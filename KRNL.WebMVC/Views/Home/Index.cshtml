@@ -2,15 +2,43 @@
     ViewBag.Title = "Home Page";
 }
 
-@using (Html.BeginForm())
-{
-    <p>
-        <div class="searchBar">
-            @Html.TextBox("searchString")
-            <input type="submit" value=" Search " class="searchButton" />
-        </div>
-    </p>
-}
+<body>
+    <div class="homeButtons">
 
+        @using (Html.BeginForm("Index", "Location"))
+        {
+            <button class="homeButton" type="submit">Locations</button>
+        }
 
+        @using (Html.BeginForm("Index", "Cooperator"))
+        {
+            <button class="homeButton" type="submit">Directory</button>
+        }
 
+        @using (Html.BeginForm("Index", "Message"))
+        {
+            <button class="homeButton" type="submit">Job Log</button>
+        }
+
+        @using (Html.BeginForm("Create", "Location", FormMethod.Get))
+        {
+            @Html.AntiForgeryToken()
+            <button class="homeButton newButton" type="submit">NEW LOCATION</button>
+        }
+
+        @using (Html.BeginForm("Create", "Cooperator", FormMethod.Get))
+        {
+            @Html.AntiForgeryToken()
+            <button class="homeButton newButton" type="submit">NEW CONTACT</button>
+        }
+
+        @using (Html.BeginForm("Create", "Message", FormMethod.Get))
+        {
+            @Html.AntiForgeryToken()
+            <button class="homeButton newButton" type="submit">NEW JOB</button>
+        }
+
+    </div>
+</body>
+
+<img class="homeFooterPic" src="/img/krnlTransparent90.png" alt="KRNL">

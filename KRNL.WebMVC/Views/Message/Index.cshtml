@@ -6,7 +6,7 @@
 <h2>Job Log</h2>
 
 <h4>
-    @Html.ActionLink("Add New Job", "Create")
+    @Html.ActionLink("Log New Job", "Create")
 </h4>
 
 @using (Html.BeginForm())
@@ -64,6 +64,8 @@
                     <p class="comment">
                         @Html.DisplayFor(modelItem => item.Comment)
                     </p>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                    <br/>
                     @switch (item.Rating)
                     {
                         case KRNL.Data.rating.Excellent:

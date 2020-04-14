@@ -8,13 +8,13 @@ hr {
     height: 0.001em !important;
 }
 
-h2{
+h2 {
     text-align: Left;
 }
 
 img.navbarLogo {
     height: 40px;
-    padding: 6px 8px 0px 4px;
+    padding: 9px 8px 0px 4px;
 }
 
 .navbar {
@@ -85,6 +85,16 @@ img.footerLogo {
     z-index: -5;
 }
 
+img.homeFooterPic {
+    max-height: 80%;
+    max-width: 25%;
+    opacity: 0.04;
+    position: fixed;
+    bottom: 0%;
+    left: 0px;
+    z-index: -5;
+}
+
 img.locStatusDots {
     height: 28px;
     /*vertical-align: central;*/
@@ -130,7 +140,7 @@ th {
         color: #F0EFE4;
     }
 
-    /*ROWS____________________________________________________________________________*/
+/*ROWS____________________________________________________________________________*/
 
 tr.tableRow:nth-child(odd) {
     background-color: #383832;
@@ -439,7 +449,7 @@ tr.messageHeader {
             -webkit-box-shadow: 0 0 10px #3d3c3b;
         }
 
-    /*.table > tbody + tbody:nth-child(4n+4) {
+/*.table > tbody + tbody:nth-child(4n+4) {
         color: floralwhite;
         background-color: red;
         border-radius: 10px 10px;
@@ -479,4 +489,55 @@ label {
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 100;
     letter-spacing: 1px;
+}
+
+.phoneDirectory {
+    font-weight: 100;
+}
+
+.employeeContactType {
+}
+
+.cooperatorContactType {
+    color: #e36466;
+}
+
+div.homeButtons {
+    text-align: center !important;
+    position: fixed !important;
+    right: -1px !important;
+    left: 27% !important;
+    top: 6% !important;
+}
+
+button.homeButton {
+    font-weight: 100;
+    letter-spacing: 0 !important;
+    box-shadow: 0 0 10px #242020;
+    -moz-box-shadow: 0 0 10px #242020;
+    -webkit-box-shadow: 0 0 10px #242020;
+    font-family: Arial, Verdana, 'Lucida Bright'  !important;
+    font-weight: 100 !important;
+}
+
+button.newButton {
+    color: #e36466 !important;
+}
+
+button.homeButton {
+    text-align: center !important;
+    position: center !important;
+    width: 100% !important;
+    padding: 18px !important;
+    border-radius: 10px 0 0 10px !important;
+    margin: 2em 0;
+}
+
+.navText {
+    font-size: 16px !important;
+    font-weight: 100 !important;
+}
+
+.directionsButton {
+    margin: 4px 0 16px 0;
 }

@@ -32,6 +32,9 @@ namespace KRNL.WebMVC.Controllers
             var locService = new LocationService();
             ViewBag.locations = locService.GetLocations();
 
+            var coopService = new CooperatorService();
+            ViewBag.cooperators = coopService.GetCooperators().Where(e => e.ContactType == contact.Employee);
+
             return View();
         }
 
