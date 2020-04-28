@@ -13,7 +13,7 @@ namespace KRNL.Models
     {
         public int MessageId { get; set; }
         public string Comment { get; set; }
-        public DateTimeOffset DateCreated { get; set; }
+        public DateTimeOffset? DateCreated { get; set; }
 
         [Display(Name ="Location")]
         public int LocationId { get; set; }

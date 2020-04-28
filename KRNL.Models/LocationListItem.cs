@@ -17,13 +17,22 @@ namespace KRNL.Models
         public string GDUs { get; set; }
         [Display(Name = "Growth Stage")]
         public string GrowthStage { get; set; }
+
+        [Display(Name = "Planted")]
+        public stake IsPlanted { get; set; }
         [Display(Name = "Staked")]
         public stake IsStaked { get; set; }
+        [Display(Name = "Rowbanded")]
+        public stake IsRowbanded { get; set; }
+        [Display(Name = "Harvested")]
         public stake IsHarvested { get; set; }
+
         public string MapLink { get; set; }
         public month MonthOfPlanting { get; set; }
         public int DayOfPlanting { get; set; }
         public int YearOfPlanting { get; set; }
         public string SearchString { get; set; }
+        public string DocString { get; set; }
+        public toggle Toggle { get; set; }
     }
 }

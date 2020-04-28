@@ -29,10 +29,16 @@ namespace KRNL.Models
         public string GrowthStage { get; set; }
         public double Longitude { get; set; }
         public double Latitude { get; set; }
+
+        [Display(Name = "Planted")]
+        public stake IsPlanted { get; set; }
         [Display(Name = "Staked")]
         public stake IsStaked { get; set; }
+        [Display(Name = "Rowbanded")]
+        public stake IsRowbanded { get; set; }
         [Display(Name = "Harvested")]
         public stake IsHarvested { get; set; }
+
         [Display(Name = "Cooperator")]
         public int? CooperatorId { get; set; }
         [Display(Name = "Cooperator")]
@@ -42,8 +48,13 @@ namespace KRNL.Models
         [Display(Name = "#Tag")]
         public string Tag { get; set; }
         public string SearchString { get; set; }
+        public string DocString { get; set; }
+        public rating Rating { get; set; }
+        public DateTimeOffset DatePlanted { get; set; }
+        public DateTimeOffset DateHarvested { get; set; }
 
         public IEnumerable<MessageListItem> Messages { get; set; }
+        public IEnumerable<DocumentListItem> Documents { get; set; }
 
     }
 }

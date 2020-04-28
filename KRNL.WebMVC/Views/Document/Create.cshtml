@@ -1,0 +1,70 @@
+﻿@model KRNL.Models.DocumentCreate
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Upload Document</h2>
+
+@using (Html.BeginForm("Create", "Document", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LocationId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("LocationId", new SelectList(ViewBag.locations, "LocationId", "LocationCode"), null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LocationId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DocType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 enumDropDown">
+                @Html.EnumDropDownListFor(model => model.DocType, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DocType, "", new { @class = "text-danger" })
+
+                <form action="Document/Create" method="post" enctype="multipart/form-data">
+                    <label class="custom-file-upload">
+                        <input type="file" name="file" id="file" />
+                        Select File
+                    </label>
+                </form>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10 createDocButton">
+                        <input type="submit" value="Create" class="btn btn-default createDocButton" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.DocType, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10 enumDropDown">
+                    @Html.EnumDropDownListFor(model => model.DocType, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DocType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-10">
+                    <form action="Document/Create" method="post" enctype="multipart/form-data">
+                        <input type="file" name="file" id="file" />
+                    </form>
+                </div>
+            </div>*@
+
+    </div>
+}
+
+@*<div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

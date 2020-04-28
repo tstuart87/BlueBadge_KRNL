@@ -58,7 +58,6 @@ namespace KRNL.Services
                                     LocationName = e.LocationName,
                                     State = e.State,
                                     LocationCode = e.LocationCode,
-                                    IsStaked = e.IsStaked,
                                     GDUs = e.GDUs,
                                     GrowthStage = e.GrowthStage,
                                     Latitude = e.Latitude,
@@ -67,6 +66,9 @@ namespace KRNL.Services
                                     DayOfPlanting = e.DayOfPlanting,
                                     YearOfPlanting = e.YearOfPlanting,
                                     SearchString = e.SearchString,
+                                    IsPlanted = e.IsPlanted,
+                                    IsStaked = e.IsStaked,
+                                    IsRowbanded = e.IsRowbanded,
                                     IsHarvested = e.IsHarvested,
                                     MapLink = "https://www.google.com/maps/dir/?api=1&destination=" + e.Latitude + "," + e.Longitude
                                 }
@@ -133,12 +135,94 @@ namespace KRNL.Services
             }
         }
 
+        public bool SetLocationIsPlantedToYes(int locId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Locations.Single(e => e.LocationId == locId);
+                entity.IsPlanted = stake.Yes;
+                entity.DatePlanted = DateTimeOffset.Now;
+                entity.MonthOfPlanting = (month)(Convert.ToInt32(entity.DatePlanted.Month));
+                entity.DayOfPlanting = Convert.ToInt32(entity.DatePlanted.Day);
+                entity.YearOfPlanting = Convert.ToInt32(entity.DatePlanted.Year);
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
         public bool SetLocationIsStakedToYes(int locId)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity = ctx.Locations.Single(e => e.LocationId == locId);
                 entity.IsStaked = stake.Yes;
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
+        public bool SetLocationIsRowbandedToYes(int locId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Locations.Single(e => e.LocationId == locId);
+                entity.IsRowbanded = stake.Yes;
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
+        public bool SetLocationIsHarvestedToYes(int locId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Locations.Single(e => e.LocationId == locId);
+                entity.IsHarvested = stake.Yes;
+                entity.DateHarvested = DateTimeOffset.Now;
+                entity.MonthOfHarvest = (month)(Convert.ToInt32(entity.DateHarvested.Month));
+                entity.DayOfHarvest = Convert.ToInt32(entity.DateHarvested.Day);
+                entity.YearOfHarvest = Convert.ToInt32(entity.DateHarvested.Year);
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
+        public bool EditLocationIsPlantedToYes(int locId, DateTimeOffset? date)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Locations.Single(e => e.LocationId == locId);
+                entity.IsPlanted = stake.Yes;
+                entity.DatePlanted = date.HasValue ? date.Value.DateTime : DateTime.MaxValue;
+                entity.MonthOfPlanting = (month)(Convert.ToInt32(entity.DatePlanted.Month));
+                entity.DayOfPlanting = Convert.ToInt32(entity.DatePlanted.Day);
+                entity.YearOfPlanting = Convert.ToInt32(entity.DatePlanted.Year);
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
+        public bool EditLocationIsHarvestedToYes(int locId, DateTimeOffset? date)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Locations.Single(e => e.LocationId == locId);
+                entity.IsHarvested = stake.Yes;
+                entity.DatePlanted = date.HasValue ? date.Value.DateTime : DateTime.MaxValue;
+                entity.MonthOfPlanting = (month)(Convert.ToInt32(entity.DatePlanted.Month));
+                entity.DayOfPlanting = Convert.ToInt32(entity.DatePlanted.Day);
+                entity.YearOfPlanting = Convert.ToInt32(entity.DatePlanted.Year);
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
+        public bool SetLocationRating(int locId, rating plotRating)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Locations.Single(e => e.LocationId == locId);
+                entity.Rating = plotRating;
 
                 return ctx.SaveChanges() == 1;
             }
@@ -167,7 +251,7 @@ namespace KRNL.Services
                             DatePlanted = entity.DatePlanted,
                             IsStaked = entity.IsStaked,
                             CRM = entity.CRM,
-                            //CooperatorId = entity.CooperatorId,
+                            DocString = entity.Documents.SingleOrDefault(e => e.LocationId == entity.LocationId).DocString,
                             MapLink = "https://www.google.com/maps/dir/?api=1&destination=" + entity.Latitude + "," + entity.Longitude
                         };
                 }
@@ -186,6 +270,7 @@ namespace KRNL.Services
                         CRM = entity.CRM,
                         CooperatorId = entity.CooperatorId,
                         FullName = entity.Cooperators.FullName,
+                        DocString = entity.Documents.SingleOrDefault(e => e.LocationId == entity.LocationId).DocString,
                         MapLink = "https://www.google.com/maps/dir/?api=1&destination=" + entity.Latitude + "," + entity.Longitude
                     };
             }
@@ -196,6 +281,8 @@ namespace KRNL.Services
             using (var ctx = new ApplicationDbContext())
             {
                 var messageService = new MessageService();
+                var documentService = new DocumentService();
+
                 var entity =
                     ctx
                         .Locations
@@ -215,10 +302,17 @@ namespace KRNL.Services
                             MonthOfPlanting = entity.MonthOfPlanting,
                             DayOfPlanting = entity.DayOfPlanting,
                             YearOfPlanting = entity.YearOfPlanting,
+                            IsPlanted = entity.IsPlanted,
                             IsStaked = entity.IsStaked,
+                            IsRowbanded = entity.IsRowbanded,
                             IsHarvested = entity.IsHarvested,
+                            DatePlanted = entity.DatePlanted,
+                            DateHarvested = entity.DateHarvested,
                             CRM = entity.CRM,
                             Messages = messageService.GetMessages(entity.LocationId),
+                            Documents = documentService.GetDocuments(entity.LocationId),
+                            DocString = documentService.GetDocStringForLocation(entity.LocationId),
+                            Rating = entity.Rating,
                             MapLink = "https://www.google.com/maps/dir/?api=1&destination=" + entity.Latitude + "," + entity.Longitude
                         };
                 }
@@ -235,11 +329,19 @@ namespace KRNL.Services
                         MonthOfPlanting = entity.MonthOfPlanting,
                         DayOfPlanting = entity.DayOfPlanting,
                         YearOfPlanting = entity.YearOfPlanting,
+                        IsPlanted = entity.IsPlanted,
                         IsStaked = entity.IsStaked,
+                        IsRowbanded = entity.IsRowbanded,
+                        IsHarvested = entity.IsHarvested,
+                        DatePlanted = entity.DatePlanted,
+                        DateHarvested = entity.DateHarvested,
                         CRM = entity.CRM,
                         CooperatorId = entity.CooperatorId,
                         FullName = entity.Cooperators.FullName,
                         Messages = messageService.GetMessages(entity.LocationId),
+                        Documents = documentService.GetDocuments(entity.LocationId),
+                        DocString = documentService.GetDocStringForLocation(entity.LocationId),
+                        Rating = entity.Rating,
                         MapLink = "https://www.google.com/maps/dir/?api=1&destination=" + entity.Latitude + "," + entity.Longitude
                     };
             }
@@ -266,7 +368,7 @@ namespace KRNL.Services
             {
                 foreach (Location x in ctx.Locations)
                 {
-                    if (x.DayOfPlanting > 0 && x.YearOfPlanting > 2)
+                    if (x.IsPlanted == stake.Yes && x.IsHarvested == stake.No)
                     {
                         x.GDUs = SetGDUsForLocation(x).ToString();
                         x.CumulativePrecip = SetCumulativePrecipForLocation(x).ToString();
@@ -285,6 +387,11 @@ namespace KRNL.Services
             {
                 using (var driver = new ChromeDriver())
                 {
+                    DateTimeOffset yesterday = DateTimeOffset.Now.AddDays(-1);
+                    string day = (yesterday.Day).ToString();
+                    string month = (yesterday.Month).ToString();
+                    string year = (yesterday.Year).ToString();
+
                     driver.Navigate().GoToUrl("https://nutrien-ekonomics.com/tools-to-calculate-fertilizer-needs/calculators/gdd/");
 
                     var zipCode = driver.FindElementByName("zipcode");
@@ -303,9 +410,9 @@ namespace KRNL.Services
                     startMonth.SendKeys((Convert.ToInt32(model.MonthOfPlanting)).ToString());
                     startDay.SendKeys(model.DayOfPlanting.ToString());
                     startYear.SendKeys(model.YearOfPlanting.ToString());
-                    endMonth.SendKeys("08");
-                    endDay.SendKeys("01");
-                    endYear.SendKeys("2019");
+                    endMonth.SendKeys(month);
+                    endDay.SendKeys(day);
+                    endYear.SendKeys(year);
 
                     calculateButton.Click();
 
@@ -332,6 +439,11 @@ namespace KRNL.Services
             {
                 using (var driver = new ChromeDriver())
                 {
+                    DateTimeOffset yesterday = DateTimeOffset.Now.AddDays(-1);
+                    string day = (yesterday.Day).ToString();
+                    string month = (yesterday.Month).ToString();
+                    string year = (yesterday.Year).ToString();
+
                     driver.Navigate().GoToUrl("https://nutrien-ekonomics.com/tools-to-calculate-fertilizer-needs/calculators/rainfall/");
 
                     var zipCode = driver.FindElementByName("zipcode");
@@ -348,9 +460,9 @@ namespace KRNL.Services
                     startMonth.SendKeys((Convert.ToInt32(model.MonthOfPlanting)).ToString());
                     startDay.SendKeys(model.DayOfPlanting.ToString());
                     startYear.SendKeys(model.YearOfPlanting.ToString());
-                    endMonth.SendKeys("08");
-                    endDay.SendKeys("01");
-                    endYear.SendKeys("2019");
+                    endMonth.SendKeys(month);
+                    endDay.SendKeys(day);
+                    endYear.SendKeys(year);
 
                     calculateButton.Click();
 

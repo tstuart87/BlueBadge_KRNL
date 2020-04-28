@@ -14,7 +14,7 @@ namespace KRNL.Models
         public Guid OwnerId { get; set; }
         public string Comment { get; set; }
         [Display(Name ="Date")]
-        public DateTimeOffset DateCreated { get; set; }
+        public DateTimeOffset? DateCreated { get; set; }
         public int? LocationId { get; set; }
         [Display(Name = "LocID")]
         public string LocationCode { get; set; }

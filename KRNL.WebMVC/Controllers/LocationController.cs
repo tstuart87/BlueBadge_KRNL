@@ -16,19 +16,14 @@ namespace KRNL.WebMVC.Controllers
     [Authorize]
     public class LocationController : Controller
     {
-        // GET: Message
-        //public ActionResult Index()
-        //{
-        //    var service = new LocationService();
-        //    var model = service.GetLocations();
-        //    return View(model);
-        //}
-
         public ActionResult Index(string sortOrder, string searchString)
         {
-            ViewBag.LocationSortParm = sortOrder == "locationName_desc" ? "locationName" : "locationName_desc";
+            ViewBag.GrowthStageSortParm = sortOrder == "GrowthStage" ? "GrowthStage_desc" : "GrowthStage";
             ViewBag.GDUSortParm = sortOrder == "GDUs" ? "GDUs_desc" : "GDUs";
             ViewBag.LocIDSortParm = sortOrder == "LocID" ? "LocID_desc" : "LocID";
+
+            ViewBag.SearchString = searchString;
+
             var service = new LocationService();
             var model = service.GetLocations();
 
@@ -37,29 +32,32 @@ namespace KRNL.WebMVC.Controllers
                 model = model.Where(e => e.SearchString.Contains(searchString.ToUpper()));
             }
 
-            switch (sortOrder)
+            if (sortOrder != null)
             {
-                case "locationName":
-                    model = model.OrderBy(s => s.LocationName);
-                    break;
-                case "locationName_desc":
-                    model = model.OrderByDescending(s => s.LocationName);
-                    break;
-                case "GDUs":
-                    model = model.OrderByDescending(s => Convert.ToInt32(s.GDUs));
-                    break;
-                case "GDUs_desc":
-                    model = model.OrderBy(s => Convert.ToInt32(s.GDUs));
-                    break;
-                case "LocID":
-                    model = model.OrderBy(s => s.LocationCode);
-                    break;
-                case "LocID_desc":
-                    model = model.OrderByDescending(s => s.LocationCode);
-                    break;
-                default:
-                    model = model.OrderBy(s => s.LocationName);
-                    break;
+                switch (sortOrder)
+                {
+                    case "GDUs":
+                        model = model.OrderByDescending(s => Convert.ToInt32(s.GDUs));
+                        break;
+                    case "GDUs_desc":
+                        model = model.OrderBy(s => Convert.ToInt32(s.GDUs));
+                        break;
+                    case "LocID":
+                        model = model.OrderBy(s => s.LocationCode);
+                        break;
+                    case "LocID_desc":
+                        model = model.OrderByDescending(s => s.LocationCode);
+                        break;
+                    case "GrowthStage":
+                        model = model.OrderBy(s => s.GrowthStage);
+                        break;
+                    case "GrowthStage_desc":
+                        model = model.OrderByDescending(s => s.GrowthStage);
+                        break;
+                    default:
+                        model = model.OrderBy(s => s.LocationName);
+                        break;
+                }
             }
             return View(model);
         }
@@ -99,6 +97,9 @@ namespace KRNL.WebMVC.Controllers
             var messageService = new MessageService();
             ViewBag.messages = messageService.GetMessages(id);
 
+            var documentService = new DocumentService();
+            ViewBag.documents = documentService.GetDocuments(id);
+
             var service = CreateLocationService();
             var detail = service.GetLocationEditById(id);
             var model = new LocationEdit
@@ -112,14 +113,21 @@ namespace KRNL.WebMVC.Controllers
                 MonthOfPlanting = detail.MonthOfPlanting,
                 DayOfPlanting = detail.DayOfPlanting,
                 YearOfPlanting = detail.YearOfPlanting,
-                IsStaked = detail.IsStaked,
                 CooperatorId = detail.CooperatorId,
                 FullName = detail.FullName,
                 CRM = detail.CRM,
                 Messages = detail.Messages,
+                Documents = detail.Documents,
                 Tag = detail.Tag,
                 SearchString = detail.SearchString,
+                DatePlanted = detail.DatePlanted,
+                DateHarvested = detail.DateHarvested,
+                IsPlanted = detail.IsPlanted,
+                IsRowbanded = detail.IsRowbanded,
+                IsStaked = detail.IsStaked,
                 IsHarvested = detail.IsHarvested,
+                DocString = detail.DocString,
+                Rating = detail.Rating,
                 MapLink = "https://www.google.com/maps/dir/?api=1&destination=" + detail.Latitude + "," + detail.Longitude
             };
             return View(model);

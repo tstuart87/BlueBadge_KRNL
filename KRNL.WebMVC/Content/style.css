@@ -59,10 +59,17 @@ img.homescreen {
     right: 0;
 }
 
-img.stakePhoto {
-    height: 20px;
-    padding-bottom: 2px;
+img.directionsPhoto {
+    height: 36px;
     z-index: -500;
+    text-align: right !important;
+}
+
+img.locDirectionsPhoto {
+    height: 33px !important;
+    z-index: -500;
+    text-align: right !important;
+    padding-bottom: 4px;
 }
 
 img.footerPic {
@@ -102,6 +109,27 @@ img.locStatusDots {
 
 img.ratingIcon {
     height: 12px;
+}
+
+img.barView {
+    width: 100%;
+    height: 27px;
+    vertical-align: central;
+    /*padding-top: 4px;*/
+    margin-bottom: -13px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.6);
+    -moz-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+}
+
+img.editIcon {
+    height: 29px;
+    vertical-align: top !important;
+}
+
+img.editIcon:hover {
+    opacity: 0.5;
 }
 
 td.locStatusDots {
@@ -433,6 +461,7 @@ tr.messageHeader {
         color: floralwhite;
         background-color: #40403d;
         border-radius: 10px 10px;
+        border: 1px solid #40403d !important;
         -moz-border-radius: 0 0 10px 10px;
         box-shadow: 0 0 10px #242422;
         -moz-box-shadow: 0 0 10px #242422;
@@ -441,8 +470,9 @@ tr.messageHeader {
 
         .table > tbody + tbody:nth-child(2n+2):hover {
             color: floralwhite;
-            background-color: #292827;
+            /*background-color: #292827;*/
             border-radius: 10px 10px;
+            border: 1px solid #6e6e6a !important;
             -moz-border-radius: 0 0 10px 10px;
             box-shadow: 0 0 10px #3d3c3b;
             -moz-box-shadow: 0 0 10px #3d3c3b;
@@ -465,6 +495,12 @@ td.messageLeftLocationCoop {
 
 td.messageRightLocationCoop {
     border-radius: 0 10px 10px 0;
+}
+
+img.vertBottom {
+    text-align: center !important;
+    vertical-align: bottom !important;
+    align-content: baseline !important;
 }
 
 tr.spacer {
@@ -516,7 +552,7 @@ button.homeButton {
     box-shadow: 0 0 10px #242020;
     -moz-box-shadow: 0 0 10px #242020;
     -webkit-box-shadow: 0 0 10px #242020;
-    font-family: Arial, Verdana, 'Lucida Bright'  !important;
+    font-family: Arial, Verdana, 'Lucida Bright' !important;
     font-weight: 100 !important;
 }
 
@@ -540,4 +576,76 @@ button.homeButton {
 
 .directionsButton {
     margin: 4px 0 16px 0;
+}
+
+div.toggleButton {
+    margin: -39px 0 20px 0;
+    text-align: right;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    margin-top: 18px;
+    color: white;
+    background-color: #48427D;
+    border-radius: 0;
+    border: none;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0px;
+}
+
+    .custom-file-upload:hover {
+        display: inline-block;
+        padding: 6px 12px;
+        cursor: pointer;
+        margin-top: 18px;
+        color: white !important;
+        background-color: #322d61;
+        border-radius: 0;
+        border: none;
+        text-transform: uppercase;
+        text-decoration: none;
+    }
+
+.createDocButton {
+    padding: 7px 28px 6px 28px;
+    margin: 3px 0px 0px -0.46em;
+}
+
+input.openDocButton {
+    color: white !important;
+    border: none;
+    background-color: #48427D;
+    padding-top: 5px;
+    padding-bottom: 6px;
+    margin-left: 3px;
+    border-radius: 0px;
+}
+
+    input.openDocButton:hover {
+        background-color: #322d61;
+    }
+
+td.openDocButton {
+    padding-top: 11px !important;
+}
+
+.smallerFont {
+    font-family:'Arial Narrow', Arial, sans-serif;
+    font-weight: 100;
+}
+
+td.tdDates {
+    padding-left: 20px;
+}
+
+* {
+    border-radius: 0px 0px 0px 0px !important;
 }

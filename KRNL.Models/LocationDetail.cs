@@ -21,8 +21,16 @@ namespace KRNL.Models
         public string GDUs { get; set; }
         public string GrowthStage { get; set; }
         public DateTimeOffset? DatePlanted { get; set; }
+
+        [Display(Name = "Planted")]
+        public stake IsPlanted { get; set; }
         [Display(Name = "Staked")]
         public stake IsStaked { get; set; }
+        [Display(Name = "Rowbanded")]
+        public stake IsRowbanded { get; set; }
+        [Display(Name = "Harvested")]
+        public stake IsHarvested { get; set; }
+
         [Display(Name = "Cooperator")]
         public int? CooperatorId { get; set; }
         [Display(Name ="Cooperator")]
@@ -34,5 +42,7 @@ namespace KRNL.Models
         public int DayOfPlanting { get; set; }
         [Display(Name = "Planting Year")]
         public int YearOfPlanting { get; set; }
+        public string DocString { get; set; }
+        public IEnumerable<DocumentListItem> Documents { get; set; }
     }
 }

@@ -14,6 +14,7 @@ namespace KRNL.Data
     public enum month { January = 1, February, March, April, May, June, July, August, September, October, November, December }
     public enum state { IA, IL, IN, KY, MI, MN, MO, OH, TN, WI}
     public enum stake { No, Yes}
+    public enum toggle { view1, view2, view3}
     public enum crm {
         [Display(Name = "85-90")]
         CRM85_90,
@@ -55,22 +56,34 @@ namespace KRNL.Data
         public month MonthOfPlanting { get; set; }
         public int DayOfPlanting { get; set; }
         public int YearOfPlanting { get; set; }
+
+        public month MonthOfHarvest { get; set; }
+        public int DayOfHarvest { get; set; }
+        public int YearOfHarvest { get; set; }
+
         public DateTimeOffset DatePlanted { get; set; }
+        public DateTimeOffset DateHarvested { get; set; }
+
+        public stake IsPlanted { get; set; }
         public stake IsStaked { get; set; }
+        public stake IsRowbanded { get; set; }
+        public stake IsHarvested { get; set; }
+
         public string MapLink { get; set; }
         public crm CRM { get; set; }
 
         [Display(Name ="#")]
         public string Tag { get; set; }
         public string SearchString { get; set; }
-        public stake IsHarvested { get; set; }
         public rating Rating { get; set; }
 
         public virtual IEnumerable<Message> Messages { get; set; }
+        public virtual IEnumerable<Document> Documents { get; set; }
 
         [ForeignKey("Cooperators")]
         public int? CooperatorId { get; set; }
         public virtual Cooperator Cooperators { get; set; }
+        public string Map { get; set; }
     }
 }
 

@@ -45,6 +45,7 @@ namespace KRNL.WebMVC.Data
         public DbSet<Location> Locations { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Cooperator> Cooperators { get; set; }
+        public DbSet<Document> Documents { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

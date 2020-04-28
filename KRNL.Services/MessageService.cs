@@ -43,10 +43,34 @@ namespace KRNL.Services
                 //PredictedGrowthStage = model.PredictedGrowthStage
             };
 
+            if (model.Rating != rating.NoRating)
+            {
+                var locationService = new LocationService();
+                locationService.SetLocationRating(model.LocationId, model.Rating);
+            }
+
+            if (model.JobOne == job.Planting || model.JobTwo == job.Planting || model.JobThree == job.Planting)
+            {
+                var locationService = new LocationService();
+                locationService.SetLocationIsPlantedToYes(model.LocationId);
+            }
+
             if (model.JobOne == job.Staking || model.JobTwo == job.Staking || model.JobThree == job.Staking)
             {
                 var locationService = new LocationService();
                 locationService.SetLocationIsStakedToYes(model.LocationId);
+            }
+
+            if (model.JobOne == job.Rowbanding || model.JobTwo == job.Rowbanding || model.JobThree == job.Rowbanding)
+            {
+                var locationService = new LocationService();
+                locationService.SetLocationIsRowbandedToYes(model.LocationId);
+            }
+
+            if (model.JobOne == job.Harvesting || model.JobTwo == job.Harvesting || model.JobThree == job.Harvesting)
+            {
+                var locationService = new LocationService();
+                locationService.SetLocationIsHarvestedToYes(model.LocationId);
             }
 
             using (var ctx = new ApplicationDbContext())
@@ -128,6 +152,47 @@ namespace KRNL.Services
 
                 entity.MessageId = model.MessageId;
                 entity.Comment = model.Comment;
+                entity.MessageId = model.MessageId;
+                entity.LocationId = model.LocationId;
+                entity.Comment = model.Comment;
+                entity.CooperatorId = model.CooperatorId;
+                entity.DateCreated = model.DateCreated;
+                entity.OwnerId = model.OwnerId;
+                entity.JobOne = model.JobOne;
+                entity.JobTwo = model.JobTwo;
+                entity.JobThree = model.JobThree;
+                entity.HumanGrowthStage = model.HumanGrowthStage;
+                entity.Rating = model.Rating;
+
+                if (model.Rating != rating.NoRating)
+                {
+                    var locationService = new LocationService();
+                    locationService.SetLocationRating(model.LocationId, model.Rating);
+                }
+
+                if (model.JobOne == job.Planting || model.JobTwo == job.Planting || model.JobThree == job.Planting)
+                {
+                    var locationService = new LocationService();
+                    locationService.EditLocationIsPlantedToYes(model.LocationId, entity.DateCreated);
+                }
+
+                if (model.JobOne == job.Staking || model.JobTwo == job.Staking || model.JobThree == job.Staking)
+                {
+                    var locationService = new LocationService();
+                    locationService.SetLocationIsStakedToYes(model.LocationId);
+                }
+
+                if (model.JobOne == job.Rowbanding || model.JobTwo == job.Rowbanding || model.JobThree == job.Rowbanding)
+                {
+                    var locationService = new LocationService();
+                    locationService.SetLocationIsRowbandedToYes(model.LocationId);
+                }
+
+                if (model.JobOne == job.Harvesting || model.JobTwo == job.Harvesting || model.JobThree == job.Harvesting)
+                {
+                    var locationService = new LocationService();
+                    locationService.EditLocationIsHarvestedToYes(model.LocationId, entity.DateCreated);
+                }
 
                 return ctx.SaveChanges() == 1;
             }
@@ -165,6 +230,16 @@ namespace KRNL.Services
                     {
                         MessageId = entity.MessageId,
                         Comment = entity.Comment,
+                        FullName = entity.Cooperators.FullName,
+                        OwnerId = entity.OwnerId,
+                        DateCreated = entity.DateCreated,
+                        LocationId = entity.LocationId,
+                        HumanGrowthStage = entity.HumanGrowthStage,
+                        JobOne = entity.JobOne,
+                        JobTwo = entity.JobTwo,
+                        JobThree = entity.JobThree,
+                        CooperatorId = entity.CooperatorId,
+                        Rating = entity.Rating
                     };
             }
         }

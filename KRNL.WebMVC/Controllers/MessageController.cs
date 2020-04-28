@@ -67,12 +67,27 @@ namespace KRNL.WebMVC.Controllers
 
         public ActionResult Edit(int id)
         {
+            var coopService = new CooperatorService();
+            ViewBag.cooperators = coopService.GetCooperators().Where(e => e.ContactType == contact.Employee);
+
+            var locService = new LocationService();
+            ViewBag.locations = locService.GetLocations();
+
             var service = CreateMessageService();
             var detail = service.GetMessageEditById(id);
             var model = new MessageEdit
             {
                 MessageId = detail.MessageId,
+                LocationId = detail.LocationId,
                 Comment = detail.Comment,
+                CooperatorId = detail.CooperatorId,
+                DateCreated = detail.DateCreated,
+                OwnerId = detail.OwnerId,
+                JobOne = detail.JobOne,
+                JobTwo = detail.JobTwo,
+                JobThree = detail.JobThree,
+                HumanGrowthStage = detail.HumanGrowthStage,
+                Rating = detail.Rating
             };
             return View(model);
         }

@@ -16,13 +16,13 @@ namespace KRNL.Data
     public enum rating {
         [Display(Name = " ")]
         NoRating,
-        Excellent, 
+        Excellent = 5, 
         [Display(Name = "Above Average")]
-        AboveAverage, 
-        Average,
+        AboveAverage = 4, 
+        Average = 3,
         [Display(Name = "Below Average")]
-        BelowAverage, 
-        Poor};
+        BelowAverage = 2, 
+        Poor = 1};
 
     public enum job
     {
@@ -31,6 +31,7 @@ namespace KRNL.Data
         Cultivating,
         [Display(Name = "Drone Flight")]
         DroneFlight,
+        Harvesting,
         [Display(Name = "Herbicide Application")]
         HerbicideSpraying,
         [Display(Name = "Insecticide Application")]
@@ -41,6 +42,8 @@ namespace KRNL.Data
         Notes,
         [Display(Name = "Plant & Ear Heights")]
         PlantEarHeights,
+        Planting,
+        Rowbanding,
         Staking,
         [Display(Name = "Stand Counts")]
         StandCounts,
@@ -54,7 +57,7 @@ namespace KRNL.Data
         public int MessageId { get; set; }
         public Guid OwnerId { get; set; }
         public string Comment { get; set; }
-        public DateTimeOffset DateCreated { get; set; }
+        public DateTimeOffset? DateCreated { get; set; }
 
         [Display(Name = "LocID")]
         public string LocationCode { get; set; }

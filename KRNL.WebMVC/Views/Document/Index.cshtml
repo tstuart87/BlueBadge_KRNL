@@ -1,0 +1,69 @@
+﻿@model IEnumerable<KRNL.Models.DocumentListItem>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Documents</h2>
+
+<h4>
+    @Html.ActionLink("Upload Document", "Create")
+</h4>
+
+<table class="table message">
+    <tr class="messageHeader">
+        <th class="messageHeader messageHeaderTopLeft">
+
+        </th>
+        <th>
+
+        </th>
+        <th>
+
+        </th>
+        <th>
+
+        </th>
+        <th class="messageHeaderTopRight">Uploaded Documents</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="spacer">
+            <td class="spacer" colspan="4"></td>
+        </tr>
+        <tbody class="comment">
+            <tr tr class="comment">
+                <td class="messageLeftLocationCoop">
+                    @Html.HiddenFor(modelItem => item.DocumentId)
+                    <div class="messageLabel">LocID:</div>
+                    @Html.ActionLink(item.LocationCode.ToUpper(), "Edit", "Location", new { id = item.LocationId }, null)
+                </td>
+                <td>
+                    <div class="messageLabel">Document:</div>
+                    <div class="smallerFont">
+                        @Html.DisplayFor(modelItem => item.DocName)
+                    </div>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td class="messageRightLocationCoop locStatusDots openDocButton">
+                    @if (item.DocType == KRNL.Data.docType.Map)
+                    {
+                        <img class="locStatusDots" src="/img/imap.png" alt="KRNL">
+                        <a href=@Url.Content(item.DocString)><input type="button" value=" Open " class="openDocButton" /></a>
+                    }
+                    @if (item.DocType == KRNL.Data.docType.FieldBook)
+                    {
+                        <img class="locStatusDots" src="/img/inotes.png" alt="KRNL">
+                        <a href=@Url.Content(item.DocString)><input type="button" value=" Open " class="openDocButton" /></a>
+                    }
+                    @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                </td>
+            </tr>
+        </tbody>
+    }
+
+</table>

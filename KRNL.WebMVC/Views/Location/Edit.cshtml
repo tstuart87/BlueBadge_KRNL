@@ -4,8 +4,6 @@
     ViewBag.Title = "Edit";
 }
 
-@*<h2>Location</h2>*@
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -13,23 +11,31 @@
     <div class="form-horizontal">
         <div>
             <h2>
-                @Html.DisplayFor(model => model.LocationName), @Html.DisplayFor(model => model.State)
+                @if (Model.Latitude != 0 && Model.Longitude != 0)
+                {
+                    <a href=@Model.MapLink target="_blank"><img class="locDirectionsPhoto" src="/img/ilocation.png" /> @Html.DisplayFor(model => model.LocationName), @Html.DisplayFor(model => model.State)</a>
+                }
+                else
+                {
+                    <h2>
+                        @Html.DisplayFor(model => model.LocationName), @Html.DisplayFor(model => model.State)
+                    </h2>
+                }
             </h2>
         </div>
 
-        <div>
-
-                @if (Model.Latitude != 0 && Model.Longitude != 0)
-                {
-                    <a class="btn btn-default directionsButton" href=@Model.MapLink target="_blank">Directions</a>
-                }
-        </div>
-
+        @if (Model.DocString != null)
+        {
+            <div class="toggleButton">
+                <a href=@Url.Content(Model.DocString)><input type="button" value="Field Map" class="searchButton mapButton" /></a>
+            </div>
+        }
 
         @if (Model.CooperatorId != null)
         {
             <div>
-                @Html.DisplayFor(model => model.FullName) |
+                <div class="messageLabel">Cooperator:</div>
+                @Html.DisplayFor(model => model.FullName) <br />
                 @Html.ActionLink("VIEW", "Edit", "Cooperator", new { id = Model.CooperatorId }, null) |
                 @Html.ActionLink("CHANGE", "EditCoop", new { id = Model.LocationId }, null)
             </div>
@@ -42,11 +48,63 @@
             </div>
         }
 
+        @if (Model.IsPlanted == KRNL.Data.stake.Yes || Model.IsHarvested == KRNL.Data.stake.Yes)
+        {
+            <br />
+            <table>
+                <tr>
+                    <td>
+                        @if (Model.IsPlanted == KRNL.Data.stake.Yes)
+                        {
+                            <div class="messageLabel">Planted:</div>
+                            @Html.DisplayFor(model => model.DatePlanted)
+                        }
+                    </td>
+
+                    <td class="tdDates">
+                        @if (Model.IsHarvested == KRNL.Data.stake.Yes)
+                        {
+                            <div class="messageLabel">Harvested:</div>
+                            @Html.DisplayFor(model => model.DateHarvested)
+                        }
+                    </td>
+
+                    <td class="tdDates">
+                        @if (Model.Rating != KRNL.Data.rating.NoRating)
+                        {
+                            <div class="messageLabel">Last Plot Rating:</div>
+                            switch (Model.Rating)
+                            {
+                                case KRNL.Data.rating.Excellent:
+                                    <img class="ratingIcon" src="/img/rexcellent.png" alt="KRNL">
+                                    break;
+                                case KRNL.Data.rating.AboveAverage:
+                                    <img class="ratingIcon" src="/img/raboveaverage.png" alt="KRNL">
+                                    break;
+                                case KRNL.Data.rating.Average:
+                                    <img class="ratingIcon" src="/img/raverage.png" alt="KRNL">
+                                    break;
+                                case KRNL.Data.rating.BelowAverage:
+                                    <img class="ratingIcon" src="/img/rbelowaverage.png" alt="KRNL">
+                                    break;
+                                case KRNL.Data.rating.Poor:
+                                    <img class="ratingIcon" src="/img/rpoor.png" alt="KRNL">
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    </td>
+                </tr>
+            </table>
+        }
 
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        @Html.HiddenFor(model => model.LocationId)
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div>
+            @Html.HiddenFor(model => model.LocationId, new { id = "locId" })
+        </div>
         @Html.HiddenFor(model => model.CooperatorId)
 
         @*<div class="form-group">
@@ -81,34 +139,7 @@
                 @Html.ValidationMessageFor(model => model.LocationCode, "", new { @class = "text-danger" })
             </div>
         </div>
-        <br />
-        <div class="form-group">
-            @Html.LabelFor(model => model.MonthOfPlanting, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10 enumDropDown">
-                Month:
-                @Html.EnumDropDownListFor(model => model.MonthOfPlanting, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.MonthOfPlanting, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.DayOfPlanting, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                Day:
-                @Html.EditorFor(model => model.DayOfPlanting, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DayOfPlanting, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.YearOfPlanting, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                Year:
-                @Html.EditorFor(model => model.YearOfPlanting, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.YearOfPlanting, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <br />
         <div class="form-group">
             @Html.LabelFor(model => model.Latitude, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -142,7 +173,7 @@
                     @Html.ValidationMessageFor(model => model.IsStaked, "", new { @class = "text-danger" })
                 </div>
             </div>*@
-
+        @Html.HiddenFor(model => model.IsStaked)
         <div class="form-group">
             @Html.LabelFor(model => model.IsHarvested, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10 enumDropDown">
@@ -179,14 +210,74 @@
 <hr />
 <br />
 
-<h4>
-    @Html.DisplayFor(model => model.LocationName) Job Log
-</h4>
+@if (Model.Documents != null && Model.Documents.Count() > 0)
+{
+    <table class="table message">
+        <tr class="messageHeader">
+            <th class="messageHeader messageHeaderTopLeft">
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th class="messageHeaderTopRight">Uploaded Documents</th>
+        </tr>
+
+        @foreach (var item in Model.Documents)
+        {
+            <tr class="spacer">
+                <td class="spacer" colspan="5"></td>
+            </tr>
+            <tbody class="comment">
+                <tr tr class="comment">
+                    <td class="messageLeftLocationCoop">
+                        @Html.HiddenFor(modelItem => item.DocumentId)
+                        <div class="messageLabel">LocID:</div>
+                        @Html.ActionLink(item.LocationCode.ToUpper(), "Edit", "Location", new { id = item.LocationId }, null)
+                    </td>
+                    <td>
+                        <div class="messageLabel">Document:</div>
+                        <div class="smallerFont">
+                            @Html.DisplayFor(modelItem => item.DocName)
+                        </div>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td class="messageRightLocationCoop locStatusDots openDocButton">
+                        @if (item.DocType == KRNL.Data.docType.Map)
+                        {
+                            <img class="locStatusDots" src="/img/imap.png" alt="KRNL">
+                            <a href=@Url.Content(item.DocString)><input type="button" value=" Open " class="openDocButton" /></a>
+                        }
+                        @if (item.DocType == KRNL.Data.docType.FieldBook)
+                        {
+                            <img class="locStatusDots" src="/img/inotes.png" alt="KRNL">
+                            <a href=@Url.Content(item.DocString)><input type="button" value=" Open " class="openDocButton" /></a>
+                        }
+                        @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                    </td>
+                </tr>
+            </tbody>
+        }
+
+    </table>
+}
+
+<br />
+<hr />
+<br />
 
 @if (Model.Messages != null && Model.Messages.Count() > 0)
 
 {
-
     <table class="table message">
         <tr class="messageHeader">
             <th width=16% class="messageHeaderTopLeft">
@@ -199,6 +290,7 @@
                 @*@Html.DisplayNameFor(model => model.PredictedGrowthStage)*@
             </th>
             <th width=28% class="messageHeaderTopRight">
+                Job Log
                 @*@Html.DisplayNameFor(model => model.HumanGrowthStage)*@
             </th>
         </tr>
@@ -264,6 +356,9 @@
                             case KRNL.Data.job.DroneFlight:
                                 <img class="messageIcon" src="/img/idrone.png" alt="KRNL">
                                 break;
+                            case KRNL.Data.job.Harvesting:
+                                <img class="messageIcon" src="/img/icombine.png" alt="KRNL">
+                                break;
                             case KRNL.Data.job.HerbicideSpraying:
                                 <img class="messageIcon" src="/img/iherbicide.png" alt="KRNL">
                                 break;
@@ -278,6 +373,12 @@
                                 break;
                             case KRNL.Data.job.PlantEarHeights:
                                 <img class="messageIcon" src="/img/ipande.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.Planting:
+                                <img class="messageIcon" src="/img/iplanter.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.Rowbanding:
+                                <img class="messageIcon" src="/img/iband.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.Staking:
                                 <img class="messageIcon" src="/img/istake.png" alt="KRNL">
@@ -300,6 +401,9 @@
                             case KRNL.Data.job.DroneFlight:
                                 <img class="messageIcon" src="/img/idrone.png" alt="KRNL">
                                 break;
+                            case KRNL.Data.job.Harvesting:
+                                <img class="messageIcon" src="/img/icombine.png" alt="KRNL">
+                                break;
                             case KRNL.Data.job.HerbicideSpraying:
                                 <img class="messageIcon" src="/img/iherbicide.png" alt="KRNL">
                                 break;
@@ -314,6 +418,12 @@
                                 break;
                             case KRNL.Data.job.PlantEarHeights:
                                 <img class="messageIcon" src="/img/ipande.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.Planting:
+                                <img class="messageIcon" src="/img/iplanter.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.Rowbanding:
+                                <img class="messageIcon" src="/img/iband.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.Staking:
                                 <img class="messageIcon" src="/img/istake.png" alt="KRNL">
@@ -336,6 +446,9 @@
                             case KRNL.Data.job.DroneFlight:
                                 <img class="messageIcon" src="/img/idrone.png" alt="KRNL">
                                 break;
+                            case KRNL.Data.job.Harvesting:
+                                <img class="messageIcon" src="/img/icombine.png" alt="KRNL">
+                                break;
                             case KRNL.Data.job.HerbicideSpraying:
                                 <img class="messageIcon" src="/img/iherbicide.png" alt="KRNL">
                                 break;
@@ -350,6 +463,12 @@
                                 break;
                             case KRNL.Data.job.PlantEarHeights:
                                 <img class="messageIcon" src="/img/ipande.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.Planting:
+                                <img class="messageIcon" src="/img/iplanter.png" alt="KRNL">
+                                break;
+                            case KRNL.Data.job.Rowbanding:
+                                <img class="messageIcon" src="/img/iband.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.Staking:
                                 <img class="messageIcon" src="/img/istake.png" alt="KRNL">
@@ -373,3 +492,21 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script>
+     $(document).ready(function () {
+         $("#OpenMap").click(function () {
+             var data = JSON.stringify({
+                 'locId': locId,
+                 'IsPrimary':true
+             });
+             $.ajax({
+                 type: "POST",
+                 url: '@Url.Action("OpenMap", "Location")',
+                 data: data,
+                 contentType: 'application/json'
+             });
+             window.open('/Location/OpenMap', "_blank")
+        });
+    });
+</script>

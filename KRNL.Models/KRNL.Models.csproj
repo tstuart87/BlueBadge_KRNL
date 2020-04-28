@@ -83,6 +83,10 @@
   <ItemGroup>
     <Compile Include="CooperatorEdit.cs" />
     <Compile Include="CooperatorDetail.cs" />
+    <Compile Include="DocumentCreate.cs" />
+    <Compile Include="DocumentDetail.cs" />
+    <Compile Include="DocumentEdit.cs" />
+    <Compile Include="DocumentListItem.cs" />
     <Compile Include="MessageEdit.cs" />
     <Compile Include="MessageDetail.cs" />
     <Compile Include="LocationEdit.cs" />

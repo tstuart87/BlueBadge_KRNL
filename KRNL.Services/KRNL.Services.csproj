@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CooperatorService.cs" />
+    <Compile Include="DocumentService.cs" />
     <Compile Include="MessageService.cs" />
     <Compile Include="LocationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
