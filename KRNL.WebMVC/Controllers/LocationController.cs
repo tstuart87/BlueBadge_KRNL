@@ -16,11 +16,16 @@ namespace KRNL.WebMVC.Controllers
     [Authorize]
     public class LocationController : Controller
     {
-        public ActionResult Index(string sortOrder, string searchString)
+        public ActionResult Index(string sortOrder, string searchString, string toggleView)
         {
-            ViewBag.GrowthStageSortParm = sortOrder == "GrowthStage" ? "GrowthStage_desc" : "GrowthStage";
-            ViewBag.GDUSortParm = sortOrder == "GDUs" ? "GDUs_desc" : "GDUs";
-            ViewBag.LocIDSortParm = sortOrder == "LocID" ? "LocID_desc" : "LocID";
+            ViewBag.SortParm = sortOrder;
+
+            ViewBag.ToggleView = "viewOne";
+
+            if (toggleView != null)
+            {
+                ViewBag.ToggleView = toggleView;
+            }
 
             ViewBag.SearchString = searchString;
 
@@ -55,7 +60,7 @@ namespace KRNL.WebMVC.Controllers
                         model = model.OrderByDescending(s => s.GrowthStage);
                         break;
                     default:
-                        model = model.OrderBy(s => s.LocationName);
+                        model = model.OrderBy(s => s.LocationCode);
                         break;
                 }
             }

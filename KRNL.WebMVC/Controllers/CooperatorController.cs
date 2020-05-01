@@ -116,8 +116,6 @@ namespace KRNL.WebMVC.Controllers
 
             service.DeleteCooperator(id);
 
-            TempData["SaveResult"] = "Your cooperator was deleted";
-
             return RedirectToAction("Index");
         }
 

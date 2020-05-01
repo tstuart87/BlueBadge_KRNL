@@ -55,6 +55,27 @@ namespace KRNL.WebMVC.Controllers
             return View(model);
         }
 
+        [ActionName("Delete")]
+        public ActionResult Delete(int id)
+        {
+            var svc = CreateDocumentService();
+            var model = svc.GetDocumentById(id);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeletePost(int id)
+        {
+            var service = CreateDocumentService();
+
+            service.DeleteDocument(id);
+
+            return RedirectToAction("Index");
+        }
+
         private DocumentService CreateDocumentService()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());

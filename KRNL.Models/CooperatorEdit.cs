@@ -24,5 +24,7 @@ namespace KRNL.Models
         public Guid OwnerId { get; set; }
         [Display(Name = "Role")]
         public contact ContactType { get; set; }
+        public noYes IsDeleted { get; set; }
+
     }
 }

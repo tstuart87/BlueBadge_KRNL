@@ -48,6 +48,7 @@ namespace KRNL.Services
                 var query =
                     ctx
                         .Documents
+                        .Where(e => e.IsDeleted == noYes.No)
                         .Select(
                             e =>
                                 new DocumentListItem
@@ -72,7 +73,7 @@ namespace KRNL.Services
                 var query =
                     ctx
                         .Documents
-                        .Where(e => e.LocationId == locId)
+                        .Where(e => e.LocationId == locId && e.IsDeleted == noYes.No)
                         .Select(
                             e =>
                                 new DocumentListItem
@@ -87,6 +88,40 @@ namespace KRNL.Services
                         );
 
                 return query.ToArray();
+            }
+        }
+
+        public DocumentDetail GetDocumentById(int id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Documents
+                        .Single(e => e.DocumentId == id);
+                return
+                    new DocumentDetail
+                    {
+                        DocumentId = entity.DocumentId,
+                        OwnerId = entity.OwnerId,
+                        DocName = entity.DocName,
+                        DocString = entity.DocString,
+                        DocType = entity.DocType,
+                        LocationId = entity.LocationId,
+                        LocationCode = entity.Locations.LocationCode,
+                        IsDeleted = entity.IsDeleted
+                    };
+            }
+        }
+
+        public bool DeleteDocument(int docId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Documents.Single(e => e.DocumentId == docId);
+                entity.IsDeleted = noYes.Yes;
+
+                return ctx.SaveChanges() == 1;
             }
         }
 

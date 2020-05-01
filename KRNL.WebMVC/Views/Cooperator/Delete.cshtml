@@ -4,52 +4,57 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete Cooperator</h2>
+<h3>Delete Contact?</h3>
 
-<h3>Are you sure you want to delete this Cooperator?</h3>
-<div>
-    <br />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
+    <div class="form-actions no-color deleteButtons">
+        <input type="submit" value="Delete" class="btn btn-default deleteButton" />
+    </div>
+}
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
+<table class="table message">
+    <tr class="messageHeader">
+        <th width=42% class="messageHeaderTopLeft">
+            Name
+            @*@Html.DisplayNameFor(model => model.LocationCode)*@
+        </th>
+        <th width=42%>
+            Contact
+            @*@Html.DisplayNameFor(model => model.DateCreated)*@
+        </th>
+        <th width=16% class="messageHeaderTopRight">
+            @*@Html.DisplayNameFor(model => model.HumanGrowthStage)*@
+        </th>
+    </tr>
+    <tr class="spacer">
+        <td class="spacer" colspan="3"></td>
+    </tr>
+    <tbody class="comment">
+        <tr class="comment">
+            <td class="messageLeftLocationCoop">
+                <div class="messageLabel">Name:</div>
+                @Html.DisplayFor(model => model.LastName), @Html.DisplayFor(model => model.FirstName)
+            </td>
+            <td class="phoneDirectory">
+                @Html.DisplayFor(model => model.Phone)<br />
+                @Html.DisplayFor(model => model.Email)<br />
+                @Html.DisplayFor(model => model.ContactType)
+            </td>
+            <td class="messageRightLocationCoop alignRight">
+            </td>
+        </tr>
+    </tbody>
+</table>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-        <dd>
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" />
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
-</div>
+    <div class="form-actions no-color">
+        @Html.ActionLink("Back to DIRECTORY", "Index")
+    </div>
+}

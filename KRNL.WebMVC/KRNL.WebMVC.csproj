@@ -290,6 +290,8 @@
     <Content Include="Views\Document\Create.cshtml" />
     <Content Include="Views\Document\Index.cshtml" />
     <Content Include="Views\Message\Edit.cshtml" />
+    <Content Include="Views\Message\Delete.cshtml" />
+    <Content Include="Views\Document\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />

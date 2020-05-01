@@ -43,6 +43,7 @@ namespace KRNL.Models
         [Display(Name = "Planting Year")]
         public int YearOfPlanting { get; set; }
         public string DocString { get; set; }
+        public noYes IsDeleted { get; set; }
         public IEnumerable<DocumentListItem> Documents { get; set; }
     }
 }

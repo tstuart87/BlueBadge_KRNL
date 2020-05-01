@@ -5,7 +5,9 @@
 }
 
 hr {
-    height: 0.001em !important;
+    border: none !important;
+    height: 1px !important;
+    background-color: #242222 !important;
 }
 
 h2 {
@@ -81,6 +83,11 @@ img.messageIcon {
     height: 40px;
     z-index: -500;
     padding: 0 2px;
+    opacity: 0.8;
+}
+
+img.messageIcon:hover {
+    opacity: 0.5;
 }
 
 img.footerLogo {
@@ -113,24 +120,38 @@ img.ratingIcon {
 
 img.barView {
     width: 100%;
-    height: 27px;
+    height: 10px;
     vertical-align: central;
     /*padding-top: 4px;*/
     margin-bottom: -13px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.6);
-    -moz-box-shadow: 0 0 10px rgba(0,0,0,0.6);
-    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+    opacity: 0.7;
+}
+
+img.imgGrey {
+    height: 40px;
+    z-index: -500;
+    padding: 0 2px;
+    opacity: 0.8;
+    opacity: 0.4;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
 }
 
 img.editIcon {
-    height: 29px;
+    height: 24px;
+    padding-left: 8px;
     vertical-align: top !important;
+    opacity: 0.4;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
 }
 
-img.editIcon:hover {
-    opacity: 0.5;
-}
+    img.editIcon:hover {
+        opacity: 0.9;
+        -webkit-filter: grayscale(0%);
+        filter: grayscale(0%);
+    }
 
 td.locStatusDots {
     text-align: right;
@@ -190,8 +211,8 @@ input.check-box {
     margin: 4px 0px 0px 17px;
     max-width: 20px;
     max-height: 20px;
-    background-color: #FCDB38;
-    color: #FCDB38;
+    background-color: #fae161;
+    color: #fae161;
 }
 
 hr {
@@ -204,7 +225,7 @@ a {
 
     a:hover {
         text-decoration: none;
-        color: #ebeba9 !important;
+        color: #fae161 !important;
     }
 
 
@@ -225,7 +246,7 @@ body > div.navbar.navbar-inverse.navbar-fixed-top > div > div.navbar-collapse.co
 }
 
     body > div.navbar.navbar-inverse.navbar-fixed-top > div > div.navbar-collapse.collapse > ul > li:nth-child(odd) > a:hover {
-        color: #ebeba9 !important;
+        color: #fae161 !important;
     }
 
 body > div.navbar.navbar-inverse.navbar-fixed-top > div > div.navbar-collapse.collapse > ul > li:nth-child(even) > a {
@@ -233,7 +254,7 @@ body > div.navbar.navbar-inverse.navbar-fixed-top > div > div.navbar-collapse.co
 }
 
     body > div.navbar.navbar-inverse.navbar-fixed-top > div > div.navbar-collapse.collapse > ul > li:nth-child(even) > a:hover {
-        color: #ebeba9 !important;
+        color: #fae161 !important;
     }
 /*NAVBAR FONT***************************/
 
@@ -246,7 +267,7 @@ body > div.navbar.navbar-inverse.navbar-fixed-top > div > div.navbar-collapse.co
 }
 
     #logoutForm > ul > li:nth-child(1) > a:hover {
-        color: #ebeba9 !important;
+        color: #fae161 !important;
     }
 
 #logoutForm > ul > li:nth-child(2) > a {
@@ -254,7 +275,7 @@ body > div.navbar.navbar-inverse.navbar-fixed-top > div > div.navbar-collapse.co
 }
 
     #logoutForm > ul > li:nth-child(2) > a:hover {
-        color: #ebeba9 !important;
+        color: #fae161 !important;
     }
 
 /*login credential and login and logout in header*/
@@ -267,7 +288,7 @@ a.directions {
 }
 
     a.directions:hover {
-        color: #FCDB38 !important;
+        color: #fae161 !important;
         text-decoration: none;
     }
 
@@ -415,14 +436,22 @@ table.message {
 }
 
 th.messageHeaderTopLeft {
-    border-radius: 10px 0 0 10px;
-    -moz-border-radius: 10px 0 0 10px;
+    border-radius: 10px 0 0 10px !important;
+    -moz-border-radius: 10px 0 0 10px !important;
+    border-left: 1px solid #4f4f46 !important;
 }
 
 th.messageHeaderTopRight {
-    border-radius: 0 10px 10px 0;
-    -moz-border-radius: 0 10px 10px 0;
+    border-radius: 0 10px 10px 0 !important;
+    -moz-border-radius: 0 10px 10px 0 !important;
+    border-right: 1px solid #4f4f46 !important;
     text-align: right;
+}
+
+th {
+    background-color: transparent !important;
+    border-top: 1px solid #4f4f46 !important;
+    border-bottom: 1px solid #4f4f46 !important;
 }
 
 td.messageTopLeft {
@@ -527,6 +556,49 @@ label {
     letter-spacing: 1px;
 }
 
+dt.deleteLabel {
+    color: #e36466;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 100;
+    letter-spacing: 1px;
+}
+
+div.deleteButtons {
+    text-align: right;
+    padding-bottom: 18px;
+    margin-top: -42px;
+}
+
+img.smallDeleteIcon {
+    padding-top: 3px;
+}
+
+input.deleteButton {
+    background-color: #e36466 !important;
+    color: black;
+}
+
+    input.deleteButton:hover {
+        background-color: #c23e40 !important;
+    }
+
+dd {
+    padding: 0 0 10px 0;
+}
+
+dl {
+    color: floralwhite;
+    background-color: #40403d;
+    border-radius: 10px 10px;
+    border: 1px solid #40403d !important;
+    margin: 20px;
+    padding: 20px;
+    -moz-border-radius: 0 0 10px 10px;
+    box-shadow: 0 0 10px #242422;
+    -moz-box-shadow: 0 0 10px #242422;
+    -webkit-box-shadow: 0 0 10px #242422;
+}
+
 .phoneDirectory {
     font-weight: 100;
 }
@@ -579,7 +651,7 @@ button.homeButton {
 }
 
 div.toggleButton {
-    margin: -39px 0 20px 0;
+    margin: -49px 0 20px 0;
     text-align: right;
 }
 
@@ -615,7 +687,7 @@ input[type="file"] {
     }
 
 .createDocButton {
-    padding: 7px 28px 6px 28px;
+    padding: 6px 27px 5px 28px;
     margin: 3px 0px 0px -0.46em;
 }
 
@@ -638,12 +710,17 @@ td.openDocButton {
 }
 
 .smallerFont {
-    font-family:'Arial Narrow', Arial, sans-serif;
+    font-family: 'Arial Narrow', Arial, sans-serif;
     font-weight: 100;
 }
 
 td.tdDates {
     padding-left: 20px;
+}
+
+td.phoneDirectory {
+    font-weight: 100 !important;
+    font-family: 'Arial Narrow', Arial, sans-serif;
 }
 
 * {

@@ -14,6 +14,7 @@ namespace KRNL.Data
     public enum month { January = 1, February, March, April, May, June, July, August, September, October, November, December }
     public enum state { IA, IL, IN, KY, MI, MN, MO, OH, TN, WI}
     public enum stake { No, Yes}
+    public enum noYes { No, Yes}
     public enum toggle { view1, view2, view3}
     public enum crm {
         [Display(Name = "85-90")]
@@ -76,6 +77,8 @@ namespace KRNL.Data
         public string Tag { get; set; }
         public string SearchString { get; set; }
         public rating Rating { get; set; }
+
+        public noYes IsDeleted { get; set; }
 
         public virtual IEnumerable<Message> Messages { get; set; }
         public virtual IEnumerable<Document> Documents { get; set; }

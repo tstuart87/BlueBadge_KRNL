@@ -52,6 +52,7 @@ namespace KRNL.Models
         public rating Rating { get; set; }
         public DateTimeOffset DatePlanted { get; set; }
         public DateTimeOffset DateHarvested { get; set; }
+        public noYes IsDeleted { get; set; }
 
         public IEnumerable<MessageListItem> Messages { get; set; }
         public IEnumerable<DocumentListItem> Documents { get; set; }

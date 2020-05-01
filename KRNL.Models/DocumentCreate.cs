@@ -18,5 +18,7 @@ namespace KRNL.Models
         [Display(Name = "Document Type")]
         public docType DocType { get; set; }
         public int? LocationId { get; set; }
+        public noYes IsDeleted { get; set; }
+
     }
 }

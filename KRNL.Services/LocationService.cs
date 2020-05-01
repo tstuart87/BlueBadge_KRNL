@@ -47,6 +47,7 @@ namespace KRNL.Services
         {
             using (var ctx = new ApplicationDbContext())
             {
+                
                 var query =
                     ctx
                         .Locations
@@ -70,6 +71,9 @@ namespace KRNL.Services
                                     IsStaked = e.IsStaked,
                                     IsRowbanded = e.IsRowbanded,
                                     IsHarvested = e.IsHarvested,
+                                    CooperatorId = e.CooperatorId,
+                                    FullName = e.CooperatorId == null ? " " : e.Cooperators.FullName,
+                                    Phone = e.Cooperators.Phone == null ? " " : e.Cooperators.Phone,
                                     MapLink = "https://www.google.com/maps/dir/?api=1&destination=" + e.Latitude + "," + e.Longitude
                                 }
                         );
@@ -77,8 +81,6 @@ namespace KRNL.Services
                 return query.ToList();
             }
         }
-
-
 
         //public bool UpdateLocationTags()
         //{
@@ -187,6 +189,59 @@ namespace KRNL.Services
             }
         }
 
+        public bool SetLocationIsPlantedToNo(int locId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Locations.Single(e => e.LocationId == locId);
+                entity.IsPlanted = stake.No;
+                entity.DatePlanted = DateTimeOffset.Now;
+                entity.MonthOfPlanting = (month)(Convert.ToInt32(entity.DatePlanted.Month));
+                entity.DayOfPlanting = Convert.ToInt32(entity.DatePlanted.Day);
+                entity.YearOfPlanting = Convert.ToInt32(entity.DatePlanted.Year);
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
+        public bool SetLocationIsStakedToNo(int locId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Locations.Single(e => e.LocationId == locId);
+                entity.IsStaked = stake.No;
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
+        public bool SetLocationIsRowbandedToNo(int locId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Locations.Single(e => e.LocationId == locId);
+                entity.IsRowbanded = stake.No;
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
+        public bool SetLocationIsHarvestedToNo(int locId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Locations.Single(e => e.LocationId == locId);
+                entity.IsHarvested = stake.No;
+                entity.DateHarvested = DateTimeOffset.Now;
+                entity.MonthOfHarvest = (month)(Convert.ToInt32(entity.DateHarvested.Month));
+                entity.DayOfHarvest = Convert.ToInt32(entity.DateHarvested.Day);
+                entity.YearOfHarvest = Convert.ToInt32(entity.DateHarvested.Year);
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
+
         public bool EditLocationIsPlantedToYes(int locId, DateTimeOffset? date)
         {
             using (var ctx = new ApplicationDbContext())
@@ -212,6 +267,18 @@ namespace KRNL.Services
                 entity.MonthOfPlanting = (month)(Convert.ToInt32(entity.DatePlanted.Month));
                 entity.DayOfPlanting = Convert.ToInt32(entity.DatePlanted.Day);
                 entity.YearOfPlanting = Convert.ToInt32(entity.DatePlanted.Year);
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
+        public bool SetCooperatorToNull(int coopId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                foreach (Location x in ctx.Locations.Where(e => e.CooperatorId == coopId))
+                {
+                    x.CooperatorId = null;
+                }
 
                 return ctx.SaveChanges() == 1;
             }

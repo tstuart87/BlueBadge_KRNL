@@ -1,0 +1,78 @@
+﻿@model KRNL.Models.DocumentDetail
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3>Delete Doc?</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color deleteButtons">
+        <input type="submit" value="Delete" class="btn btn-default deleteButton" />
+    </div>
+}
+
+<div>
+    <table class="table message">
+        <tr class="messageHeader">
+            <th width="36%" class="messageHeader messageHeaderTopLeft">
+
+            </th>
+            <th width="20%">
+
+            </th>
+            <th width="30%">
+
+            </th>
+            <th width="14%" class="messageHeaderTopRight">Uploaded Documents</th>
+        </tr>
+
+        <tr class="spacer">
+            <td class="spacer" colspan="4"></td>
+        </tr>
+        <tbody class="comment">
+            <tr tr class="comment">
+                <td class="messageLeftLocationCoop">
+
+                    @if (Model.DocType == KRNL.Data.docType.Map)
+                    {
+                        <img class="locStatusDots" src="/img/imap.png" alt="KRNL">
+                        <a href=@Url.Content(Model.DocString)><input type="button" value=" Open " class="openDocButton" /></a>
+                    }
+                    @if (Model.DocType == KRNL.Data.docType.FieldBook)
+                    {
+                        <img class="locStatusDots" src="/img/inotes.png" alt="KRNL">
+                        <a href=@Url.Content(Model.DocString)><input type="button" value=" Open " class="openDocButton" /></a>
+                    }
+                </td>
+                <td>
+                    @Html.HiddenFor(modelItem => Model.DocumentId)
+                    <div class="messageLabel">LocID:</div>
+                    @Html.ActionLink(Model.LocationCode.ToUpper(), "Edit", "Location", new { id = Model.LocationId }, null)
+
+                </td>
+                <td>
+                    <div class="messageLabel">Document:</div>
+                    <div class="smallerFont">
+                        @Html.DisplayFor(modelItem => Model.DocName)
+                    </div>
+                </td>
+                <td class="messageRightLocationCoop locStatusDots openDocButton">
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @Html.ActionLink("Back to DOCS", "Index")
+        </div>
+    }
+</div>

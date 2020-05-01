@@ -53,6 +53,7 @@ namespace KRNL.Services
                 var query =
                     ctx
                         .Cooperators
+                        .Where(e => e.IsDeleted == noYes.No)
                         .Select(
                             e =>
                                 new CooperatorListItem
@@ -95,7 +96,7 @@ namespace KRNL.Services
                 var entity =
                     ctx
                         .Cooperators
-                        .Single(e => e.CooperatorId == id);
+                        .Single(e => e.CooperatorId == id && e.IsDeleted == noYes.No);
                 return
                     new CooperatorDetail
                     {
@@ -117,7 +118,7 @@ namespace KRNL.Services
                 var entity =
                     ctx
                         .Cooperators
-                        .Single(e => e.CooperatorId == id);
+                        .Single(e => e.CooperatorId == id && e.IsDeleted == noYes.No);
                 return
                     new CooperatorEdit
                     {
@@ -132,16 +133,35 @@ namespace KRNL.Services
             }
         }
 
-        public bool DeleteCooperator(int cooperatorId)
+        public int GetFirstEmployeeId()
         {
+            int coopId = 0;
+
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
-                       .Cooperators
-                       .Single(e => e.CooperatorId == cooperatorId);
+                        .Cooperators
+                        .Where(e => e.ContactType == contact.Employee && e.IsDeleted == noYes.No)
+                        .FirstOrDefault();
 
-                ctx.Cooperators.Remove(entity);
+                coopId = entity.CooperatorId;
+            }
+            return coopId;
+        }
+
+        public bool DeleteCooperator(int cooperatorId)
+        {
+            var locService = new LocationService();
+            var messageService = new MessageService();
+
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Cooperators.Single(e => e.CooperatorId == cooperatorId);
+                entity.IsDeleted = noYes.Yes;
+
+                locService.SetCooperatorToNull(entity.CooperatorId);
+                messageService.SetEmployeeToNull(entity.CooperatorId);
 
                 return ctx.SaveChanges() == 1;
             }

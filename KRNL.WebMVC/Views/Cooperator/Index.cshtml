@@ -24,16 +24,13 @@
 
 
     <tr class="messageHeader">
-        <th class="messageHeader messageHeaderTopLeft">
+        <th  width="42%" class="messageHeader messageHeaderTopLeft">
             @Html.DisplayNameFor(model => model.FullName)
         </th>
-        <th>
+        <th  width="42%">
             Contact
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ContactType)
-        </th>
-        <th class="messageHeaderTopRight"></th>
+        <th width="16%" class="messageHeaderTopRight"></th>
     </tr>
 
     @foreach (var item in Model)
@@ -44,29 +41,16 @@
         <tbody class="comment">
             <tr class="comment">
                 <td class="messageLeftLocationCoop">
-                    @*@Html.DisplayFor(modelItem => item.FullName)*@
+                    <div class="messageLabel">Name:</div>
                     @Html.ActionLink(item.FullName, "Edit", new { id = item.CooperatorId })
                 </td>
                 <td class="phoneDirectory">
-                    @Html.DisplayFor(modelItem => item.Phone)<br/>
-                    @Html.DisplayFor(modelItem => item.Email)
+                    @Html.DisplayFor(modelItem => item.Phone)<br />
+                    @Html.DisplayFor(modelItem => item.Email)<br />
+                    @Html.DisplayFor(modelItem => item.ContactType)
                 </td>
-                <td>
-                    @switch (item.ContactType)
-                    {
-                        case KRNL.Data.contact.Employee:
-                            <p class="employeeContactType">@Html.DisplayFor(modelItem => item.ContactType)</p>
-                            break;
-                        case KRNL.Data.contact.Cooperator:
-                            <p class="cooperatorContactType">@Html.DisplayFor(modelItem => item.ContactType)</p>
-                            break;
-                        default:
-                            break;
-                    }
-                </td>
-                <td class="messageRightLocationCoop">
-                    @*@Html.ActionLink("Details", "Details", new { id = item.CooperatorId }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.CooperatorId })*@
+                <td class="messageRightLocationCoop alignRight">
+                    <a href="@Url.Action("Delete", "Cooperator", new { id = item.CooperatorId})"><img class="editIcon" src="/img/idelete.png" alt="KRNL"></a>
                 </td>
             </tr>
         </tbody>

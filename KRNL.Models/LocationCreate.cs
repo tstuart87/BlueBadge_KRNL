@@ -17,5 +17,6 @@ namespace KRNL.Models
         public string LocationCode { get; set; }
         public crm CRM { get; set; }
         public string SearchString { get; set; }
+        public noYes IsDeleted { get; set; }
     }
 }

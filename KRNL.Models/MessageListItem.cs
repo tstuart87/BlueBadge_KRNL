@@ -31,5 +31,7 @@ namespace KRNL.Models
         public job JobOne { get; set; }
         public job JobTwo { get; set; }
         public job JobThree { get; set; }
+        public noYes IsDeleted { get; set; }
+
     }
 }

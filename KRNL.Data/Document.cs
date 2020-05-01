@@ -16,6 +16,8 @@ namespace KRNL.Data
         public Guid OwnerId { get; set; }
         public string DocName { get; set; }
         public string DocString { get; set; }
+        public noYes IsDeleted { get; set; }
+
 
         [Display(Name = "Document Type")]
         public docType DocType { get; set; }
@@ -23,5 +25,6 @@ namespace KRNL.Data
         [ForeignKey("Locations")]
         public int? LocationId { get; set; }
         public virtual Location Locations { get; set; }
+
     }
 }

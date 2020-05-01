@@ -29,5 +29,7 @@ namespace KRNL.Data
         public string FullName { get; set; }
         public string Phone { get; set; }
         public contact ContactType { get; set; }
+        public noYes IsDeleted { get; set; }
+
     }
 }

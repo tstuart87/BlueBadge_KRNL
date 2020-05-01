@@ -12,19 +12,16 @@
 
 <table class="table message">
     <tr class="messageHeader">
-        <th class="messageHeader messageHeaderTopLeft">
+        <th width="36%" class="messageHeader messageHeaderTopLeft">
 
         </th>
-        <th>
+        <th width="20%" >
 
         </th>
-        <th>
+        <th width="30%">
 
         </th>
-        <th>
-
-        </th>
-        <th class="messageHeaderTopRight">Uploaded Documents</th>
+        <th  width="14%" class="messageHeaderTopRight">Docs</th>
     </tr>
 
     @foreach (var item in Model)
@@ -35,21 +32,7 @@
         <tbody class="comment">
             <tr tr class="comment">
                 <td class="messageLeftLocationCoop">
-                    @Html.HiddenFor(modelItem => item.DocumentId)
-                    <div class="messageLabel">LocID:</div>
-                    @Html.ActionLink(item.LocationCode.ToUpper(), "Edit", "Location", new { id = item.LocationId }, null)
-                </td>
-                <td>
-                    <div class="messageLabel">Document:</div>
-                    <div class="smallerFont">
-                        @Html.DisplayFor(modelItem => item.DocName)
-                    </div>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-                <td class="messageRightLocationCoop locStatusDots openDocButton">
+
                     @if (item.DocType == KRNL.Data.docType.Map)
                     {
                         <img class="locStatusDots" src="/img/imap.png" alt="KRNL">
@@ -60,7 +43,21 @@
                         <img class="locStatusDots" src="/img/inotes.png" alt="KRNL">
                         <a href=@Url.Content(item.DocString)><input type="button" value=" Open " class="openDocButton" /></a>
                     }
-                    @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                </td>
+                <td>
+                    @Html.HiddenFor(modelItem => item.DocumentId)
+                    <div class="messageLabel">LocID:</div>
+                    @Html.ActionLink(item.LocationCode.ToUpper(), "Edit", "Location", new { id = item.LocationId }, null)
+
+                </td>
+                <td>
+                    <div class="messageLabel">Document:</div>
+                    <div class="smallerFont">
+                        @Html.DisplayFor(modelItem => item.DocName)
+                    </div>
+                </td>
+                <td class="messageRightLocationCoop locStatusDots openDocButton">
+                        <a href="@Url.Action("Delete", "Document", new { id = item.DocumentId})"><img class="editIcon" src="/img/idelete.png" alt="KRNL"></a>
                 </td>
             </tr>
         </tbody>

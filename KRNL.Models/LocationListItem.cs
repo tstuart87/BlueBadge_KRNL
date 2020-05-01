@@ -33,6 +33,10 @@ namespace KRNL.Models
         public int YearOfPlanting { get; set; }
         public string SearchString { get; set; }
         public string DocString { get; set; }
-        public toggle Toggle { get; set; }
+        public noYes IsDeleted { get; set; }
+
+        public int? CooperatorId { get; set; }
+        public string FullName { get; set; }
+        public string Phone { get; set; }
     }
 }

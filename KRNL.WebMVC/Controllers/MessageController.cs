@@ -134,8 +134,6 @@ namespace KRNL.WebMVC.Controllers
 
             service.DeleteMessage(id);
 
-            TempData["SaveResult"] = "Your message was deleted";
-
             return RedirectToAction("Index");
         }
 

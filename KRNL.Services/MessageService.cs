@@ -38,7 +38,7 @@ namespace KRNL.Services
                 CooperatorId = model.CooperatorId,
                 FullName = model.FullName,
                 Rating = model.Rating
-                
+
                 //LocationCode = model.LocationCode,
                 //PredictedGrowthStage = model.PredictedGrowthStage
             };
@@ -87,6 +87,7 @@ namespace KRNL.Services
                 var query =
                     ctx
                         .Messages
+                        .Where(e => e.IsDeleted == noYes.No)
                         .Select(
                             e =>
                                 new MessageListItem
@@ -107,7 +108,6 @@ namespace KRNL.Services
                                     Comment = e.Comment
                                 }
                         );
-
                 return query.ToArray();
             }
         }
@@ -119,7 +119,7 @@ namespace KRNL.Services
                 var query =
                     ctx
                         .Messages
-                        .Where(e => e.LocationId == locID)
+                        .Where(e => e.LocationId == locID && e.IsDeleted == noYes.No)
                         .Select(
                             e =>
                                 new MessageListItem
@@ -210,9 +210,18 @@ namespace KRNL.Services
                     new MessageDetail
                     {
                         MessageId = entity.MessageId,
+                        OwnerId = entity.OwnerId,
                         Comment = entity.Comment,
+                        CooperatorId = entity.CooperatorId,
+                        FullName = entity.Cooperators.FullName,
                         DateCreated = entity.DateCreated,
-                        LocationCode = entity.Locations.LocationCode
+                        LocationId = entity.LocationId,
+                        LocationCode = entity.Locations.LocationCode,
+                        IsDeleted = entity.IsDeleted,
+                        JobOne = entity.JobOne,
+                        JobTwo = entity.JobTwo,
+                        JobThree = entity.JobThree,
+                        Rating = entity.Rating
                     };
             }
         }
@@ -225,7 +234,28 @@ namespace KRNL.Services
                     ctx
                         .Messages
                         .Single(e => e.MessageId == id);
-                return
+
+                if (entity.CooperatorId == null)
+                {
+                    return
+                        new MessageEdit
+                        {
+                            MessageId = entity.MessageId,
+                            Comment = entity.Comment,
+                            OwnerId = entity.OwnerId,
+                            DateCreated = entity.DateCreated,
+                            LocationId = entity.LocationId,
+                            HumanGrowthStage = entity.HumanGrowthStage,
+                            JobOne = entity.JobOne,
+                            JobTwo = entity.JobTwo,
+                            JobThree = entity.JobThree,
+                            CooperatorId = entity.CooperatorId,
+                            Rating = entity.Rating
+                        };
+                }
+                else
+                {
+                    return
                     new MessageEdit
                     {
                         MessageId = entity.MessageId,
@@ -241,19 +271,61 @@ namespace KRNL.Services
                         CooperatorId = entity.CooperatorId,
                         Rating = entity.Rating
                     };
+                };
+            }
+        }
+
+        public bool SetEmployeeToNull(int coopId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                foreach (Message x in ctx.Messages.Where(e => e.CooperatorId == coopId))
+                {
+                    x.CooperatorId = null;
+                }
+
+                return ctx.SaveChanges() == 1;
             }
         }
 
         public bool DeleteMessage(int messageId)
         {
+            var locService = new LocationService();
+
             using (var ctx = new ApplicationDbContext())
             {
-                var entity =
-                    ctx
-                        .Messages
-                        .Single(e => e.MessageId == messageId);
+                var entity = ctx.Messages.Single(e => e.MessageId == messageId);
+                entity.IsDeleted = noYes.Yes;
 
-                ctx.Messages.Remove(entity);
+                //if (entity.Rating != rating.NoRating)                    
+                //{
+                //    var locationService = new LocationService();
+                //    locationService.SetLocationRating(entity.LocationId);
+                //}
+
+                if (entity.JobOne == job.Planting || entity.JobTwo == job.Planting || entity.JobThree == job.Planting)
+                {
+                    var locationService = new LocationService();
+                    locationService.SetLocationIsPlantedToNo(entity.LocationId);
+                }
+
+                if (entity.JobOne == job.Staking || entity.JobTwo == job.Staking || entity.JobThree == job.Staking)
+                {
+                    var locationService = new LocationService();
+                    locationService.SetLocationIsStakedToNo(entity.LocationId);
+                }
+
+                if (entity.JobOne == job.Rowbanding || entity.JobTwo == job.Rowbanding || entity.JobThree == job.Rowbanding)
+                {
+                    var locationService = new LocationService();
+                    locationService.SetLocationIsRowbandedToNo(entity.LocationId);
+                }
+
+                if (entity.JobOne == job.Harvesting || entity.JobTwo == job.Harvesting || entity.JobThree == job.Harvesting)
+                {
+                    var locationService = new LocationService();
+                    locationService.SetLocationIsHarvestedToNo(entity.LocationId);
+                }
 
                 return ctx.SaveChanges() == 1;
             }

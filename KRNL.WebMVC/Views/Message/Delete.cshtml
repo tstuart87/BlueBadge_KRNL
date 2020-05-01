@@ -1,43 +1,44 @@
-﻿@model IEnumerable<KRNL.Models.MessageListItem>
+﻿@model KRNL.Models.MessageDetail
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Delete";
 }
-<h2>Job Log</h2>
 
-<h4>
-    @Html.ActionLink("Log New Job", "Create")
-</h4>
+<h3>Delete Job?</h3>
 
 @using (Html.BeginForm())
 {
-    <p>
-        <div class="searchBar">
-            @Html.TextBox("searchString")
-            <input type="submit" value="Filter by LocID" class="searchButton" />
-        </div>
-    </p>
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color deleteButtons">
+        <input type="submit" value="Delete" class="btn btn-default deleteButton" />
+    </div>
 }
 
-<table class="table message">
-    <tr class="messageHeader">
-        <th width=16% class="messageHeaderTopLeft">
-            @*@Html.DisplayNameFor(model => model.LocationCode)*@
-        </th>
-        <th width=28%>
-            @*@Html.DisplayNameFor(model => model.DateCreated)*@
-        </th>
-        <th width=28%>
-            @*@Html.DisplayNameFor(model => model.PredictedGrowthStage)*@
-        </th>
-        <th width=28% class="messageHeaderTopRight">
-            Job Log
-            @*@Html.DisplayNameFor(model => model.HumanGrowthStage)*@
-        </th>
-    </tr>
+@*<h3>Are you sure you want to delete this job?</h3>*@
+<div>
+    @*<h4>MessageDetail</h4>*@
 
-    @foreach (var item in Model)
-    {
+    @Html.HiddenFor(model => model.MessageId)
+    @Html.HiddenFor(model => model.OwnerId)
+    @Html.HiddenFor(model => model.LocationId)
+
+    <table class="table message">
+        <tr class="messageHeader">
+            <th width=16% class="messageHeaderTopLeft">
+                @*@Html.DisplayNameFor(model => model.LocationCode)*@
+            </th>
+            <th width=28%>
+                @*@Html.DisplayNameFor(model => model.DateCreated)*@
+            </th>
+            <th width=28%>
+                @*@Html.DisplayNameFor(model => model.PredictedGrowthStage)*@
+            </th>
+            <th width=28% class="messageHeaderTopRight">
+                Job
+                @*@Html.DisplayNameFor(model => model.HumanGrowthStage)*@
+            </th>
+        </tr>
         <tr class="spacer">
             <td class="spacer" colspan="4"></td>
         </tr>
@@ -45,32 +46,31 @@
             <tr class="messageTop">
                 <td class="message messageTopLeft">
                     <div class="messageLabel">Location:</div>
-                    @Html.ActionLink(item.LocationCode.ToUpper(), "Edit", "Location", new { id = item.LocationId }, null)
+                    @Html.ActionLink(Model.LocationCode.ToUpper(), "Edit", "Location", new { id = Model.LocationId }, null)
                 </td>
                 <td class="message">
                     <div class="messageLabel">Date:</div>
-                    @Html.DisplayFor(modelItem => item.DateCreated)
+                    @Html.DisplayFor(model => model.DateCreated)
                 </td>
                 <td class="message ">
                     <div class="messageLabel">Growth Stage:</div>
-                    @Html.DisplayFor(model => item.HumanGrowthStage)
+                    @Html.DisplayFor(model => model.HumanGrowthStage)
                 </td>
                 <td class="message messageTopRight alignRight">
-                    <a href="@Url.Action("Edit", "Message", new { id = item.MessageId})"><img class="editIcon" src="/img/iedit.png" alt="KRNL"></a>
-                    <a href="@Url.Action("Delete", "Message", new { id = item.MessageId})"><img class="editIcon" src="/img/idelete.png" alt="KRNL"></a>
+                    @*<a href="@Url.Action("Edit", "Message", new { id = Model.MessageId})"><img class="editIcon" src="/img/iedit.png" alt="KRNL"></a>*@
                 </td>
             </tr>
             <tr class="messageBottom">
                 <td class="messageBottomLeft" colspan="2">
-                    @if (item.Comment != null)
+                    @if (Model.Comment != null)
                     {
                         <p class="comment">
-                            @Html.DisplayFor(modelItem => item.Comment)
+                            @Html.DisplayFor(model => model.Comment)
                         </p>
                     }
-                    @Html.DisplayFor(modelItem => item.FullName)
+                    @Html.DisplayFor(model => model.FullName)
                     <br />
-                    @switch (item.Rating)
+                    @switch (Model.Rating)
                     {
                         case KRNL.Data.rating.Excellent:
                             <img class="ratingIcon" src="/img/rexcellent.png" alt="KRNL">
@@ -92,7 +92,7 @@
                     }
                 </td>
                 <td class="messageBottomRight alignRight vertBottom" colspan="2">
-                    @switch (item.JobOne)
+                    @switch (Model.JobOne)
                     {
                         case KRNL.Data.job.Cultivating:
                             <img class="messageIcon vertBottom" src="/img/iplow.png" alt="KRNL">
@@ -137,7 +137,7 @@
                             break;
                     }
 
-                    @switch (item.JobTwo)
+                    @switch (Model.JobTwo)
                     {
                         case KRNL.Data.job.Cultivating:
                             <img class="messageIcon vertBottom" src="/img/iplow.png" alt="KRNL">
@@ -182,7 +182,7 @@
                             break;
                     }
 
-                    @switch (item.JobThree)
+                    @switch (Model.JobThree)
                     {
                         case KRNL.Data.job.Cultivating:
                             <img class="messageIcon vertBottom" src="/img/iplow.png" alt="KRNL">
@@ -229,6 +229,14 @@
                 </td>
             </tr>
         </tbody>
-    }
-</table>
+    </table>
 
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @Html.ActionLink("Back to JOBS", "Index")
+        </div>
+    }
+</div>
