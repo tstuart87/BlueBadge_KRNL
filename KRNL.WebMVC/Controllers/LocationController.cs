@@ -29,8 +29,10 @@ namespace KRNL.WebMVC.Controllers
 
             ViewBag.SearchString = searchString;
 
-            var service = new LocationService();
-            var model = service.GetLocations();
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new LocationService(userId);
+
+            var model = service.GetLocations(userId);
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -88,25 +90,28 @@ namespace KRNL.WebMVC.Controllers
 
         public ActionResult Details(int id)
         {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+
             var service = CreateLocationService();
-            var model = service.GetLocationById(id);
+            var model = service.GetLocationById(id, userId);
 
             return View(model);
         }
 
         public ActionResult Edit(int id)
         {
-            var coopService = new CooperatorService();
-            ViewBag.cooperators = coopService.GetCooperators();
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var coopService = new CooperatorService(userId);
+            ViewBag.cooperators = coopService.GetCooperators(userId);
 
-            var messageService = new MessageService();
-            ViewBag.messages = messageService.GetMessages(id);
+            var messageService = new MessageService(userId);
+            ViewBag.messages = messageService.GetMessages(id, userId);
 
-            var documentService = new DocumentService();
-            ViewBag.documents = documentService.GetDocuments(id);
+            var documentService = new DocumentService(userId);
+            ViewBag.documents = documentService.GetDocuments(id, userId);
 
             var service = CreateLocationService();
-            var detail = service.GetLocationEditById(id);
+            var detail = service.GetLocationEditById(id, userId);
             var model = new LocationEdit
             {
                 LocationId = detail.LocationId,
@@ -141,11 +146,12 @@ namespace KRNL.WebMVC.Controllers
 
         public ActionResult EditCoop(int id)
         {
-            var coopService = new CooperatorService();
-            ViewBag.cooperators = coopService.GetCooperators().Where(e => e.ContactType == contact.Cooperator);
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var coopService = new CooperatorService(userId);
+            ViewBag.cooperators = coopService.GetCooperators(userId).Where(e => e.ContactType == contact.Cooperator);
 
             var service = CreateLocationService();
-            var detail = service.GetLocationEditById(id);
+            var detail = service.GetLocationEditById(id, userId);
             var model = new LocationEdit
             {
                 LocationId = detail.LocationId,
@@ -215,8 +221,9 @@ namespace KRNL.WebMVC.Controllers
         [ActionName("Delete")]
         public ActionResult Delete(int id)
         {
+            var userId = Guid.Parse(User.Identity.GetUserId());
             var service = CreateLocationService();
-            var model = service.GetLocationById(id);
+            var model = service.GetLocationById(id, userId);
 
             return View(model);
         }
@@ -226,9 +233,10 @@ namespace KRNL.WebMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeletePost(int id)
         {
-            var service = CreateLocationService();
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new LocationService(userId);
 
-            service.DeleteLocation(id);
+            service.DeleteLocation(id, userId);
 
             TempData["SaveResult"] = "Your location was deleted";
 

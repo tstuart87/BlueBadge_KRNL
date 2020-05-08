@@ -23,6 +23,7 @@ namespace KRNL.Models
 
         [Display(Name = "Location")]
         public int LocationId { get; set; }
+        public string LocationCode { get; set; }
 
         [Display(Name = "Growth Stage")]
         public growthStage HumanGrowthStage { get; set; }
@@ -36,6 +37,6 @@ namespace KRNL.Models
 
         public rating Rating { get; set; }
         public noYes IsDeleted { get; set; }
-
+        public noYes IsRequest { get; set; }
     }
 }

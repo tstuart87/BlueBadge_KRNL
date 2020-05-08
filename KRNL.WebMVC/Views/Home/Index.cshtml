@@ -7,38 +7,43 @@
 
         @using (Html.BeginForm("Index", "Location"))
         {
-            <button class="homeButton" type="submit">Locations</button>
+            <button class="homeButton" type="submit"><img class="homePic" src="/Content/krnlpics/tLocationsR.png" alt="KRNL"></button>
         }
 
         @using (Html.BeginForm("Index", "Cooperator"))
         {
-            <button class="homeButton" type="submit">Directory</button>
+            <button class="homeButton" type="submit"><img class="homePic" src="/Content/krnlpics/tDirectoryR.png" alt="KRNL"></button>
+        }
+
+        @using (Html.BeginForm("Index", "Document"))
+        {
+            <button class="homeButton" type="submit"><img class="homePic" src="/Content/krnlpics/tDocumentsR.png" alt="KRNL"></button>
         }
 
         @using (Html.BeginForm("Index", "Message"))
         {
-            <button class="homeButton" type="submit">Job Log</button>
+            <button class="homeButton" type="submit"><img class="homePic" src="/Content/krnlpics/tJobLogR.png" alt="KRNL"></button>
         }
 
         @using (Html.BeginForm("Create", "Location", FormMethod.Get))
         {
             @Html.AntiForgeryToken()
-            <button class="homeButton newButton" type="submit">NEW LOCATION</button>
+            <button class="homeButton newButton" type="submit"><img class="homePic" src="/Content/krnlpics/tAddLocationW.png" alt="KRNL"></button>
         }
 
         @using (Html.BeginForm("Create", "Cooperator", FormMethod.Get))
         {
             @Html.AntiForgeryToken()
-            <button class="homeButton newButton" type="submit">NEW CONTACT</button>
+            <button class="homeButton newButton" type="submit"><img class="homePic" src="/Content/krnlpics/tCreateNewContactW.png" alt="KRNL"></button>
         }
 
         @using (Html.BeginForm("Create", "Message", FormMethod.Get))
         {
             @Html.AntiForgeryToken()
-            <button class="homeButton newButton" type="submit">NEW JOB</button>
+            <button class="homeButton newButton" type="submit"><img class="homePic" src="/Content/krnlpics/tAddJobW.png" alt="KRNL"></button>
         }
 
     </div>
 </body>
 
-<img class="homeFooterPic" src="/img/krnlTransparent90.png" alt="KRNL">
+<img class="homeFooterPic" src="/Content/krnlpics/krnlTransparent90.png" alt="KRNL">

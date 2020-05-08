@@ -13,12 +13,12 @@
             <h2>
                 @if (Model.Latitude != 0 && Model.Longitude != 0)
                 {
-                    <a href=@Model.MapLink target="_blank"><img class="locDirectionsPhoto" src="/img/ilocation.png" /> @Html.DisplayFor(model => model.LocationName), @Html.DisplayFor(model => model.State)</a>
+                    <a href=@Model.MapLink target="_blank"><img class="locDirectionsPhoto" src="/Content/krnlpics/ilocation.png" /> @Html.DisplayFor(model => model.LocationCode)</a>
                 }
                 else
                 {
                     <h2>
-                        @Html.DisplayFor(model => model.LocationName), @Html.DisplayFor(model => model.State)
+                        @Html.DisplayFor(model => model.LocationCode)
                     </h2>
                 }
             </h2>
@@ -27,7 +27,13 @@
         @if (Model.DocString != null)
         {
             <div class="toggleButton">
-                <a href=@Url.Content(Model.DocString)><input type="button" value=" Field Map " class="searchButton mapButton" /></a>
+                <a href=@Url.Content(Model.DocString)><img class="jobCheckPicIcon" src="/Content/krnlpics/imap.png" alt="KRNL"></a>
+            </div>
+        }
+        else
+        {
+            <div class="toggleButton">
+                <img class="jobCheckPicIconGrey" src="/Content/krnlpics/imap.png" alt="KRNL">
             </div>
         }
 
@@ -72,23 +78,23 @@
                     <td class="tdDates">
                         @if (Model.Rating != KRNL.Data.rating.NoRating)
                         {
-                            <div class="messageLabel">Last Plot Rating:</div>
+                            <div class="messageLabel">Last Rating:</div>
                             switch (Model.Rating)
                             {
                                 case KRNL.Data.rating.Excellent:
-                                    <img class="ratingIcon" src="/img/rexcellent.png" alt="KRNL">
+                                    <img class="ratingIcon" src="/Content/krnlpics/rexcellent.png" alt="KRNL">
                                     break;
                                 case KRNL.Data.rating.AboveAverage:
-                                    <img class="ratingIcon" src="/img/raboveaverage.png" alt="KRNL">
+                                    <img class="ratingIcon" src="/Content/krnlpics/raboveaverage.png" alt="KRNL">
                                     break;
                                 case KRNL.Data.rating.Average:
-                                    <img class="ratingIcon" src="/img/raverage.png" alt="KRNL">
+                                    <img class="ratingIcon" src="/Content/krnlpics/raverage.png" alt="KRNL">
                                     break;
                                 case KRNL.Data.rating.BelowAverage:
-                                    <img class="ratingIcon" src="/img/rbelowaverage.png" alt="KRNL">
+                                    <img class="ratingIcon" src="/Content/krnlpics/rbelowaverage.png" alt="KRNL">
                                     break;
                                 case KRNL.Data.rating.Poor:
-                                    <img class="ratingIcon" src="/img/rpoor.png" alt="KRNL">
+                                    <img class="ratingIcon" src="/Content/krnlpics/rpoor.png" alt="KRNL">
                                     break;
                                 default:
                                     break;
@@ -169,46 +175,62 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="basicButton" />
             </div>
         </div>
     </div>
 }
 
 <br />
-<hr />
 <br />
 
 @if (Model.Documents != null && Model.Documents.Count() > 0)
 {
     <table class="table message">
         <tr class="messageHeader">
-            <th class="messageHeader messageHeaderTopLeft">
+            <th width="10%" class="messageHeader messageHeaderTopLeft">
 
             </th>
-            <th>
+            <th width="20%">
 
             </th>
-            <th>
+            <th width="20%">
 
             </th>
-            <th>
+            <th width="42%">
 
             </th>
-            <th class="messageHeaderTopRight">Uploaded Documents</th>
+            <th width="8%" class="messageHeaderTopRight">Docs</th>
         </tr>
 
         @foreach (var item in Model.Documents)
         {
             <tr class="spacer">
-                <td class="spacer" colspan="5"></td>
+                <td class="spacer" colspan="4"></td>
             </tr>
             <tbody class="comment">
                 <tr tr class="comment">
-                    <td class="messageLeftLocationCoop">
+                    <td class="messageLeftLocationCoop tdVertCenter">
+                        <a target="blank" href=@Url.Content(item.DocString)><input type="button" value=" Open " class="basicButton" /></a>
+                    </td>
+                    <td>
                         @Html.HiddenFor(modelItem => item.DocumentId)
                         <div class="messageLabel">LocID:</div>
                         @Html.ActionLink(item.LocationCode.ToUpper(), "Edit", "Location", new { id = item.LocationId }, null)
+                    </td>
+                    <td class="tdVertCenter alignRight">
+                        @if (item.DocType == KRNL.Data.docType.Map)
+                        {
+                            <img class="contactIcon" src="/Content/krnlpics/imap.png" alt="KRNL">
+                        }
+                        @if (item.DocType == KRNL.Data.docType.FieldBook)
+                        {
+                            <img class="contactIcon" src="/Content/krnlpics/ifieldbook.png" alt="KRNL">
+                        }
+                        @if (item.DocType == KRNL.Data.docType.Image)
+                        {
+                            <img class="contactIcon" src="/Content/krnlpics/ipicture.png" alt="KRNL">
+                        }
                     </td>
                     <td>
                         <div class="messageLabel">Document:</div>
@@ -216,22 +238,8 @@
                             @Html.DisplayFor(modelItem => item.DocName)
                         </div>
                     </td>
-                    <td>
-                    </td>
-                    <td>
-                    </td>
                     <td class="messageRightLocationCoop locStatusDots openDocButton">
-                        @if (item.DocType == KRNL.Data.docType.Map)
-                        {
-                            <img class="locStatusDots" src="/img/imap.png" alt="KRNL">
-                            <a href=@Url.Content(item.DocString)><input type="button" value=" Open " class="openDocButton" /></a>
-                        }
-                        @if (item.DocType == KRNL.Data.docType.FieldBook)
-                        {
-                            <img class="locStatusDots" src="/img/inotes.png" alt="KRNL">
-                            <a href=@Url.Content(item.DocString)><input type="button" value=" Open " class="openDocButton" /></a>
-                        }
-                        @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                        <a href="@Url.Action("Delete", "Document", new { id = item.DocumentId})"><img class="editIcon" src="/Content/krnlpics/idelete.png" alt="KRNL"></a>
                     </td>
                 </tr>
             </tbody>
@@ -241,7 +249,6 @@
 }
 
 <br />
-<hr />
 <br />
 
 @if (Model.Messages != null && Model.Messages.Count() > 0)
@@ -249,17 +256,17 @@
 {
     <table class="table message">
         <tr class="messageHeader">
-            <th width=16% class="messageHeaderTopLeft">
+            <th width=15% class="messageHeaderTopLeft">
                 @*@Html.DisplayNameFor(model => model.LocationCode)*@
             </th>
-            <th width=28%>
+            <th width=15%>
                 @*@Html.DisplayNameFor(model => model.DateCreated)*@
             </th>
-            <th width=28%>
+            <th width=35%>
                 @*@Html.DisplayNameFor(model => model.PredictedGrowthStage)*@
             </th>
-            <th width=28% class="messageHeaderTopRight">
-                Job Log
+            <th width=35% class="messageHeaderTopRight">
+                Job/Requests
                 @*@Html.DisplayNameFor(model => model.HumanGrowthStage)*@
             </th>
         </tr>
@@ -271,95 +278,132 @@
             </tr>
             <tbody class="comment">
                 <tr class="messageTop">
-                    <td class="message messageTopLeft">
+                    <td class="message messageTopLeft" colspan="1">
                         <div class="messageLabel">Location:</div>
                         @Html.ActionLink(item.LocationCode.ToUpper(), "Edit", "Location", new { id = item.LocationId }, null)
                     </td>
-                    <td class="message">
+                    <td class="message" colspan="1">
                         <div class="messageLabel">Date:</div>
                         @Html.DisplayFor(modelItem => item.DateCreated)
                     </td>
-                    <td class="message ">
+                    <td class="message " colspan="1">
                         <div class="messageLabel">Growth Stage:</div>
                         @Html.DisplayFor(model => item.HumanGrowthStage)
                     </td>
-                    <td class="message messageTopRight alignRight">
-                        <a href="@Url.Action("Edit", "Message", new { id = item.MessageId})"><img class="editIcon" src="/img/iedit.png" alt="KRNL"></a>
-                        <a href="@Url.Action("Delete", "Message", new { id = item.MessageId})"><img class="editIcon" src="/img/idelete.png" alt="KRNL"></a>
+                    <td class="message messageTopRight alignRight" colspan="1">
+                        <a href="@Url.Action("Edit", "Message", new { id = item.MessageId})"><img class="editIcon" src="/Content/krnlpics/iedit.png" alt="KRNL"></a>
+                        <a href="@Url.Action("Delete", "Message", new { id = item.MessageId})"><img class="editIcon" src="/Content/krnlpics/idelete.png" alt="KRNL"></a>
                     </td>
                 </tr>
-                <tr class="messageBottom">
-                    <td class="messageBottomLeft" colspan="2">
-                        @if (item.Comment != null)
+
+                <tr>
+                    <td colspan="1">
+                        @if (item.IsRequest == KRNL.Data.noYes.Yes)
                         {
+                            <a href="@Url.Action("CompleteRequest", "Message", new { id = item.MessageId})"><img class="jobCheckPicIcon" src="/Content/krnlpics/reqCheck.png" alt="KRNL"></a>
+                        }
+                        else
+                        {
+                            if (item.DocString != null)
+                            {
+                                <a target="blank" href=@Url.Content(item.DocString)><img class="jobCheckPicIcon" src="/Content/krnlpics/ipicture.png" alt="KRNL"></a>
+                            }
+                            else
+                            {
+                                <img class="jobCheckPicIconGrey" src="/Content/krnlpics/ipicture.png" alt="KRNL">
+                            }
+                        }
+                    </td>
+                    @if (item.Comment != null)
+                    {
+                        <td colspan="3">
                             <p class="comment">
                                 @Html.DisplayFor(modelItem => item.Comment)
                             </p>
+                        </td>
+                    }
+                    else
+                    {
+                        <td colspan="3"></td>
+                    }
+                </tr>
+
+
+                <tr class="messageBottom messageBottomLeft">
+                    <td colspan="2">
+                        @if (item.FullName != null && item.IsRequest == KRNL.Data.noYes.No)
+                        {
+
+                            @Html.DisplayFor(modelItem => item.FullName)
                         }
-                        @Html.DisplayFor(modelItem => item.FullName)
+                        else
+                        {
+
+                        }
                         <br />
                         @switch (item.Rating)
                         {
                             case KRNL.Data.rating.Excellent:
-                                <img class="ratingIcon" src="/img/rexcellent.png" alt="KRNL">
+                                <img class="ratingIcon" src="/Content/krnlpics/rexcellent.png" alt="KRNL">
                                 break;
                             case KRNL.Data.rating.AboveAverage:
-                                <img class="ratingIcon" src="/img/raboveaverage.png" alt="KRNL">
+                                <img class="ratingIcon" src="/Content/krnlpics/raboveaverage.png" alt="KRNL">
                                 break;
                             case KRNL.Data.rating.Average:
-                                <img class="ratingIcon" src="/img/raverage.png" alt="KRNL">
+                                <img class="ratingIcon" src="/Content/krnlpics/raverage.png" alt="KRNL">
                                 break;
                             case KRNL.Data.rating.BelowAverage:
-                                <img class="ratingIcon" src="/img/rbelowaverage.png" alt="KRNL">
+                                <img class="ratingIcon" src="/Content/krnlpics/rbelowaverage.png" alt="KRNL">
                                 break;
                             case KRNL.Data.rating.Poor:
-                                <img class="ratingIcon" src="/img/rpoor.png" alt="KRNL">
+                                <img class="ratingIcon" src="/Content/krnlpics/rpoor.png" alt="KRNL">
                                 break;
                             default:
                                 break;
                         }
                     </td>
-                    <td class="messageBottomRight alignRight" colspan="2">
+
+                    <td class="messageBottomRight alignRight vertBottom noBottom" colspan="2">
                         @switch (item.JobOne)
                         {
                             case KRNL.Data.job.Cultivating:
-                                <img class="messageIcon" src="/img/iplow.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/iplow.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.DroneFlight:
-                                <img class="messageIcon" src="/img/idrone.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/idrone.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.Harvesting:
-                                <img class="messageIcon" src="/img/icombine.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/icombine.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.HerbicideSpraying:
-                                <img class="messageIcon" src="/img/iherbicide.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/iherbicide.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.InsecticideSpraying:
-                                <img class="messageIcon" src="/img/iinsecticide.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/iinsecticide.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.NitrogenApplication:
-                                <img class="messageIcon" src="/img/initrogen.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/initrogen.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.Notes:
-                                <img class="messageIcon" src="/img/inotes.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/inotes.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.PlantEarHeights:
-                                <img class="messageIcon" src="/img/ipande.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/ipande.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.Planting:
-                                <img class="messageIcon" src="/img/iplanter.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/iplanter.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.Rowbanding:
-                                <img class="messageIcon" src="/img/iband.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/iband.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.Staking:
-                                <img class="messageIcon" src="/img/istake.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/istake.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.StandCounts:
-                                <img class="messageIcon" src="/img/istandcounts.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/istandcounts.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.WeedManagement:
-                                <img class="messageIcon" src="/img/ihoe.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/ihoe.png" alt="KRNL">
                                 break;
                             default:
                                 break;
@@ -368,43 +412,43 @@
                         @switch (item.JobTwo)
                         {
                             case KRNL.Data.job.Cultivating:
-                                <img class="messageIcon" src="/img/iplow.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/iplow.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.DroneFlight:
-                                <img class="messageIcon" src="/img/idrone.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/idrone.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.Harvesting:
-                                <img class="messageIcon" src="/img/icombine.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/icombine.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.HerbicideSpraying:
-                                <img class="messageIcon" src="/img/iherbicide.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/iherbicide.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.InsecticideSpraying:
-                                <img class="messageIcon" src="/img/iinsecticide.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/iinsecticide.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.NitrogenApplication:
-                                <img class="messageIcon" src="/img/initrogen.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/initrogen.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.Notes:
-                                <img class="messageIcon" src="/img/inotes.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/inotes.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.PlantEarHeights:
-                                <img class="messageIcon" src="/img/ipande.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/ipande.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.Planting:
-                                <img class="messageIcon" src="/img/iplanter.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/iplanter.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.Rowbanding:
-                                <img class="messageIcon" src="/img/iband.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/iband.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.Staking:
-                                <img class="messageIcon" src="/img/istake.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/istake.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.StandCounts:
-                                <img class="messageIcon" src="/img/istandcounts.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/istandcounts.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.WeedManagement:
-                                <img class="messageIcon" src="/img/ihoe.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/ihoe.png" alt="KRNL">
                                 break;
                             default:
                                 break;
@@ -413,43 +457,43 @@
                         @switch (item.JobThree)
                         {
                             case KRNL.Data.job.Cultivating:
-                                <img class="messageIcon" src="/img/iplow.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/iplow.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.DroneFlight:
-                                <img class="messageIcon" src="/img/idrone.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/idrone.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.Harvesting:
-                                <img class="messageIcon" src="/img/icombine.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/icombine.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.HerbicideSpraying:
-                                <img class="messageIcon" src="/img/iherbicide.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/iherbicide.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.InsecticideSpraying:
-                                <img class="messageIcon" src="/img/iinsecticide.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/iinsecticide.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.NitrogenApplication:
-                                <img class="messageIcon" src="/img/initrogen.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/initrogen.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.Notes:
-                                <img class="messageIcon" src="/img/inotes.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/inotes.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.PlantEarHeights:
-                                <img class="messageIcon" src="/img/ipande.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/ipande.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.Planting:
-                                <img class="messageIcon" src="/img/iplanter.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/iplanter.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.Rowbanding:
-                                <img class="messageIcon" src="/img/iband.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/iband.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.Staking:
-                                <img class="messageIcon" src="/img/istake.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/istake.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.StandCounts:
-                                <img class="messageIcon" src="/img/istandcounts.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/istandcounts.png" alt="KRNL">
                                 break;
                             case KRNL.Data.job.WeedManagement:
-                                <img class="messageIcon" src="/img/ihoe.png" alt="KRNL">
+                                <img class="messageIcon vertBottom" src="/Content/krnlpics/ihoe.png" alt="KRNL">
                                 break;
                             default:
                                 break;

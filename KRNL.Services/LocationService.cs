@@ -43,14 +43,14 @@ namespace KRNL.Services
             }
         }
 
-        public IEnumerable<LocationListItem> GetLocations()
+        public IEnumerable<LocationListItem> GetLocations(Guid userId)
         {
             using (var ctx = new ApplicationDbContext())
             {
-                
                 var query =
                     ctx
                         .Locations
+                        .Where(e => e.IsDeleted == noYes.No && e.OwnerId == userId)
                         .Select(
                             e =>
                                 new LocationListItem
@@ -74,11 +74,15 @@ namespace KRNL.Services
                                     CooperatorId = e.CooperatorId,
                                     FullName = e.CooperatorId == null ? " " : e.Cooperators.FullName,
                                     Phone = e.Cooperators.Phone == null ? " " : e.Cooperators.Phone,
-                                    MapLink = "https://www.google.com/maps/dir/?api=1&destination=" + e.Latitude + "," + e.Longitude
+                                    Email = e.Cooperators.Email == null ? " " : e.Cooperators.Email,
+                                    Rating = e.Rating,
+                                    RequestCount = e.RequestCount,
+                                    LastVisitor = e.LastVisitor,
+                                    MapLink = "https://www.google.com/maps/dir/?api=1&destination=" + e.Latitude + "," + e.Longitude,
                                 }
                         );
 
-                return query.ToList();
+                return query.ToList().OrderBy(e => e.LocationCode);
             }
         }
 
@@ -142,6 +146,7 @@ namespace KRNL.Services
             using (var ctx = new ApplicationDbContext())
             {
                 var entity = ctx.Locations.Single(e => e.LocationId == locId);
+
                 entity.IsPlanted = stake.Yes;
                 entity.DatePlanted = DateTimeOffset.Now;
                 entity.MonthOfPlanting = (month)(Convert.ToInt32(entity.DatePlanted.Month));
@@ -241,7 +246,6 @@ namespace KRNL.Services
             }
         }
 
-
         public bool EditLocationIsPlantedToYes(int locId, DateTimeOffset? date)
         {
             using (var ctx = new ApplicationDbContext())
@@ -295,14 +299,47 @@ namespace KRNL.Services
             }
         }
 
-        public LocationDetail GetLocationById(int id)
+        public bool AddOneToRequestCount(int locId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Locations.Single(e => e.LocationId == locId);
+                entity.RequestCount += 1;
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
+        public bool SubtractOneFromRequestCount(int locId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Locations.Single(e => e.LocationId == locId);
+                entity.RequestCount -= 1;
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
+        public bool SetLastVisitor(int locId, string fullName)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Locations.Single(e => e.LocationId == locId);
+                entity.LastVisitor = fullName;
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
+        public LocationDetail GetLocationById(int id, Guid userId)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
                         .Locations
-                        .Single(e => e.LocationId == id);
+                        .Single(e => e.LocationId == id && e.OwnerId == userId);
 
                 if (entity.CooperatorId == null)
                 {
@@ -343,17 +380,17 @@ namespace KRNL.Services
             }
         }
 
-        public LocationEdit GetLocationEditById(int id)
+        public LocationEdit GetLocationEditById(int id, Guid userId)
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var messageService = new MessageService();
-                var documentService = new DocumentService();
+                var messageService = new MessageService(userId);
+                var documentService = new DocumentService(userId);
 
                 var entity =
                     ctx
                         .Locations
-                        .Single(e => e.LocationId == id);
+                        .Single(e => e.LocationId == id && e.OwnerId == userId);
 
                 if (entity.CooperatorId == null)
                 {
@@ -376,9 +413,9 @@ namespace KRNL.Services
                             DatePlanted = entity.DatePlanted,
                             DateHarvested = entity.DateHarvested,
                             CRM = entity.CRM,
-                            Messages = messageService.GetMessages(entity.LocationId),
-                            Documents = documentService.GetDocuments(entity.LocationId),
-                            DocString = documentService.GetDocStringForLocation(entity.LocationId),
+                            Messages = messageService.GetMessages(entity.LocationId, userId),
+                            Documents = documentService.GetDocuments(entity.LocationId, userId),
+                            DocString = documentService.GetDocStringForLocation(entity.LocationId, userId),
                             Rating = entity.Rating,
                             MapLink = "https://www.google.com/maps/dir/?api=1&destination=" + entity.Latitude + "," + entity.Longitude
                         };
@@ -405,23 +442,23 @@ namespace KRNL.Services
                         CRM = entity.CRM,
                         CooperatorId = entity.CooperatorId,
                         FullName = entity.Cooperators.FullName,
-                        Messages = messageService.GetMessages(entity.LocationId),
-                        Documents = documentService.GetDocuments(entity.LocationId),
-                        DocString = documentService.GetDocStringForLocation(entity.LocationId),
+                        Messages = messageService.GetMessages(entity.LocationId, userId),
+                        Documents = documentService.GetDocuments(entity.LocationId, userId),
+                        DocString = documentService.GetDocStringForLocation(entity.LocationId, userId),
                         Rating = entity.Rating,
                         MapLink = "https://www.google.com/maps/dir/?api=1&destination=" + entity.Latitude + "," + entity.Longitude
                     };
             }
         }
 
-        public bool DeleteLocation(int locationId)
+        public bool DeleteLocation(int locationId, Guid userId)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
                         .Locations
-                        .Single(e => e.LocationId == locationId);
+                        .Single(e => e.LocationId == locationId && e.OwnerId == userId);
 
                 ctx.Locations.Remove(entity);
 
@@ -674,9 +711,7 @@ namespace KRNL.Services
                 if (x.DayOfPlanting > 0 && x.YearOfPlanting > 0)
                 {
                     DateTimeOffset Today = DateTimeOffset.Now;
-                    double daysSincePlanting = (Today - x.DatePlanted).TotalDays;
-
-                    daysSincePlanting = daysSincePlanting - 250; //Just for testing purposes delete this when this is working live. 4/7/2019 = 250
+                    double daysSincePlanting = (Today - x.DatePlanted).TotalDays - 1;
 
                     return Convert.ToInt32(daysSincePlanting);
                 }

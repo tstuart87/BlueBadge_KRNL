@@ -4,7 +4,9 @@
     ViewBag.Title = "Delete";
 }
 
-<h3>Delete Contact?</h3>
+<div>
+    <img class="titlePic" src="/Content/krnlpics/tDeleteY.png" alt="KRNL">
+</div>
 
 @using (Html.BeginForm())
 {
@@ -19,14 +21,12 @@
 <table class="table message">
     <tr class="messageHeader">
         <th width=42% class="messageHeaderTopLeft">
-            Name
             @*@Html.DisplayNameFor(model => model.LocationCode)*@
         </th>
         <th width=42%>
-            Contact
             @*@Html.DisplayNameFor(model => model.DateCreated)*@
         </th>
-        <th width=16% class="messageHeaderTopRight">
+        <th width=16% class="messageHeaderTopRight">Contact
             @*@Html.DisplayNameFor(model => model.HumanGrowthStage)*@
         </th>
     </tr>

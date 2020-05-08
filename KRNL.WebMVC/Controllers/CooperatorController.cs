@@ -16,15 +16,24 @@ namespace KRNL.WebMVC.Controllers
     public class CooperatorController : Controller
     {
         // GET: Cooperator
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString, string toggleView)
         {
-            var service = new CooperatorService();
-            var model = service.GetCooperators();
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new CooperatorService(userId);
+            var model = service.GetCooperators(userId);
             model.OrderBy(s => s.LastName);
+
+            ViewBag.ToggleView = "viewOne";
+            ViewBag.SearchString = searchString;
+
+            if (toggleView != null)
+            {
+                ViewBag.ToggleView = toggleView;
+            }
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                model = model.Where(e => e.FullName.Contains(searchString.ToUpper()));
+                model = model.Where(e => e.SearchString.Contains(searchString.ToUpper()));
             }
 
             return View(model.OrderBy(e => e.FullName));
@@ -51,16 +60,18 @@ namespace KRNL.WebMVC.Controllers
 
         public ActionResult Details(int id)
         {
-            var service = CreateCooperatorService();
-            var model = service.GetCooperatorById(id);
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new CooperatorService(userId);
+            var model = service.GetCooperatorById(id, userId);
 
             return View(model);
         }
 
         public ActionResult Edit (int id)
         {
-            var service = CreateCooperatorService();
-            var detail = service.GetCooperatorById(id);
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new CooperatorService(userId);
+            var detail = service.GetCooperatorById(id, userId);
             var model = new CooperatorEdit
             {
                 CooperatorId = detail.CooperatorId,
@@ -85,10 +96,10 @@ namespace KRNL.WebMVC.Controllers
                 ModelState.AddModelError("", "Id Mismatch");
                 return View(model);
             }
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new CooperatorService(userId);
 
-            var service = CreateCooperatorService();
-
-            if (service.UpdateCooperator(model))
+            if (service.UpdateCooperator(model, userId))
             {
                 TempData["SaveResult"] = "Your cooperator was updated.";
                 return RedirectToAction("Index");
@@ -101,8 +112,9 @@ namespace KRNL.WebMVC.Controllers
         [ActionName("Delete")]
         public ActionResult Delete(int id)
         {
-            var service = CreateCooperatorService();
-            var model = service.GetCooperatorById(id);
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new CooperatorService(userId);
+            var model = service.GetCooperatorById(id, userId);
 
             return View(model);
         }
@@ -112,9 +124,10 @@ namespace KRNL.WebMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeletePost(int id)
         {
-            var service = CreateCooperatorService();
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new CooperatorService(userId);
 
-            service.DeleteCooperator(id);
+            service.DeleteCooperator(id, userId);
 
             return RedirectToAction("Index");
         }

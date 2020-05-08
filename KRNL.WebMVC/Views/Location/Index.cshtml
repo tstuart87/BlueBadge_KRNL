@@ -6,48 +6,63 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Locations</h2>
+@*<h2>Locations</h2>*@
 
-<h4>
-    @Html.ActionLink("Add Location", "Create")
-</h4>
+<div>
+    <img class="titlePic" src="/Content/krnlpics/tLocationsR.png" alt="KRNL">
+</div>
+
+<div>
+    <a href="@Url.Action("Create", "Location")">
+        <img class="titleAction" src="/Content/krnlpics/tAddLocationW.png" alt="KRNL">
+    </a>
+</div>
+
+@*<h4>
+        @Html.ActionLink("Add Location", "Create")
+    </h4>*@
 
 @using (Html.BeginForm())
 {
     <p>
         <div class="searchBar">
+
             @Html.TextBox("searchString", (string)ViewBag.SearchString)
+            <a class="clearX" href="@Url.Action("Index", "Location", new { toggleView = ViewBag.ToggleView, sortOrder = ViewBag.SortParm, searchString = "" })">
+                <img class="clearX" src="/Content/krnlpics/iclear.png" alt="KRNL">
+            </a>
+
             <input type="submit" value=" Search " class="searchButton" />
         </div>
     </p>
 }
 
-<div class="searchBar toggleButton">
+<div class="searchBar toggleButton toggleButtonDirectory">
     @switch (ViewBag.ToggleView)
     {
         case "viewOne":
             <a href="@Url.Action("Index", "Location", new { toggleView = "viewTwo", sortOrder = ViewBag.SortParm, searchString = ViewBag.SearchString })">
-                <img class="navbarLogo" src="/img/toggleOne.png" alt="KRNL">
+                <img class="navbarLogo" src="/Content/krnlpics/toggleOne.png" alt="KRNL">
             </a>
             break;
         case "viewTwo":
             <a href="@Url.Action("Index", "Location", new { toggleView = "viewThree", sortOrder = ViewBag.SortParm, searchString = ViewBag.SearchString })">
-                <img class="navbarLogo" src="/img/toggleTwo.png" alt="KRNL">
+                <img class="navbarLogo" src="/Content/krnlpics/toggleTwo.png" alt="KRNL">
             </a>
             break;
         case "viewThree":
             <a href="@Url.Action("Index", "Location", new { toggleView = "viewFour", sortOrder = ViewBag.SortParm, searchString = ViewBag.SearchString })">
-                <img class="navbarLogo" src="/img/toggleThree.png" alt="KRNL">
+                <img class="navbarLogo" src="/Content/krnlpics/toggleThree.png" alt="KRNL">
             </a>
             break;
         case "viewFour":
             <a href="@Url.Action("Index", "Location", new { toggleView = "viewOne", sortOrder = ViewBag.SortParm, searchString = ViewBag.SearchString })">
-                <img class="navbarLogo" src="/img/toggleFour.png" alt="KRNL">
+                <img class="navbarLogo" src="/Content/krnlpics/toggleFour.png" alt="KRNL">
             </a>
             break;
         default:
             <a href="@Url.Action("Index", "Location", new { toggleView = "viewOne", sortOrder = ViewBag.SortParm, searchString = ViewBag.SearchString })">
-                <img class="navbarLogo" src="/img/toggleOne.png" alt="KRNL">
+                <img class="navbarLogo" src="/Content/krnlpics/toggleOne.png" alt="KRNL">
             </a>
             break;
     }
@@ -57,6 +72,381 @@
 {
     case "viewOne":
         {
+            <table class="table message">
+
+                <tr class="messageHeader">
+
+                    <th width=18% class="messageHeader messageHeaderTopLeft">
+                            @Html.ActionLink("LocID", "Index", new { sortOrder = "LocID", toggleView = ViewBag.ToggleView, searchString = ViewBag.SearchString }, new { @class = "sortFont"})
+                    </th>
+
+                    <th width=22%>
+                            @Html.ActionLink("GDUs", "Index", new { sortOrder = "GDUs", toggleView = ViewBag.ToggleView, searchString = ViewBag.SearchString }, new { @class = "sortFont"})
+                    </th>
+
+                    <th width=28%>
+
+                    </th>
+                    <th width=32% class="messageHeaderTopRight">Locations</th>
+
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr class="spacer">
+                        <td class="spacer" colspan="3"></td>
+                    </tr>
+                    <tbody class="comment">
+                        <tr class="comment">
+
+                            <td width="10%" colspan="1" class="messageLeftLocationCoop">
+                                <div class="messageLabel">LocID:</div>
+                                @Html.ActionLink(item.LocationCode.ToUpper(), "Edit", new { id = item.LocationId })
+                            </td>
+                            <td colspan="1">
+                                <div class="messageLabel">GDUs:</div>
+                                @Html.DisplayFor(modelItem => item.GDUs)
+                            </td>
+                            <td colspan="1">
+                                <div class="messageLabel">Estimated:</div>
+                                @Html.DisplayFor(modelItem => item.GrowthStage)
+                            </td>
+                            <td colspan="1" class="messageRightLocationCoop locStatusDots">
+                                @if (item.IsPlanted == KRNL.Data.stake.Yes && item.IsStaked == KRNL.Data.stake.No && item.IsRowbanded == KRNL.Data.stake.No && item.IsHarvested == KRNL.Data.stake.No)
+                                {
+                                    <img class="locStatusDots" src="/Content/krnlpics/dotsPLANTED.png" alt="KRNL">
+                                }
+                                else if (item.IsPlanted == KRNL.Data.stake.Yes && item.IsStaked == KRNL.Data.stake.Yes && item.IsRowbanded == KRNL.Data.stake.No && item.IsHarvested == KRNL.Data.stake.No)
+                                {
+                                    <img class="locStatusDots" src="/Content/krnlpics/dotsSTAKED.png" alt="KRNL">
+                                }
+                                else if (item.IsPlanted == KRNL.Data.stake.Yes && item.IsStaked == KRNL.Data.stake.Yes && item.IsRowbanded == KRNL.Data.stake.Yes && item.IsHarvested == KRNL.Data.stake.No)
+                                {
+                                    <img class="locStatusDots" src="/Content/krnlpics/dotsBANDED.png" alt="KRNL">
+                                }
+                                else if (item.IsPlanted == KRNL.Data.stake.Yes && item.IsStaked == KRNL.Data.stake.Yes && item.IsHarvested == KRNL.Data.stake.Yes)
+                                {
+                                    <img class="locStatusDots" src="/Content/krnlpics/dotsHARVESTED.png" alt="KRNL">
+                                }
+                                else
+                                {
+                                    <img class="locStatusDots" src="/Content/krnlpics/dotsNULL.png" alt="KRNL">
+                                }
+                                @*@Html.ActionLink("Delete", "Delete", new { id = item.LocationId })*@
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+            </table>
+
+            break;
+        }
+
+    case "viewTwo":
+        {
+            <table class="table message">
+
+                <tr class="messageHeader">
+
+                    <th width=20% class="messageHeader messageHeaderTopLeft">
+                        @Html.ActionLink("LocID", "Index", new { sortOrder = "LocID", toggleView = ViewBag.ToggleView, searchString = ViewBag.SearchString }, new { @class = "sortFont"})
+                    </th>
+                    <th width=27%></th>
+                    <th width=20%></th>
+                    <th width=25%></th>
+                    <th width=8% class="messageHeaderTopRight">
+                        Locations
+                    </th>
+
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr class="spacer">
+                        <td class="spacer" colspan="2"></td>
+                    </tr>
+                    <tbody class="comment">
+                        <tr class="comment">
+
+                            <td colspan="1" class="messageLeftLocationCoop">
+                                <div class="messageLabel">LocID:</div>
+                                @Html.ActionLink(item.LocationCode.ToUpper(), "Edit", new { id = item.LocationId })
+                            </td>
+                            <td>
+                                <div class="messageLabel">Last Visitor:</div>
+                                <div class="lightFont">
+                                    @item.LastVisitor
+                                </div>
+                            </td>
+                            <td>
+                                <div class="messageLabel">Last Rating:</div>
+                                @switch (item.Rating)
+                                {
+                                    case KRNL.Data.rating.Excellent:
+                                        <img class="ratingIcon" src="/Content/krnlpics/rexcellent.png" alt="KRNL">
+                                        break;
+                                    case KRNL.Data.rating.AboveAverage:
+                                        <img class="ratingIcon" src="/Content/krnlpics/raboveaverage.png" alt="KRNL">
+                                        break;
+                                    case KRNL.Data.rating.Average:
+                                        <img class="ratingIcon" src="/Content/krnlpics/raverage.png" alt="KRNL">
+                                        break;
+                                    case KRNL.Data.rating.BelowAverage:
+                                        <img class="ratingIcon" src="/Content/krnlpics/rbelowaverage.png" alt="KRNL">
+                                        break;
+                                    case KRNL.Data.rating.Poor:
+                                        <img class="ratingIcon" src="/Content/krnlpics/rpoor.png" alt="KRNL">
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            </td>
+                            @if (item.RequestCount != 0)
+                            {
+                                <td class="messageRightLocationCoop alignRight">
+                                    <div class="messageLabel">Requests:</div>
+                                    @item.RequestCount
+                                </td>
+                                <td class="alignRight">
+                                    <a href=@Url.Action("Index", "Message", new { searchString = item.LocationCode, toggleView = "requestView" } )><img class="contactIcon" src="/Content/krnlpics/reqCheck.png" /></a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="messageRightLocationCoop">
+                                </td>
+                                <td class="alignRight">
+                                    <img class="contactIcon alignRight imgGrey" src="/Content/krnlpics/reqCheck.png" />
+                                </td>
+                            }
+                        <tr />
+                        <tr>
+                            <td colspan="5" class="messageLeftLocationCoop messageRightLocationCoop locStatusDots">
+                                @switch (item.GrowthStage)
+                                {
+                                    case "V0":
+                                        <img class="barView" src="/Content/krnlpics/barV00.png" alt="KRNL">
+                                        break;
+                                    case "VE":
+                                        <img class="barView" src="/Content/krnlpics/barVE.png" alt="KRNL">
+                                        break;
+                                    case "V1":
+                                        <img class="barView" src="/Content/krnlpics/barV01.png" alt="KRNL">
+                                        break;
+                                    case "V2":
+                                        <img class="barView" src="/Content/krnlpics/barV02.png" alt="KRNL">
+                                        break;
+                                    case "V3":
+                                        <img class="barView" src="/Content/krnlpics/barV03.png" alt="KRNL">
+                                        break;
+                                    case "V4":
+                                        <img class="barView" src="/Content/krnlpics/barV04.png" alt="KRNL">
+                                        break;
+                                    case "V5":
+                                        <img class="barView" src="/Content/krnlpics/barV05.png" alt="KRNL">
+                                        break;
+                                    case "V6":
+                                        <img class="barView" src="/Content/krnlpics/barV06.png" alt="KRNL">
+                                        break;
+                                    case "V7":
+                                        <img class="barView" src="/Content/krnlpics/barV07.png" alt="KRNL">
+                                        break;
+                                    case "V8":
+                                        <img class="barView" src="/Content/krnlpics/barV08.png" alt="KRNL">
+                                        break;
+                                    case "V9":
+                                        <img class="barView" src="/Content/krnlpics/barV09.png" alt="KRNL">
+                                        break;
+                                    case "V10":
+                                        <img class="barView" src="/Content/krnlpics/barV10.png" alt="KRNL">
+                                        break;
+                                    case "V11":
+                                        <img class="barView" src="/Content/krnlpics/barV11.png" alt="KRNL">
+                                        break;
+                                    case "V12":
+                                        <img class="barView" src="/Content/krnlpics/barV12.png" alt="KRNL">
+                                        break;
+                                    case "V13":
+                                        <img class="barView" src="/Content/krnlpics/barV13.png" alt="KRNL">
+                                        break;
+                                    case "V14":
+                                        <img class="barView" src="/Content/krnlpics/barV14.png" alt="KRNL">
+                                        break;
+                                    case "V15":
+                                        <img class="barView" src="/Content/krnlpics/barV15.png" alt="KRNL">
+                                        break;
+                                    case "VT":
+                                        <img class="barView" src="/Content/krnlpics/barVT.png" alt="KRNL">
+                                        break;
+                                    case "R1":
+                                        <img class="barView" src="/Content/krnlpics/barR1.png" alt="KRNL">
+                                        break;
+                                    case "R2":
+                                        <img class="barView" src="/Content/krnlpics/barR2.png" alt="KRNL">
+                                        break;
+                                    case "R3":
+                                        <img class="barView" src="/Content/krnlpics/barR3.png" alt="KRNL">
+                                        break;
+                                    case "R4":
+                                        <img class="barView" src="/Content/krnlpics/barR4.png" alt="KRNL">
+                                        break;
+                                    case "R5":
+                                        <img class="barView" src="/Content/krnlpics/barR5.png" alt="KRNL">
+                                        break;
+                                    case "R6":
+                                        <img class="barView" src="/Content/krnlpics/barR6.png" alt="KRNL">
+                                        break;
+                                    default:
+                                        <img class="barView" src="/Content/krnlpics/barV00.png" alt="KRNL">
+                                        break;
+                                }
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+            </table>
+
+            break;
+        }
+
+    case "viewThree":
+        {
+            <table class="table message">
+
+                <tr class="messageHeader">
+
+                    <th width=17% class="messageHeader messageHeaderTopLeft">
+                        @Html.ActionLink("LocID", "Index", new { sortOrder = "LocID", toggleView = ViewBag.ToggleView, searchString = ViewBag.SearchString }, new { @class = "sortFont"})
+                    </th>
+
+                    <th width=33%>
+                    </th>
+
+                    <th width=50% class="messageHeaderTopRight">
+                        Locations
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr class="spacer">
+                        <td class="spacer" colspan="3"></td>
+                    </tr>
+                    <tbody class="comment">
+                        <tr class="comment">
+
+                            <td width="10%" colspan="1" class="messageLeftLocationCoop">
+                                <div class="messageLabel">LocID:</div>
+                                @Html.ActionLink(item.LocationCode.ToUpper(), "Edit", new { id = item.LocationId })
+                            </td>
+                            <td colspan="1">
+                                @if (item.CooperatorId != null)
+                                {
+                                    <div class="messageLabel">Cooperator:</div>
+                                    <div class="lightFont">
+                                        @Html.ActionLink(item.FullName, "Edit", "Cooperator", new { id = item.CooperatorId }, null)
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="messageLabel">Cooperator:</div>
+                                    <div class="lightFont">
+                                        @Html.ActionLink("Assign Cooperator", "EditCoop", new { id = item.LocationId })
+                                    </div>
+                                }
+                            </td>
+
+                            <td class="messageRightLocationCoop alignRight">
+                                @if (item.Phone == null || item.CooperatorId == null)
+                                {
+                                    <img class="imgGrey contactIcon" src="/Content/krnlpics/iphone.png" />
+                                }
+                                else
+                                {
+                                    <a href="tel:@item.Phone" target="_blank"><img class="contactIcon" src="/Content/krnlpics/iphone.png" /></a>
+                                }
+                                @if (item.Phone == null || item.CooperatorId == null)
+                                {
+                                    <img class="imgGrey contactIcon" src="/Content/krnlpics/imessage.png" />
+                                }
+                                else
+                                {
+                                    <a href="sms:@item.Phone" target="_blank"><img class="contactIcon" src="/Content/krnlpics/imessage.png" /></a>
+                                }
+                                @if (item.Email == null || item.CooperatorId == null)
+                                {
+                                    <img class="imgGrey contactIcon" src="/Content/krnlpics/imail.png" />
+                                }
+                                else
+                                {
+                                    <a href="@String.Format("mailto:" + item.Email)" target="_blank"><img class="contactIcon" src="/Content/krnlpics/imail.png" /></a>
+                                }
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+            </table>
+
+            break;
+        }
+
+    case "viewFour":
+        {
+            <table class="table message">
+
+                <tr class="messageHeader">
+
+                    <th width=20% class="messageHeader messageHeaderTopLeft">
+                        @Html.ActionLink("LocID", "Index", new { sortOrder = "LocID", toggleView = ViewBag.ToggleView, searchString = ViewBag.SearchString }, new { @class = "sortFont"})
+                    </th>
+
+                    <th width=60%>
+                    </th>
+
+                    @Html.ActionLink(" ", "Index", new { sortOrder = "GDUs", toggleView = ViewBag.ToggleView, searchString = ViewBag.SearchString })
+                    <th width=20% class="messageHeaderTopRight">
+                        Locations
+                    </th>
+
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr class="spacer">
+                        <td class="spacer" colspan="3"></td>
+                    </tr>
+                    <tbody class="comment">
+                        <tr class="comment">
+
+                            <td width="10%" colspan="1" class="messageLeftLocationCoop">
+                                <div class="messageLabel">LocID:</div>
+                                @Html.ActionLink(item.LocationCode.ToUpper(), "Edit", new { id = item.LocationId })
+                            </td>
+                            <td colspan="1">
+                                <div class="messageLabel">Location:</div>
+                                @Html.DisplayFor(modelItem => item.LocationName), @Html.DisplayFor(modelItem => item.State)
+                            </td>
+                            <td colspan="1" class="messageRightLocationCoop locStatusDots">
+                                @if (item.Latitude == 0 || item.Longitude == 0)
+                                {
+                                    <img class="contactIcon imgGrey" src="/Content/krnlpics/ilocation.png" />
+                                }
+                                else
+                                {
+                                    <a href=@item.MapLink target="_blank"><img class="contactIcon" src="/Content/krnlpics/ilocation.png" /></a>
+                                }
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+            </table>
+
+            break;
+        }
+
+    default:
+        {
+
             <table class="table message">
 
                 <tr class="messageHeader">
@@ -99,23 +489,23 @@
                             <td colspan="1" class="messageRightLocationCoop locStatusDots">
                                 @if (item.IsPlanted == KRNL.Data.stake.Yes && item.IsStaked == KRNL.Data.stake.No && item.IsRowbanded == KRNL.Data.stake.No && item.IsHarvested == KRNL.Data.stake.No)
                                 {
-                                    <img class="locStatusDots" src="/img/dotsPLANTED.png" alt="KRNL">
+                                    <img class="locStatusDots" src="/Content/krnlpics/dotsPLANTED.png" alt="KRNL">
                                 }
                                 else if (item.IsPlanted == KRNL.Data.stake.Yes && item.IsStaked == KRNL.Data.stake.Yes && item.IsRowbanded == KRNL.Data.stake.No && item.IsHarvested == KRNL.Data.stake.No)
                                 {
-                                    <img class="locStatusDots" src="/img/dotsSTAKED.png" alt="KRNL">
+                                    <img class="locStatusDots" src="/Content/krnlpics/dotsSTAKED.png" alt="KRNL">
                                 }
                                 else if (item.IsPlanted == KRNL.Data.stake.Yes && item.IsStaked == KRNL.Data.stake.Yes && item.IsRowbanded == KRNL.Data.stake.Yes && item.IsHarvested == KRNL.Data.stake.No)
                                 {
-                                    <img class="locStatusDots" src="/img/dotsBANDED.png" alt="KRNL">
+                                    <img class="locStatusDots" src="/Content/krnlpics/dotsBANDED.png" alt="KRNL">
                                 }
                                 else if (item.IsPlanted == KRNL.Data.stake.Yes && item.IsStaked == KRNL.Data.stake.Yes && item.IsHarvested == KRNL.Data.stake.Yes)
                                 {
-                                    <img class="locStatusDots" src="/img/dotsHARVESTED.png" alt="KRNL">
+                                    <img class="locStatusDots" src="/Content/krnlpics/dotsHARVESTED.png" alt="KRNL">
                                 }
                                 else
                                 {
-                                    <img class="locStatusDots" src="/img/dotsNULL.png" alt="KRNL">
+                                    <img class="locStatusDots" src="/Content/krnlpics/dotsNULL.png" alt="KRNL">
                                 }
                                 @*@Html.ActionLink("Delete", "Delete", new { id = item.LocationId })*@
                             </td>
@@ -123,308 +513,6 @@
                     </tbody>
                 }
             </table>
-
-            break;
-        }
-
-    case "viewTwo":
-        {
-            <table class="table message">
-
-                <tr class="messageHeader">
-
-                    <th width=10% class="messageHeader messageHeaderTopLeft">
-                        @Html.ActionLink("LocID", "Index", new { sortOrder = "LocID", toggleView = ViewBag.ToggleView, searchString = ViewBag.SearchString })
-                    </th>
-
-                    <th width=90% class="messageHeaderTopRight">
-                        @Html.ActionLink("Growth Stage", "Index", new { sortOrder = "GDUs", toggleView = ViewBag.ToggleView, searchString = ViewBag.SearchString })
-                    </th>
-
-                </tr>
-
-                @foreach (var item in Model)
-                {
-                    <tr class="spacer">
-                        <td class="spacer" colspan="2"></td>
-                    </tr>
-                    <tbody class="comment">
-                        <tr class="comment">
-
-                            <td width="10%" colspan="1" class="messageLeftLocationCoop">
-                                <div class="messageLabel">LocID:</div>
-                                @Html.ActionLink(item.LocationCode.ToUpper(), "Edit", new { id = item.LocationId })
-                            </td>
-
-                            <td colspan="1" class="messageRightLocationCoop locStatusDots">
-                                @switch (item.GrowthStage)
-                                {
-                                    case "V0":
-                                        <img class="barView" src="/img/barV00.png" alt="KRNL">
-                                        break;
-                                    case "VE":
-                                        <img class="barView" src="/img/barVE.png" alt="KRNL">
-                                        break;
-                                    case "V1":
-                                        <img class="barView" src="/img/barV01.png" alt="KRNL">
-                                        break;
-                                    case "V2":
-                                        <img class="barView" src="/img/barV02.png" alt="KRNL">
-                                        break;
-                                    case "V3":
-                                        <img class="barView" src="/img/barV03.png" alt="KRNL">
-                                        break;
-                                    case "V4":
-                                        <img class="barView" src="/img/barV04.png" alt="KRNL">
-                                        break;
-                                    case "V5":
-                                        <img class="barView" src="/img/barV05.png" alt="KRNL">
-                                        break;
-                                    case "V6":
-                                        <img class="barView" src="/img/barV06.png" alt="KRNL">
-                                        break;
-                                    case "V7":
-                                        <img class="barView" src="/img/barV07.png" alt="KRNL">
-                                        break;
-                                    case "V8":
-                                        <img class="barView" src="/img/barV08.png" alt="KRNL">
-                                        break;
-                                    case "V9":
-                                        <img class="barView" src="/img/barV09.png" alt="KRNL">
-                                        break;
-                                    case "V10":
-                                        <img class="barView" src="/img/barV10.png" alt="KRNL">
-                                        break;
-                                    case "V11":
-                                        <img class="barView" src="/img/barV11.png" alt="KRNL">
-                                        break;
-                                    case "V12":
-                                        <img class="barView" src="/img/barV12.png" alt="KRNL">
-                                        break;
-                                    case "V13":
-                                        <img class="barView" src="/img/barV13.png" alt="KRNL">
-                                        break;
-                                    case "V14":
-                                        <img class="barView" src="/img/barV14.png" alt="KRNL">
-                                        break;
-                                    case "V15":
-                                        <img class="barView" src="/img/barV15.png" alt="KRNL">
-                                        break;
-                                    case "VT":
-                                        <img class="barView" src="/img/barVT.png" alt="KRNL">
-                                        break;
-                                    case "R1":
-                                        <img class="barView" src="/img/barR1.png" alt="KRNL">
-                                        break;
-                                    case "R2":
-                                        <img class="barView" src="/img/barR2.png" alt="KRNL">
-                                        break;
-                                    case "R3":
-                                        <img class="barView" src="/img/barR3.png" alt="KRNL">
-                                        break;
-                                    case "R4":
-                                        <img class="barView" src="/img/barR4.png" alt="KRNL">
-                                        break;
-                                    case "R5":
-                                        <img class="barView" src="/img/barR5.png" alt="KRNL">
-                                        break;
-                                    case "R6":
-                                        <img class="barView" src="/img/barR6.png" alt="KRNL">
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            </td>
-                        </tr>
-                    </tbody>
-                }
-            </table>
-
-            break;
-        }
-
-    case "viewThree":
-        {
-            <table class="table message">
-
-                <tr class="messageHeader">
-
-                    <th width=18% class="messageHeader messageHeaderTopLeft">
-                        @Html.ActionLink("LocID", "Index", new { sortOrder = "LocID", toggleView = ViewBag.ToggleView, searchString = ViewBag.SearchString })
-                    </th>
-
-                    <th width=41%>
-                        @Html.ActionLink(" ", "Index", new { sortOrder = "GDUs", toggleView = ViewBag.ToggleView, searchString = ViewBag.SearchString })
-                    </th>
-
-                    <th width=41% class="messageHeaderTopRight">
-                        @Html.ActionLink(" ", "Index", new { sortOrder = "GDUs", toggleView = ViewBag.ToggleView, searchString = ViewBag.SearchString })
-                    </th>
-                </tr>
-
-                @foreach (var item in Model)
-                {
-                    <tr class="spacer">
-                        <td class="spacer" colspan="3"></td>
-                    </tr>
-                    <tbody class="comment">
-                        <tr class="comment">
-
-                            <td width="10%" colspan="1" class="messageLeftLocationCoop">
-                                <div class="messageLabel">LocID:</div>
-                                @Html.ActionLink(item.LocationCode.ToUpper(), "Edit", new { id = item.LocationId })
-                            </td>
-                            <td colspan="1">
-                                @if (item.CooperatorId != null)
-                                {
-                                    <div class="messageLabel">Cooperator:</div>
-                                    @Html.ActionLink(item.FullName, "Edit", "Cooperator", new { id = item.CooperatorId }, null)
-                                }
-                                else
-                                {
-                                    <div class="messageLabel">Cooperator:</div>
-                                    @Html.ActionLink("Assign Cooperator", "EditCoop", new { id = item.LocationId })
-                                }
-                            </td>
-
-                            <td colspan="1" class="messageRightLocationCoop locStatusDots">
-                                @if (item.CooperatorId != null)
-                                {
-                                    <div class="messageLabel">Phone:</div>
-                                    @Html.DisplayFor(modelItem => item.Phone)
-                                }
-                            </td>
-                        </tr>
-                    </tbody>
-                }
-            </table>
-
-            break;
-        }
-
-    case "viewFour":
-        {
-            <table class="table message">
-
-                <tr class="messageHeader">
-
-                    <th width=20% class="messageHeader messageHeaderTopLeft">
-                        @Html.ActionLink("LocID", "Index", new { sortOrder = "LocID", toggleView = ViewBag.ToggleView, searchString = ViewBag.SearchString })
-                    </th>
-
-                    <th width=60%>
-                        @Html.ActionLink(" ", "Index", new { sortOrder = "GDUs", toggleView = ViewBag.ToggleView, searchString = ViewBag.SearchString })
-                    </th>
-
-                    <th width=20% class="messageHeaderTopRight">
-                        @Html.ActionLink(" ", "Index", new { sortOrder = "GDUs", toggleView = ViewBag.ToggleView, searchString = ViewBag.SearchString })
-                    </th>
-
-                </tr>
-
-                @foreach (var item in Model)
-                {
-                    <tr class="spacer">
-                        <td class="spacer" colspan="3"></td>
-                    </tr>
-                    <tbody class="comment">
-                        <tr class="comment">
-
-                            <td width="10%" colspan="1" class="messageLeftLocationCoop">
-                                <div class="messageLabel">LocID:</div>
-                                @Html.ActionLink(item.LocationCode.ToUpper(), "Edit", new { id = item.LocationId })
-                            </td>
-                            <td colspan="1">
-                                <div class="messageLabel">Location:</div>
-                                @Html.DisplayFor(modelItem => item.LocationName), @Html.DisplayFor(modelItem => item.State)
-                            </td>
-                            <td colspan="1" class="messageRightLocationCoop locStatusDots">
-                                @if (item.Latitude == 0 || item.Longitude == 0)
-                                {
-                                    <img class="imgGrey" src="/img/ilocation.png" />
-                                }
-                                else
-                                {
-                                    <a href=@item.MapLink target="_blank"><img class="messageIcon" src="/img/ilocation.png" /></a>
-                                }
-                            </td>
-                        </tr>
-                    </tbody>
-                }
-            </table>
-
-            break;
-        }
-
-    default:
-        {
-
-<table class="table message">
-
-    <tr class="messageHeader">
-
-        <th width=18% class="messageHeader messageHeaderTopLeft">
-            @Html.ActionLink("LocID", "Index", new { sortOrder = "LocID", toggleView = ViewBag.ToggleView, searchString = ViewBag.SearchString })
-        </th>
-
-        <th width=22%>
-            @Html.ActionLink("GDUs", "Index", new { sortOrder = "GDUs", toggleView = ViewBag.ToggleView, searchString = ViewBag.SearchString })
-        </th>
-
-        <th width=30%>
-            @Html.ActionLink("Growth Stage", "Index", new { sortOrder = "GDUs", toggleView = ViewBag.ToggleView, searchString = ViewBag.SearchString })
-        </th>
-        <th width=30% class="messageHeaderTopRight"></th>
-
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr class="spacer">
-            <td class="spacer" colspan="3"></td>
-        </tr>
-        <tbody class="comment">
-            <tr class="comment">
-
-                <td width="10%" colspan="1" class="messageLeftLocationCoop">
-                    <div class="messageLabel">LocID:</div>
-                    @Html.ActionLink(item.LocationCode.ToUpper(), "Edit", new { id = item.LocationId })
-                </td>
-                <td colspan="1">
-                    <div class="messageLabel">GDUs:</div>
-                    @Html.DisplayFor(modelItem => item.GDUs)
-                </td>
-                <td colspan="1">
-                    <div class="messageLabel">Growth Stage:</div>
-                    @Html.DisplayFor(modelItem => item.GrowthStage)
-                </td>
-                <td colspan="1" class="messageRightLocationCoop locStatusDots">
-                    @if (item.IsPlanted == KRNL.Data.stake.Yes && item.IsStaked == KRNL.Data.stake.No && item.IsRowbanded == KRNL.Data.stake.No && item.IsHarvested == KRNL.Data.stake.No)
-                    {
-                        <img class="locStatusDots" src="/img/dotsPLANTED.png" alt="KRNL">
-                    }
-                    else if (item.IsPlanted == KRNL.Data.stake.Yes && item.IsStaked == KRNL.Data.stake.Yes && item.IsRowbanded == KRNL.Data.stake.No && item.IsHarvested == KRNL.Data.stake.No)
-                    {
-                        <img class="locStatusDots" src="/img/dotsSTAKED.png" alt="KRNL">
-                    }
-                    else if (item.IsPlanted == KRNL.Data.stake.Yes && item.IsStaked == KRNL.Data.stake.Yes && item.IsRowbanded == KRNL.Data.stake.Yes && item.IsHarvested == KRNL.Data.stake.No)
-                    {
-                        <img class="locStatusDots" src="/img/dotsBANDED.png" alt="KRNL">
-                    }
-                    else if (item.IsPlanted == KRNL.Data.stake.Yes && item.IsStaked == KRNL.Data.stake.Yes && item.IsHarvested == KRNL.Data.stake.Yes)
-                    {
-                        <img class="locStatusDots" src="/img/dotsHARVESTED.png" alt="KRNL">
-                    }
-                    else
-                    {
-                        <img class="locStatusDots" src="/img/dotsNULL.png" alt="KRNL">
-                    }
-                    @*@Html.ActionLink("Delete", "Delete", new { id = item.LocationId })*@
-                </td>
-            </tr>
-        </tbody>
-    }
-</table>
 
 
             break;

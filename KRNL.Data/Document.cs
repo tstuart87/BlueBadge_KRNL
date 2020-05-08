@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace KRNL.Data
 {
-    public enum docType {[Display(Name = "Field Book")] FieldBook, Map}
+    public enum docType {[Display(Name = "Field Book")] FieldBook, Map, Image}
     public class Document
     {
         [Key]
@@ -18,13 +18,13 @@ namespace KRNL.Data
         public string DocString { get; set; }
         public noYes IsDeleted { get; set; }
 
-
         [Display(Name = "Document Type")]
         public docType DocType { get; set; }
 
         [ForeignKey("Locations")]
         public int? LocationId { get; set; }
         public virtual Location Locations { get; set; }
+        public DateTimeOffset? DateCreated { get; set; }
 
     }
 }

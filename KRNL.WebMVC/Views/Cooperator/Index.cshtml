@@ -4,57 +4,197 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Directory</h2>
+@*<h2>Directory</h2>*@
 
-<h4>
+<div>
+    <img class="titlePic" src="/Content/krnlpics/tDirectoryR.png" alt="KRNL">
+</div>
+
+<div>
+    <a href="@Url.Action("Create", "Cooperator")">
+        <img class="titleAction" src="/Content/krnlpics/tCreateNewContactW.png" alt="KRNL">
+    </a>
+</div>
+
+@*<h4>
     @Html.ActionLink("Add Contact", "Create")
-</h4>
+</h4>*@
 
 @using (Html.BeginForm())
 {
     <p>
         <div class="searchBar">
-            @Html.TextBox("searchString")
-            <input type="submit" value="Filter by LAST NAME" class="searchButton" />
+            @Html.TextBox("searchString", (string)ViewBag.SearchString)
+            <a class="clearX" href="@Url.Action("Index", "Cooperator", new { toggleView = ViewBag.ToggleView, searchString = "" })">
+                <img class="clearX" src="/Content/krnlpics/iclear.png" alt="KRNL">
+            </a>
+            <input type="submit" value="SEARCH" class="searchButton" />
         </div>
     </p>
 }
 
-<table class="table message">
-
-
-    <tr class="messageHeader">
-        <th  width="42%" class="messageHeader messageHeaderTopLeft">
-            @Html.DisplayNameFor(model => model.FullName)
-        </th>
-        <th  width="42%">
-            Contact
-        </th>
-        <th width="16%" class="messageHeaderTopRight"></th>
-    </tr>
-
-    @foreach (var item in Model)
+<div class="searchBar toggleButtonDirectory">
+    @switch (ViewBag.ToggleView)
     {
-        <tr class="spacer">
-            <td class="spacer" colspan="3"></td>
-        </tr>
-        <tbody class="comment">
-            <tr class="comment">
-                <td class="messageLeftLocationCoop">
-                    <div class="messageLabel">Name:</div>
-                    @Html.ActionLink(item.FullName, "Edit", new { id = item.CooperatorId })
-                </td>
-                <td class="phoneDirectory">
-                    @Html.DisplayFor(modelItem => item.Phone)<br />
-                    @Html.DisplayFor(modelItem => item.Email)<br />
-                    @Html.DisplayFor(modelItem => item.ContactType)
-                </td>
-                <td class="messageRightLocationCoop alignRight">
-                    <a href="@Url.Action("Delete", "Cooperator", new { id = item.CooperatorId})"><img class="editIcon" src="/img/idelete.png" alt="KRNL"></a>
-                </td>
-            </tr>
-        </tbody>
-
+        case "viewOne":
+            <a href="@Url.Action("Index", "Cooperator", new { toggleView = "viewTwo", searchString = ViewBag.SearchString })">
+                <img class="navbarLogo" src="/Content/krnlpics/toggleOne.png" alt="KRNL">
+            </a>
+            break;
+        case "viewTwo":
+            <a href="@Url.Action("Index", "Cooperator", new { toggleView = "viewOne", searchString = ViewBag.SearchString })">
+                <img class="navbarLogo" src="/Content/krnlpics/toggleFour.png" alt="KRNL">
+            </a>
+            break;
+        default:
+            <a href="@Url.Action("Index", "Cooperator", new { toggleView = "viewOne", searchString = ViewBag.SearchString })">
+                <img class="navbarLogo" src="/Content/krnlpics/toggleOne.png" alt="KRNL">
+            </a>
+            break;
     }
+</div>
 
-</table>
+@switch (ViewBag.ToggleView)
+{
+    case "viewOne":
+        {
+            <table class="table message">
+
+
+                <tr class="messageHeader">
+                    <th width="42%" class="messageHeader messageHeaderTopLeft">
+                    </th>
+                    <th width="42%">
+                    </th>
+                    <th width="16%" class="messageHeaderTopRight">Directory</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr class="spacer">
+                        <td class="spacer" colspan="3"></td>
+                    </tr>
+                    <tbody class="comment">
+                        <tr class="comment">
+                            <td class="messageLeftLocationCoop">
+                                <div class="messageLabel">Name:</div>
+                                @Html.ActionLink(item.FullName, "Edit", new { id = item.CooperatorId })
+                            </td>
+                            <td class="lightFont">
+                                @Html.DisplayFor(modelItem => item.Phone)<br />
+                                @Html.DisplayFor(modelItem => item.Email)<br />
+                                @Html.DisplayFor(modelItem => item.ContactType)
+                            </td>
+                            <td class="messageRightLocationCoop alignRight">
+                                <a href="@Url.Action("Delete", "Cooperator", new { id = item.CooperatorId })"><img class="editIcon" src="/Content/krnlpics/idelete.png" alt="KRNL"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                }
+
+            </table>
+            break;
+        }
+    case "viewTwo":
+        {
+            <table class="table message">
+
+
+                <tr class="messageHeader">
+                    <th width="50%" class="messageHeader messageHeaderTopLeft">
+                    </th>
+
+                    <th width="50%" class="messageHeaderTopRight">Directory</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr class="spacer">
+                        <td class="spacer" colspan="2"></td>
+                    </tr>
+                    <tbody class="comment">
+                        <tr class="comment">
+                            <td class="messageLeftLocationCoop">
+                                <div class="messageLabel">Name:</div>
+                                @Html.ActionLink(item.FullName, "Edit", new { id = item.CooperatorId })
+                            </td>
+
+                            <td class="messageRightLocationCoop alignRight">
+                                @if (item.Phone == null)
+                                {
+                                    <img class="imgGrey contactIcon" src="/Content/krnlpics/iphone.png" />
+                                }
+                                else
+                                {
+                                    <a href="tel:@item.Phone" target="_blank"><img class="contactIcon" src="/Content/krnlpics/iphone.png" /></a>
+                                }
+                                @if (item.Phone == null)
+                                {
+                                    <img class="imgGrey contactIcon" src="/Content/krnlpics/imessage.png" />
+                                }
+                                else
+                                {
+                                    <a href="sms:@item.Phone" target="_blank"><img class="contactIcon" src="/Content/krnlpics/imessage.png" /></a>
+                                }
+                                @if (item.Email == null)
+                                {
+                                    <img class="imgGrey contactIcon" src="/Content/krnlpics/imail.png" />
+                                }
+                                else
+                                {
+                                    <a href="@String.Format("mailto:" + item.Email)" target="_blank"><img class="contactIcon" src="/Content/krnlpics/imail.png" /></a>
+                                }
+                            </td>
+                        </tr>
+                    </tbody>
+
+                }
+
+            </table>
+            break;
+        }
+
+    default:
+        {
+            <table class="table message">
+
+
+                <tr class="messageHeader">
+                    <th width="42%" class="messageHeader messageHeaderTopLeft">
+                        @Html.DisplayNameFor(model => model.FullName)
+                    </th>
+                    <th width="42%">
+                        Contact
+                    </th>
+                    <th width="16%" class="messageHeaderTopRight"></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr class="spacer">
+                        <td class="spacer" colspan="3"></td>
+                    </tr>
+                    <tbody class="comment">
+                        <tr class="comment">
+                            <td class="messageLeftLocationCoop">
+                                <div class="messageLabel">Name:</div>
+                                @Html.ActionLink(item.FullName, "Edit", new { id = item.CooperatorId })
+                            </td>
+                            <td class="phoneDirectory">
+                                @Html.DisplayFor(modelItem => item.Phone)<br />
+                                @Html.DisplayFor(modelItem => item.Email)<br />
+                                @Html.DisplayFor(modelItem => item.ContactType)
+                            </td>
+                            <td class="messageRightLocationCoop alignRight">
+                                <a href="@Url.Action("Delete", "Cooperator", new { id = item.CooperatorId })"><img class="editIcon" src="/Content/krnlpics/idelete.png" alt="KRNL"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                }
+
+            </table>
+            break;
+        }
+}

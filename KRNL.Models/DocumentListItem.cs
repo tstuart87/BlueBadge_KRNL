@@ -20,6 +20,7 @@ namespace KRNL.Models
         public int? LocationId { get; set; }
         public string LocationCode { get; set; }
         public noYes IsDeleted { get; set; }
-
+        public string SearchString { get; set; }
+        public DateTimeOffset? DateCreated { get; set; }
     }
 }

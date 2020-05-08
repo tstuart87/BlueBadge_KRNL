@@ -32,6 +32,10 @@ namespace KRNL.Models
         public job JobTwo { get; set; }
         public job JobThree { get; set; }
         public noYes IsDeleted { get; set; }
+        public noYes IsRequest { get; set; }
+        public string SearchString { get; set; }
+        public string DocString { get; set; }
+        public virtual Document Documents { get; set; }
 
     }
 }

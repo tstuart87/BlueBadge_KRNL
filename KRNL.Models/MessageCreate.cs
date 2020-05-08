@@ -14,6 +14,7 @@ namespace KRNL.Models
         public int MessageId { get; set; }
         public string Comment { get; set; }
         public DateTimeOffset? DateCreated { get; set; }
+        public noYes IsRequest { get; set; }
 
         [Display(Name ="Location")]
         public int LocationId { get; set; }
@@ -39,6 +40,7 @@ namespace KRNL.Models
         [Display(Name = "Task:")]
         public job JobThree { get; set; }
         public noYes IsDeleted { get; set; }
+        public virtual Cooperator Cooperators { get; set; }
 
     }
 }

@@ -1,0 +1,285 @@
+﻿@model KRNL.Models.MessageEdit
+
+@{
+    ViewBag.Title = "CompleteRequest";
+}
+
+@*<h3>Complete Request?</h3>*@
+
+<div>
+    <img class="titlePic" src="/Content/krnlpics/tRequestsR.png" alt="KRNL">
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color deleteButtons">
+        <input type="submit" value="Complete" class="btn btn-default completeButton" />
+    </div>
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.MessageId)
+        @Html.HiddenFor(model => model.OwnerId)
+        @Html.HiddenFor(model => model.MessageId)
+        @Html.HiddenFor(model => model.OwnerId)
+        @Html.HiddenFor(model => model.LocationId)
+        @Html.HiddenFor(model => model.JobOne)
+        @Html.HiddenFor(model => model.JobTwo)
+        @Html.HiddenFor(model => model.JobThree)
+        @Html.HiddenFor(model => model.Comment)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 enumDropDown">
+                @Html.EnumDropDownListFor(model => model.Rating, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HumanGrowthStage, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 enumDropDown">
+                @Html.EnumDropDownListFor(model => model.HumanGrowthStage, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.HumanGrowthStage, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class = "control-label col-md-2 redLabel" >Employee</div>
+            <div class="col-md-10">
+                @Html.DropDownList("CooperatorId", new SelectList(ViewBag.cooperators, "CooperatorId", "FullName"), null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CooperatorId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+    </div>
+}
+
+<div>
+    <table class="table message">
+        <tr class="messageHeader">
+            <th width=16% class="messageHeaderTopLeft">
+            </th>
+            <th width=28%>
+            </th>
+            <th width=28%>
+            </th>
+            <th width=28% class="messageHeaderTopRight">Request
+            </th>
+        </tr>
+        <tr class="spacer">
+            <td class="spacer" colspan="4"></td>
+        </tr>
+        <tbody class="comment">
+            <tr class="messageTop">
+                <td class="message messageTopLeft">
+                    <div class="messageLabel">Location:</div>
+                    @Html.ActionLink(Model.LocationCode.ToUpper(), "Edit", "Location", new { id = Model.LocationId }, null)
+                </td>
+                <td class="message">
+                    <div class="messageLabel">Date:</div>
+                    @Html.DisplayFor(model => model.DateCreated)
+                </td>
+                <td class="message ">
+                    <div class="messageLabel">Growth Stage:</div>
+                    @Html.DisplayFor(model => model.HumanGrowthStage)
+                </td>
+                <td class="message messageTopRight alignRight">
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="1">
+                </td>
+                <td colspan="3">
+                    @if (Model.Comment != null)
+                    {
+                        <p class="comment">
+                            @Html.DisplayFor(model => model.Comment)
+                        </p>
+                    }
+                </td>
+            </tr>
+
+            <tr class="messageBottom messageBottomLeft">
+                <td messageBottomRight alignRight vertBottom noBottom colspan="2">
+
+                    @switch (Model.Rating)
+                    {
+                        case KRNL.Data.rating.Excellent:
+                            <img class="ratingIcon" src="/Content/krnlpics/rexcellent.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.rating.AboveAverage:
+                            <img class="ratingIcon" src="/Content/krnlpics/raboveaverage.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.rating.Average:
+                            <img class="ratingIcon" src="/Content/krnlpics/raverage.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.rating.BelowAverage:
+                            <img class="ratingIcon" src="/Content/krnlpics/rbelowaverage.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.rating.Poor:
+                            <img class="ratingIcon" src="/Content/krnlpics/rpoor.png" alt="KRNL">
+                            break;
+                        default:
+                            break;
+                    }
+                </td>
+
+                <td class="messageBottomRight alignRight vertBottom noBottom" colspan="2">
+                    @switch (Model.JobOne)
+                    {
+                        case KRNL.Data.job.Cultivating:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/iplow.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.DroneFlight:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/idrone.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.Harvesting:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/icombine.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.HerbicideSpraying:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/iherbicide.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.InsecticideSpraying:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/iinsecticide.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.NitrogenApplication:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/initrogen.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.Notes:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/inotes.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.PlantEarHeights:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/ipande.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.Planting:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/iplanter.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.Rowbanding:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/iband.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.Staking:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/istake.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.StandCounts:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/istandcounts.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.WeedManagement:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/ihoe.png" alt="KRNL">
+                            break;
+                        default:
+                            break;
+                    }
+
+                    @switch (Model.JobTwo)
+                    {
+                        case KRNL.Data.job.Cultivating:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/iplow.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.DroneFlight:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/idrone.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.Harvesting:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/icombine.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.HerbicideSpraying:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/iherbicide.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.InsecticideSpraying:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/iinsecticide.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.NitrogenApplication:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/initrogen.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.Notes:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/inotes.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.PlantEarHeights:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/ipande.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.Planting:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/iplanter.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.Rowbanding:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/iband.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.Staking:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/istake.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.StandCounts:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/istandcounts.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.WeedManagement:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/ihoe.png" alt="KRNL">
+                            break;
+                        default:
+                            break;
+                    }
+
+                    @switch (Model.JobThree)
+                    {
+                        case KRNL.Data.job.Cultivating:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/iplow.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.DroneFlight:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/idrone.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.Harvesting:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/icombine.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.HerbicideSpraying:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/iherbicide.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.InsecticideSpraying:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/iinsecticide.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.NitrogenApplication:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/initrogen.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.Notes:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/inotes.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.PlantEarHeights:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/ipande.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.Planting:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/iplanter.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.Rowbanding:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/iband.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.Staking:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/istake.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.StandCounts:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/istandcounts.png" alt="KRNL">
+                            break;
+                        case KRNL.Data.job.WeedManagement:
+                            <img class="messageIcon vertBottom" src="/Content/krnlpics/ihoe.png" alt="KRNL">
+                            break;
+                        default:
+                            break;
+                    }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @Html.ActionLink("Back to JOBS", "Index")
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

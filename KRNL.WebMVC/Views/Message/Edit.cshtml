@@ -4,8 +4,11 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit Job</h2>
+@*<h2>Edit Job</h2>*@
 
+<div>
+    <img class="titlePic" src="/Content/krnlpics/tEditW.png" alt="KRNL">
+</div>
 
 @using (Html.BeginForm())
 {
@@ -17,6 +20,7 @@
 
         @Html.HiddenFor(model => model.MessageId)
         @Html.HiddenFor(model => model.OwnerId)
+        @Html.HiddenFor(model => model.IsRequest)
 
         <div class="form-group">
             @Html.LabelFor(model => model.LocationId, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -31,14 +35,6 @@
             <div class="col-md-10 enumDropDown">
                 @Html.EnumDropDownListFor(model => model.Rating, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -75,7 +71,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CooperatorId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="control-label col-md-2 redLabel">Employee</div>
             <div class="col-md-10">
                 @Html.DropDownList("CooperatorId", new SelectList(ViewBag.cooperators, "CooperatorId", "FullName"), null, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.CooperatorId, "", new { @class = "text-danger" })
@@ -91,8 +87,16 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 jobComment">
+                @Html.TextAreaFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control jobComment" } })
+                @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="basicButton" />
             </div>
         </div>
     </div>

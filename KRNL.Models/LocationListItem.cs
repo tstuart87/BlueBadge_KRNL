@@ -34,9 +34,16 @@ namespace KRNL.Models
         public string SearchString { get; set; }
         public string DocString { get; set; }
         public noYes IsDeleted { get; set; }
+        public int RequestCount { get; set; }
+        public rating Rating { get; set; }
+        public string LastVisitor { get; set; }
+
+        public virtual Message Messages { get; set; }
+        public virtual Document Documents { get; set; }
 
         public int? CooperatorId { get; set; }
         public string FullName { get; set; }
         public string Phone { get; set; }
+        public string Email { get; set; }
     }
 }

@@ -23,14 +23,23 @@ namespace KRNL.Services
 
         }
 
-        public bool CreateDocument(DocumentCreate model, string pathString)
+        public bool CreateDocument(DocumentCreate model, string pathString, string fileName)
         {
+            string docString = "/Content/docs/";
+            string fullFileName = fileName;
+
+            if (fileName.Length > 15)
+            {
+                fileName = fileName.Substring(0, 10) + "..." + fileName.Substring(fileName.Length - 4, 4);
+            }
+
             var entity = new Document()
             {
                 OwnerId = _userId,
-                DocName = pathString.Substring((pathString.LastIndexOf("uploads") + 8), pathString.Length - (pathString.LastIndexOf("uploads") + 8)),
-                DocString = pathString,
+                DocName = fileName,
+                DocString = docString + fullFileName,
                 DocType = model.DocType,
+                DateCreated = DateTimeOffset.Now,
                 LocationId = model.LocationId
             };
 
@@ -41,14 +50,41 @@ namespace KRNL.Services
             }
         }
 
-        public IEnumerable<DocumentListItem> GetDocuments()
+        public int CreateDocumentFromJob(MessageCreate model, string fileName)
+        {
+            new DocumentService();
+
+            string docString = "/Content/docs/";
+            string fullFileName = fileName;
+            fileName = fileName.Substring(fileName.Length - 8, 8);
+
+            var entity = new Document()
+            {
+                OwnerId = _userId,
+                DocName = fileName,
+                DocString = docString + fullFileName,
+                DocType = docType.Image,
+                DateCreated = DateTimeOffset.Now,
+                LocationId = model.LocationId
+            };
+
+            using (var ctx = new ApplicationDbContext())
+            {
+                ctx.Documents.Add(entity);
+                ctx.SaveChanges();
+            }
+
+            return entity.DocumentId;
+        }
+
+        public IEnumerable<DocumentListItem> GetDocuments(Guid userId)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var query =
                     ctx
                         .Documents
-                        .Where(e => e.IsDeleted == noYes.No)
+                        .Where(e => e.IsDeleted == noYes.No && e.OwnerId == userId)
                         .Select(
                             e =>
                                 new DocumentListItem
@@ -58,22 +94,24 @@ namespace KRNL.Services
                                     DocString = e.DocString,
                                     DocType = e.DocType,
                                     LocationId = e.LocationId,
+                                    DateCreated = e.DateCreated,
+                                    SearchString = (e.Locations.LocationCode.ToString() + e.DocName + e.DocType.ToString()).ToUpper(),
                                     LocationCode = e.Locations.LocationCode
                                 }
                         );
 
-                return query.ToList();
+                return query.ToList().OrderByDescending(e => e.DateCreated);
             }
         }
 
-        public IEnumerable<DocumentListItem> GetDocuments(int locId)
+        public IEnumerable<DocumentListItem> GetDocuments(int locId, Guid userId)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var query =
                     ctx
                         .Documents
-                        .Where(e => e.LocationId == locId && e.IsDeleted == noYes.No)
+                        .Where(e => e.LocationId == locId && e.IsDeleted == noYes.No && e.OwnerId == userId)
                         .Select(
                             e =>
                                 new DocumentListItem
@@ -83,22 +121,23 @@ namespace KRNL.Services
                                     DocString = e.DocString,
                                     DocType = e.DocType,
                                     LocationId = e.LocationId,
+                                    DateCreated = e.DateCreated,
                                     LocationCode = e.Locations.LocationCode
                                 }
                         );
 
-                return query.ToArray();
+                return query.ToArray().OrderByDescending(e => e.DateCreated);
             }
         }
 
-        public DocumentDetail GetDocumentById(int id)
+        public DocumentDetail GetDocumentById(int id, Guid userId)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
                         .Documents
-                        .Single(e => e.DocumentId == id);
+                        .Single(e => e.DocumentId == id && e.OwnerId == userId);
                 return
                     new DocumentDetail
                     {
@@ -114,25 +153,25 @@ namespace KRNL.Services
             }
         }
 
-        public bool DeleteDocument(int docId)
+        public bool DeleteDocument(int docId, Guid userId)
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var entity = ctx.Documents.Single(e => e.DocumentId == docId);
+                var entity = ctx.Documents.Single(e => e.DocumentId == docId && e.OwnerId == userId);
                 entity.IsDeleted = noYes.Yes;
 
                 return ctx.SaveChanges() == 1;
             }
         }
 
-        public string GetDocStringForLocation(int locId)
+        public string GetDocStringForLocation(int locId, Guid userId)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var query =
                     ctx
                         .Documents
-                        .FirstOrDefault(e => e.LocationId == locId && e.DocType == docType.Map);
+                        .FirstOrDefault(e => e.LocationId == locId && e.DocType == docType.Map && e.IsDeleted == noYes.No && e.OwnerId == userId);
 
                 if (query == null)
                 {

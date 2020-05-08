@@ -71,12 +71,16 @@ namespace KRNL.Data
 
         public rating Rating { get; set; }
         public noYes IsDeleted { get; set; }
-
+        public noYes IsRequest { get; set; }
 
         [ForeignKey("Cooperators")]
         public int? CooperatorId { get; set; }
         public virtual Cooperator Cooperators { get; set; }
         public string FullName { get; set; }
+
+        [ForeignKey("Documents")]
+        public int? DocumentId { get; set; }
+        public virtual Document Documents { get; set; }
 
         [ForeignKey("Locations")]
         [Required]

@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>KRNL - @ViewBag.Title</title>
+    <link rel="icon" type="image/png" href="~/Content/krnlpics/kernel.PNG"/>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
@@ -20,12 +21,12 @@
                 </button>
 
                 <a href="@Url.Action("Index", "Home")">
-                    <img class="navbarLogo" src="/img/krnlTransparent.png" alt="KRNL">
+                    <img class="navbarLogo" src="/Content/krnlpics/krnlTransparent.png" alt="KRNL">
                 </a>
 
 
                     @*@Html.ActionLink(" ", "Index", "Home", new { @class="homePic"})*@
-                    @*<img class="navbarLogo" src="/img/krnlTransparent.png" alt="KRNL">*@
+                    @*<img class="navbarLogo" src="/Content/krnlpics/krnlTransparent.png" alt="KRNL">*@
 
             </div>
             <div class="navbar-collapse collapse">
@@ -49,14 +50,14 @@
     <div class="container body-content">
         @RenderBody()
         @*<br />*@
-        @*<img class="navbarLogoFooter" src="/img/kernel.png" alt="KRNL">*@
+        @*<img class="navbarLogoFooter" src="/Content/krnlpics/kernel.png" alt="KRNL">*@
 
         <footer class="footer">
-            <p>&copy; @DateTime.Now.Year | Trevor R. Stuart | <img class="footerPic" src="/img/krnlTransparent.png" alt="KRNL"></p>
+            <p>&copy; @DateTime.Now.Year | Trevor R. Stuart | <img class="footerPic" src="/Content/krnlpics/krnlTransparent.png" alt="KRNL"></p>
         </footer>
 
-        @*<img class="footerLogo" src="/img/krnlTransparent.png" alt="KRNL">
-            <img class="footerLogo" src="/img/corn.png" alt="KRNL">*@
+        @*<img class="footerLogo" src="/Content/krnlpics/krnlTransparent.png" alt="KRNL">
+            <img class="footerLogo" src="/Content/krnlpics/corn.png" alt="KRNL">*@
     </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

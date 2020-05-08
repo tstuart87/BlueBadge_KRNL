@@ -22,10 +22,10 @@ namespace KRNL.Models
         [Display(Name ="LocID")]
         public string LocationCode { get; set; }
         public noYes IsDeleted { get; set; }
+        public noYes IsRequest { get; set; }
         public job JobOne { get; set; }
         public job JobTwo { get; set; }
         public job JobThree { get; set; }
         public rating Rating { get; set; }
-
     }
 }

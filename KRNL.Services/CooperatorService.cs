@@ -18,7 +18,7 @@ namespace KRNL.Services
             _userId = userId;
         }
 
-        public CooperatorService()
+        public CooperatorService ()
         {
 
         }
@@ -46,14 +46,14 @@ namespace KRNL.Services
             }
         }
 
-        public IEnumerable<CooperatorListItem> GetCooperators()
+        public IEnumerable<CooperatorListItem> GetCooperators(Guid userId)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var query =
                     ctx
                         .Cooperators
-                        .Where(e => e.IsDeleted == noYes.No)
+                        .Where(e => e.IsDeleted == noYes.No && e.OwnerId == userId)
                         .Select(
                             e =>
                                 new CooperatorListItem
@@ -64,18 +64,19 @@ namespace KRNL.Services
                                     Phone = e.Phone,
                                     Email = e.Email,
                                     ContactType = e.ContactType,
+                                    SearchString = (e.ContactType.ToString() + e.Email.ToString() + e.FullName).ToUpper(),
                                     FullName = e.FullName
                                 }
                                 );
-                return query.ToArray();
+                return query.ToArray().OrderBy(e => e.FullName);
             }
         }
 
-        public bool UpdateCooperator(CooperatorEdit model)
+        public bool UpdateCooperator(CooperatorEdit model, Guid userId)
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var entity = ctx.Cooperators.Single(e => e.CooperatorId == model.CooperatorId);
+                var entity = ctx.Cooperators.Single(e => e.CooperatorId == model.CooperatorId && e.OwnerId == userId);
 
                 entity.FirstName = model.FirstName;
                 entity.LastName = model.LastName;
@@ -89,14 +90,14 @@ namespace KRNL.Services
             }
         }
 
-        public CooperatorDetail GetCooperatorById(int id)
+        public CooperatorDetail GetCooperatorById(int id, Guid userId)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
                         .Cooperators
-                        .Single(e => e.CooperatorId == id && e.IsDeleted == noYes.No);
+                        .Single(e => e.CooperatorId == id && e.IsDeleted == noYes.No && e.OwnerId == userId);
                 return
                     new CooperatorDetail
                     {
@@ -111,14 +112,14 @@ namespace KRNL.Services
             }
         }
 
-        public CooperatorEdit GetCooperatorEditById(int id)
+        public CooperatorEdit GetCooperatorEditById(int id, Guid userId)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
                         .Cooperators
-                        .Single(e => e.CooperatorId == id && e.IsDeleted == noYes.No);
+                        .Single(e => e.CooperatorId == id && e.IsDeleted == noYes.No && e.OwnerId == userId);
                 return
                     new CooperatorEdit
                     {
@@ -133,7 +134,7 @@ namespace KRNL.Services
             }
         }
 
-        public int GetFirstEmployeeId()
+        public int GetFirstEmployeeId(Guid userId)
         {
             int coopId = 0;
 
@@ -142,7 +143,7 @@ namespace KRNL.Services
                 var entity =
                     ctx
                         .Cooperators
-                        .Where(e => e.ContactType == contact.Employee && e.IsDeleted == noYes.No)
+                        .Where(e => e.ContactType == contact.Employee && e.IsDeleted == noYes.No && e.OwnerId == userId)
                         .FirstOrDefault();
 
                 coopId = entity.CooperatorId;
@@ -150,18 +151,35 @@ namespace KRNL.Services
             return coopId;
         }
 
-        public bool DeleteCooperator(int cooperatorId)
+        public string GetFullName(int coopId, Guid userId)
         {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Cooperators
+                        .Where(e => e.CooperatorId == coopId && e.OwnerId == userId)
+                        .FirstOrDefault();
+
+                string FullName = entity.FullName;
+
+                return FullName;
+            }
+        }
+
+        public bool DeleteCooperator(int cooperatorId, Guid userId)
+        {
+
             var locService = new LocationService();
             var messageService = new MessageService();
 
             using (var ctx = new ApplicationDbContext())
             {
-                var entity = ctx.Cooperators.Single(e => e.CooperatorId == cooperatorId);
+                var entity = ctx.Cooperators.Single(e => e.CooperatorId == cooperatorId && e.OwnerId == userId);
                 entity.IsDeleted = noYes.Yes;
 
                 locService.SetCooperatorToNull(entity.CooperatorId);
-                messageService.SetEmployeeToNull(entity.CooperatorId);
+                messageService.SetEmployeeToNull(entity.CooperatorId, userId);
 
                 return ctx.SaveChanges() == 1;
             }

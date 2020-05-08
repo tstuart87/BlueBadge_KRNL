@@ -4,24 +4,53 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Documents</h2>
+@*<h2>Documents</h2>*@
 
-<h4>
-    @Html.ActionLink("Upload Document", "Create")
-</h4>
+<div>
+    <img class="titlePic" src="/Content/krnlpics/tDocumentsR.png" alt="KRNL">
+</div>
+
+<div>
+    <a href="@Url.Action("Create", "Document")">
+        <img class="titleAction titleActionDocument" src="/Content/krnlpics/tNewDocumentW.png" alt="KRNL">
+    </a>
+</div>
+
+@*<h4>
+        @Html.ActionLink("Upload Document", "Create")
+    </h4>*@
+
+@using (Html.BeginForm())
+{
+    <p>
+        <div class="searchBar docSearchBar">
+            @Html.TextBox("searchString", (string)ViewBag.SearchString)
+            <a class="clearX" href="@Url.Action("Index", "Document", new { searchString = "" , sortOrder = ViewBag.SortParm})">
+                <img class="clearX" src="/Content/krnlpics/iclear.png" alt="KRNL">
+            </a>
+            <input type="submit" value=" Search " class="searchButton" />
+        </div>
+    </p>
+}
+
 
 <table class="table message">
     <tr class="messageHeader">
-        <th width="36%" class="messageHeader messageHeaderTopLeft">
+        <th width="10%" class="messageHeader messageHeaderTopLeft">Docs
+        </th>
+        <th width="20%">
+            @Html.ActionLink("LocID", "Index", new { sortOrder = "LocID", searchString = ViewBag.SearchString }, new { @class = "sortFont"})
+        </th>
+        <th width="20%">
 
         </th>
-        <th width="20%" >
+        <th width="42%">
 
         </th>
-        <th width="30%">
-
+        <th width="8%" class="messageHeaderTopRight">
+            @Html.ActionLink("Date", "Index", new { sortOrder = "Date", searchString = ViewBag.SearchString }, new { @class = "sortFont"})
+        
         </th>
-        <th  width="14%" class="messageHeaderTopRight">Docs</th>
     </tr>
 
     @foreach (var item in Model)
@@ -31,24 +60,29 @@
         </tr>
         <tbody class="comment">
             <tr tr class="comment">
-                <td class="messageLeftLocationCoop">
-
+                <td class="messageLeftLocationCoop tdVertCenter">
+                    <a target="blank" href=@Url.Content(item.DocString)><input type="button" value=" Open " class="basicButton" /></a>
+                </td>
+                <td>
+                    @Html.HiddenFor(modelItem => item.DateCreated)
+                    @Html.HiddenFor(modelItem => item.DocumentId)
+                    @Html.HiddenFor(modelItem => item.SearchString)
+                    <div class="messageLabel">LocID:</div>
+                    @Html.ActionLink(item.LocationCode.ToUpper(), "Edit", "Location", new { id = item.LocationId }, null)
+                </td>
+                <td class="tdVertCenter alignRight">
                     @if (item.DocType == KRNL.Data.docType.Map)
                     {
-                        <img class="locStatusDots" src="/img/imap.png" alt="KRNL">
-                        <a href=@Url.Content(item.DocString)><input type="button" value=" Open " class="openDocButton" /></a>
+                        <img class="contactIcon" src="/Content/krnlpics/imap.png" alt="KRNL">
                     }
                     @if (item.DocType == KRNL.Data.docType.FieldBook)
                     {
-                        <img class="locStatusDots" src="/img/inotes.png" alt="KRNL">
-                        <a href=@Url.Content(item.DocString)><input type="button" value=" Open " class="openDocButton" /></a>
+                        <img class="contactIcon" src="/Content/krnlpics/ifieldbook.png" alt="KRNL">
                     }
-                </td>
-                <td>
-                    @Html.HiddenFor(modelItem => item.DocumentId)
-                    <div class="messageLabel">LocID:</div>
-                    @Html.ActionLink(item.LocationCode.ToUpper(), "Edit", "Location", new { id = item.LocationId }, null)
-
+                    @if (item.DocType == KRNL.Data.docType.Image)
+                    {
+                        <img class="contactIcon" src="/Content/krnlpics/ipicture.png" alt="KRNL">
+                    }
                 </td>
                 <td>
                     <div class="messageLabel">Document:</div>
@@ -57,7 +91,7 @@
                     </div>
                 </td>
                 <td class="messageRightLocationCoop locStatusDots openDocButton">
-                        <a href="@Url.Action("Delete", "Document", new { id = item.DocumentId})"><img class="editIcon" src="/img/idelete.png" alt="KRNL"></a>
+                    <a href="@Url.Action("Delete", "Document", new { id = item.DocumentId})"><img class="editIcon" src="/Content/krnlpics/idelete.png" alt="KRNL"></a>
                 </td>
             </tr>
         </tbody>

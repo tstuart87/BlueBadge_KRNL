@@ -4,7 +4,9 @@
     ViewBag.Title = "EditCoop";
 }
 
-<h2>Change Cooperator</h2>
+<div>
+    <img class="titlePic" src="/Content/krnlpics/tCooperatorW.png" alt="KRNL">
+</div>
 
 
 @using (Html.BeginForm())
@@ -12,7 +14,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>@Html.DisplayFor(model => model.LocationName)</h4>
+        <h4>@Html.DisplayFor(model => model.LocationName), @Html.DisplayFor(model => model.State)</h4>
 
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -42,15 +44,11 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="basicButton" />
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to Locations", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

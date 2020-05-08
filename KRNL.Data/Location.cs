@@ -76,7 +76,10 @@ namespace KRNL.Data
         [Display(Name ="#")]
         public string Tag { get; set; }
         public string SearchString { get; set; }
+
         public rating Rating { get; set; }
+        public int RequestCount { get; set; }
+        public string LastVisitor { get; set; }
 
         public noYes IsDeleted { get; set; }
 

@@ -13,18 +13,44 @@ namespace KRNL.WebMVC.Controllers
     public class DocumentController : Controller
     {
         // GET: Document
-        public ActionResult Index()
+        public ActionResult Index(string searchString, string sortOrder)
         {
-            var service = new DocumentService();
-            var model = service.GetDocuments();
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            ViewBag.SortParm = sortOrder;
+            ViewBag.SearchString = searchString;
+
+            var service = new DocumentService(userId);
+            var model = service.GetDocuments(userId);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                model = model.Where(e => e.SearchString.Contains(searchString.ToUpper()));
+            }
+
+            if (sortOrder != null)
+            {
+                switch (sortOrder)
+                {
+                    case "Date":
+                        model = model.OrderByDescending(s => s.DateCreated);
+                        break;
+                    case "LocID":
+                        model = model.OrderBy(s => s.LocationCode);
+                        break;
+                    default:
+                        model = model.OrderBy(s => s.LocationCode);
+                        break;
+                }
+            }
 
             return View(model);
         }
 
         public ActionResult Create()
         {
-            var locService = new LocationService();
-            ViewBag.locations = locService.GetLocations();
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var locService = new LocationService(userId);
+            ViewBag.locations = locService.GetLocations(userId);
 
             return View();
         }
@@ -36,20 +62,18 @@ namespace KRNL.WebMVC.Controllers
             if (ModelState.IsValid)
             {
                 var service = new DocumentService(Guid.Parse(User.Identity.GetUserId()));
-                string pathString = "";
+                string path = "";
+                string fileName = "";
 
                 if (file != null)
                 {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/Docs/uploads"), fileName);
+                    fileName = Path.GetFileName(file.FileName);
+                    path = Path.Combine(Server.MapPath("~/Content/docs"), fileName);
                     file.SaveAs(path);
-                    pathString = path.ToString();
                 }
 
-                service.CreateDocument(model, pathString);
+                service.CreateDocument(model, path, fileName);
 
-
-                TempData["SaveResult"] = "New document successfully uploaded.";
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -58,8 +82,9 @@ namespace KRNL.WebMVC.Controllers
         [ActionName("Delete")]
         public ActionResult Delete(int id)
         {
-            var svc = CreateDocumentService();
-            var model = svc.GetDocumentById(id);
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var svc = new DocumentService(userId);
+            var model = svc.GetDocumentById(id, userId);
 
             return View(model);
         }
@@ -69,9 +94,10 @@ namespace KRNL.WebMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeletePost(int id)
         {
-            var service = CreateDocumentService();
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new DocumentService(userId);
 
-            service.DeleteDocument(id);
+            service.DeleteDocument(id, userId);
 
             return RedirectToAction("Index");
         }

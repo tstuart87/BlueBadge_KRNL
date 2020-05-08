@@ -4,7 +4,11 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Upload Document</h2>
+@*<h2>Upload Document</h2>*@
+
+<div>
+    <img class="titlePic" src="/Content/krnlpics/tNewDocumentW.png" alt="KRNL">
+</div>
 
 @using (Html.BeginForm("Create", "Document", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -30,14 +34,13 @@
 
                 <form action="Document/Create" method="post" enctype="multipart/form-data">
                     <label class="custom-file-upload">
-                        <input type="file" name="file" id="file" />
+                        <input type="file" name="file" id="file" class=""/>
                         Select File
                     </label>
                 </form>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10 createDocButton">
-                        <input type="submit" value="Upload" class="btn btn-default createDocButton" />
-                    </div>
+
+                <div>
+                        <input type="submit" value=" Upload " class="basicButton" />
                 </div>
             </div>
         </div>
@@ -60,9 +63,9 @@
 
     </div>
 }
-
+<br/>
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to DOCS", "Index")
 </div>
 
 @section Scripts {

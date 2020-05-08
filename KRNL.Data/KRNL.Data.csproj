@@ -90,9 +90,13 @@
     <Compile Include="Cooperator.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="IdentityModels.cs" />
-    <Compile Include="Migrations\202004290121563_five.cs" />
-    <Compile Include="Migrations\202004290121563_five.Designer.cs">
-      <DependentUpon>202004290121563_five.cs</DependentUpon>
+    <Compile Include="Migrations\202005070451083_one.cs" />
+    <Compile Include="Migrations\202005070451083_one.Designer.cs">
+      <DependentUpon>202005070451083_one.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005072043241_two.cs" />
+    <Compile Include="Migrations\202005072043241_two.Designer.cs">
+      <DependentUpon>202005072043241_two.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -102,8 +106,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202004290121563_five.resx">
-      <DependentUpon>202004290121563_five.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202005070451083_one.resx">
+      <DependentUpon>202005070451083_one.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005072043241_two.resx">
+      <DependentUpon>202005072043241_two.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

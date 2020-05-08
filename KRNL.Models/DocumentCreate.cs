@@ -17,8 +17,10 @@ namespace KRNL.Models
 
         [Display(Name = "Document Type")]
         public docType DocType { get; set; }
+        [Display(Name = "Location")]
         public int? LocationId { get; set; }
         public noYes IsDeleted { get; set; }
-
+        public int? MessageId { get; set; }
+        public DateTimeOffset? DateCreated { get; set; }
     }
 }
