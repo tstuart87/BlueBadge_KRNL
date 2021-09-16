@@ -88,15 +88,12 @@
     <Compile Include="Document.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Cooperator.cs" />
+    <Compile Include="LocationParent.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="IdentityModels.cs" />
-    <Compile Include="Migrations\202005070451083_one.cs" />
-    <Compile Include="Migrations\202005070451083_one.Designer.cs">
-      <DependentUpon>202005070451083_one.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202005072043241_two.cs" />
-    <Compile Include="Migrations\202005072043241_two.Designer.cs">
-      <DependentUpon>202005072043241_two.cs</DependentUpon>
+    <Compile Include="Migrations\202108312214220_second.cs" />
+    <Compile Include="Migrations\202108312214220_second.Designer.cs">
+      <DependentUpon>202108312214220_second.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -106,11 +103,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202005070451083_one.resx">
-      <DependentUpon>202005070451083_one.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005072043241_two.resx">
-      <DependentUpon>202005072043241_two.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202108312214220_second.resx">
+      <DependentUpon>202108312214220_second.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

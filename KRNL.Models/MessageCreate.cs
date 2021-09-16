@@ -14,14 +14,14 @@ namespace KRNL.Models
         public int MessageId { get; set; }
         public string Comment { get; set; }
         public DateTimeOffset? DateCreated { get; set; }
-        public noYes IsRequest { get; set; }
+        public bool IsRequest { get; set; }
 
         [Display(Name ="Location")]
         public int LocationId { get; set; }
 
         [Display(Name ="LocID")]
         public string LocationCode { get; set; }
-        public stake IsStaked { get; set; }
+        public bool IsStaked { get; set; }
 
         [Display(Name = "Growth Stage")]
         public growthStage HumanGrowthStage { get; set; }
@@ -39,7 +39,7 @@ namespace KRNL.Models
         public job JobTwo { get; set; }
         [Display(Name = "Task:")]
         public job JobThree { get; set; }
-        public noYes IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
         public virtual Cooperator Cooperators { get; set; }
 
     }

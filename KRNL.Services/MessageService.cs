@@ -34,7 +34,7 @@ namespace KRNL.Services
                 DateCreated = DateTimeOffset.Now,
                 LocationId = model.LocationId,
                 HumanGrowthStage = model.HumanGrowthStage,
-                IsRequest = noYes.No,
+                IsRequest = false,
                 JobOne = model.JobOne,
                 JobTwo = model.JobTwo,
                 JobThree = model.JobThree,
@@ -91,7 +91,7 @@ namespace KRNL.Services
                 DateCreated = DateTimeOffset.Now,
                 LocationId = model.LocationId,
                 HumanGrowthStage = model.HumanGrowthStage,
-                IsRequest = noYes.Yes,
+                IsRequest = true,
                 JobOne = model.JobOne,
                 JobTwo = model.JobTwo,
                 JobThree = model.JobThree,
@@ -126,7 +126,7 @@ namespace KRNL.Services
                 var query =
                     ctx
                         .Messages
-                        .Where(e => e.IsDeleted == noYes.No && e.OwnerId == userId)
+                        .Where(e => e.IsDeleted == false && e.OwnerId == userId)
                         .Select(
                             e =>
                                 new MessageListItem
@@ -161,7 +161,7 @@ namespace KRNL.Services
                 var query =
                     ctx
                         .Messages
-                        .Where(e => e.LocationId == locId && e.IsDeleted == noYes.No && e.OwnerId == userId)
+                        .Where(e => e.LocationId == locId && e.IsDeleted == false && e.OwnerId == userId)
                         .Select(
                             e =>
                                 new MessageListItem
@@ -331,7 +331,7 @@ namespace KRNL.Services
             using (var ctx = new ApplicationDbContext())
             {
                 var entity = ctx.Messages.Single(e => e.MessageId == messageId && e.OwnerId == userId);
-                entity.IsRequest = noYes.No;
+                entity.IsRequest = false;
                 entity.DateCreated = DateTime.Now;
 
                 if (entity.JobOne == job.Planting || entity.JobTwo == job.Planting || entity.JobThree == job.Planting)
@@ -384,7 +384,7 @@ namespace KRNL.Services
             using (var ctx = new ApplicationDbContext())
             {
                 var entity = ctx.Messages.Single(e => e.MessageId == messageId && e.OwnerId == userId);
-                entity.IsDeleted = noYes.Yes;
+                entity.IsDeleted = true;
 
                 //if (entity.Rating != rating.NoRating)                    
                 //{
@@ -412,7 +412,7 @@ namespace KRNL.Services
                     locationService.SetLocationIsHarvestedToNo(entity.LocationId);
                 }
 
-                if (entity.IsRequest == noYes.Yes)
+                if (entity.IsRequest == true)
                 {
                     locationService.SubtractOneFromRequestCount(entity.LocationId);
                 }

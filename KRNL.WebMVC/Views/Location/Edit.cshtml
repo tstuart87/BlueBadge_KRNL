@@ -54,13 +54,13 @@
             </div>
         }
 
-        @if (Model.IsPlanted == KRNL.Data.stake.Yes || Model.IsHarvested == KRNL.Data.stake.Yes)
+        @if (Model.IsPlanted == true || Model.IsHarvested == true)
         {
             <br />
             <table>
                 <tr>
                     <td>
-                        @if (Model.IsPlanted == KRNL.Data.stake.Yes)
+                        @if (Model.IsPlanted == true)
                         {
                             <div class="messageLabel">Planted:</div>
                             @Html.DisplayFor(model => model.DatePlanted)
@@ -68,7 +68,7 @@
                     </td>
 
                     <td class="tdDates">
-                        @if (Model.IsHarvested == KRNL.Data.stake.Yes)
+                        @if (Model.IsHarvested == true)
                         {
                             <div class="messageLabel">Harvested:</div>
                             @Html.DisplayFor(model => model.DateHarvested)
@@ -298,7 +298,7 @@
 
                 <tr>
                     <td colspan="1">
-                        @if (item.IsRequest == KRNL.Data.noYes.Yes)
+                        @if (item.IsRequest == true)
                         {
                             <a href="@Url.Action("CompleteRequest", "Message", new { id = item.MessageId})"><img class="jobCheckPicIcon" src="/Content/krnlpics/reqCheck.png" alt="KRNL"></a>
                         }
@@ -331,7 +331,7 @@
 
                 <tr class="messageBottom messageBottomLeft">
                     <td colspan="2">
-                        @if (item.FullName != null && item.IsRequest == KRNL.Data.noYes.No)
+                        @if (item.FullName != null && item.IsRequest == false)
                         {
 
                             @Html.DisplayFor(modelItem => item.FullName)

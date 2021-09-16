@@ -84,7 +84,7 @@ namespace KRNL.Services
                 var query =
                     ctx
                         .Documents
-                        .Where(e => e.IsDeleted == noYes.No && e.OwnerId == userId)
+                        .Where(e => e.IsDeleted == false && e.OwnerId == userId)
                         .Select(
                             e =>
                                 new DocumentListItem
@@ -111,7 +111,7 @@ namespace KRNL.Services
                 var query =
                     ctx
                         .Documents
-                        .Where(e => e.LocationId == locId && e.IsDeleted == noYes.No && e.OwnerId == userId)
+                        .Where(e => e.LocationId == locId && e.IsDeleted == false && e.OwnerId == userId)
                         .Select(
                             e =>
                                 new DocumentListItem
@@ -158,7 +158,7 @@ namespace KRNL.Services
             using (var ctx = new ApplicationDbContext())
             {
                 var entity = ctx.Documents.Single(e => e.DocumentId == docId && e.OwnerId == userId);
-                entity.IsDeleted = noYes.Yes;
+                entity.IsDeleted = true;
 
                 return ctx.SaveChanges() == 1;
             }
@@ -171,7 +171,7 @@ namespace KRNL.Services
                 var query =
                     ctx
                         .Documents
-                        .FirstOrDefault(e => e.LocationId == locId && e.DocType == docType.Map && e.IsDeleted == noYes.No && e.OwnerId == userId);
+                        .FirstOrDefault(e => e.LocationId == locId && e.DocType == docType.Map && e.IsDeleted == false && e.OwnerId == userId);
 
                 if (query == null)
                 {

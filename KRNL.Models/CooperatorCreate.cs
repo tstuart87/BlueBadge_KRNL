@@ -25,7 +25,7 @@ namespace KRNL.Models
         public string PhoneSecond { get; set; }
         [Display(Name = "Role")]
         public contact ContactType { get; set; }
-        public noYes IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
 
     }
 }

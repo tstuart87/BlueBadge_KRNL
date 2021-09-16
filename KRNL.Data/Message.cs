@@ -70,8 +70,8 @@ namespace KRNL.Data
         public string PredictedGrowthStage { get; set; }
 
         public rating Rating { get; set; }
-        public noYes IsDeleted { get; set; }
-        public noYes IsRequest { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsRequest { get; set; }
 
         [ForeignKey("Cooperators")]
         public int? CooperatorId { get; set; }

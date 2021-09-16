@@ -53,7 +53,7 @@ namespace KRNL.Services
                 var query =
                     ctx
                         .Cooperators
-                        .Where(e => e.IsDeleted == noYes.No && e.OwnerId == userId)
+                        .Where(e => e.IsDeleted == false && e.OwnerId == userId)
                         .Select(
                             e =>
                                 new CooperatorListItem
@@ -97,7 +97,7 @@ namespace KRNL.Services
                 var entity =
                     ctx
                         .Cooperators
-                        .Single(e => e.CooperatorId == id && e.IsDeleted == noYes.No && e.OwnerId == userId);
+                        .Single(e => e.CooperatorId == id && e.IsDeleted == false && e.OwnerId == userId);
                 return
                     new CooperatorDetail
                     {
@@ -119,7 +119,7 @@ namespace KRNL.Services
                 var entity =
                     ctx
                         .Cooperators
-                        .Single(e => e.CooperatorId == id && e.IsDeleted == noYes.No && e.OwnerId == userId);
+                        .Single(e => e.CooperatorId == id && e.IsDeleted == false && e.OwnerId == userId);
                 return
                     new CooperatorEdit
                     {
@@ -143,7 +143,7 @@ namespace KRNL.Services
                 var entity =
                     ctx
                         .Cooperators
-                        .Where(e => e.ContactType == contact.Employee && e.IsDeleted == noYes.No && e.OwnerId == userId)
+                        .Where(e => e.ContactType == contact.Employee && e.IsDeleted == false && e.OwnerId == userId)
                         .FirstOrDefault();
 
                 coopId = entity.CooperatorId;
@@ -176,7 +176,7 @@ namespace KRNL.Services
             using (var ctx = new ApplicationDbContext())
             {
                 var entity = ctx.Cooperators.Single(e => e.CooperatorId == cooperatorId && e.OwnerId == userId);
-                entity.IsDeleted = noYes.Yes;
+                entity.IsDeleted = true;
 
                 locService.SetCooperatorToNull(entity.CooperatorId);
                 messageService.SetEmployeeToNull(entity.CooperatorId, userId);

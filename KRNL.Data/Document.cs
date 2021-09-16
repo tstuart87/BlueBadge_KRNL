@@ -16,7 +16,7 @@ namespace KRNL.Data
         public Guid OwnerId { get; set; }
         public string DocName { get; set; }
         public string DocString { get; set; }
-        public noYes IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
 
         [Display(Name = "Document Type")]
         public docType DocType { get; set; }

@@ -21,8 +21,8 @@ namespace KRNL.Models
         public int LocationId { get; set; }
         [Display(Name ="LocID")]
         public string LocationCode { get; set; }
-        public noYes IsDeleted { get; set; }
-        public noYes IsRequest { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsRequest { get; set; }
         public job JobOne { get; set; }
         public job JobTwo { get; set; }
         public job JobThree { get; set; }

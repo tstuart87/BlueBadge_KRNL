@@ -20,8 +20,8 @@ namespace KRNL.WebMVC
             app.UseHangfireDashboard();
             app.UseHangfireServer();
 
-            LocationService service = new LocationService();
-            RecurringJob.AddOrUpdate(() => service.SetGdusAndCumulativePrecipAndGrowthStages(), Cron.Daily(07, 01));
+            //LocationService service = new LocationService();
+            //RecurringJob.AddOrUpdate(() => service.SetGdusAndCumulativePrecipAndGrowthStages(), Cron.Daily(07, 01));
         }
     }
 }

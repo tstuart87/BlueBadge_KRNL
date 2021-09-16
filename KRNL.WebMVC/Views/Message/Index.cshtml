@@ -133,7 +133,7 @@
 
             <tr>
                 <td colspan="1">
-                    @if (item.IsRequest == KRNL.Data.noYes.Yes)
+                    @if (item.IsRequest == true)
                     {
                         <a href="@Url.Action("CompleteRequest", "Message", new { id = item.MessageId})"><img class="jobCheckPicIcon" src="/Content/krnlpics/reqCheck.png" alt="KRNL"></a>
                     }
@@ -166,7 +166,7 @@
 
             <tr class="messageBottom messageBottomLeft">
                 <td colspan="2">
-                    @if (item.FullName != null && item.IsRequest == KRNL.Data.noYes.No)
+                    @if (item.FullName != null && item.IsRequest == false)
                     {
 
                         @Html.DisplayFor(modelItem => item.FullName)

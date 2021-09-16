@@ -18,9 +18,9 @@ namespace KRNL.Models
         [Required]
         [Display(Name = "LocID")]
         public string LocationCode { get; set; }
-        public state State { get; set; }
+        public State State { get; set; }
         [Display(Name = "Planting Date")]
-        public month MonthOfPlanting { get; set; }
+        public Month MonthOfPlanting { get; set; }
         [Display(Name = " ")]
         public int DayOfPlanting { get; set; }
         [Display(Name = " ")]
@@ -31,20 +31,20 @@ namespace KRNL.Models
         public double Latitude { get; set; }
 
         [Display(Name = "Planted")]
-        public stake IsPlanted { get; set; }
+        public bool IsPlanted { get; set; }
         [Display(Name = "Staked")]
-        public stake IsStaked { get; set; }
+        public bool IsStaked { get; set; }
         [Display(Name = "Rowbanded")]
-        public stake IsRowbanded { get; set; }
+        public bool IsRowbanded { get; set; }
         [Display(Name = "Harvested")]
-        public stake IsHarvested { get; set; }
+        public bool IsHarvested { get; set; }
 
         [Display(Name = "Cooperator")]
         public int? CooperatorId { get; set; }
         [Display(Name = "Cooperator")]
         public string FullName { get; set; }
         public string MapLink { get; set; }
-        public crm CRM { get; set; }
+        public Crm CRM { get; set; }
         [Display(Name = "#Tag")]
         public string Tag { get; set; }
         public string SearchString { get; set; }
@@ -52,7 +52,7 @@ namespace KRNL.Models
         public rating Rating { get; set; }
         public DateTimeOffset DatePlanted { get; set; }
         public DateTimeOffset DateHarvested { get; set; }
-        public noYes IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
 
         public IEnumerable<MessageListItem> Messages { get; set; }
         public IEnumerable<DocumentListItem> Documents { get; set; }

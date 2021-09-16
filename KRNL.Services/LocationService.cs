@@ -50,7 +50,7 @@ namespace KRNL.Services
                 var query =
                     ctx
                         .Locations
-                        .Where(e => e.IsDeleted == noYes.No && e.OwnerId == userId)
+                        .Where(e => e.IsDeleted == false && e.OwnerId == userId)
                         .Select(
                             e =>
                                 new LocationListItem
@@ -147,9 +147,9 @@ namespace KRNL.Services
             {
                 var entity = ctx.Locations.Single(e => e.LocationId == locId);
 
-                entity.IsPlanted = stake.Yes;
+                entity.IsPlanted = true;
                 entity.DatePlanted = DateTimeOffset.Now;
-                entity.MonthOfPlanting = (month)(Convert.ToInt32(entity.DatePlanted.Month));
+                entity.MonthOfPlanting = (Month)(Convert.ToInt32(entity.DatePlanted.Month));
                 entity.DayOfPlanting = Convert.ToInt32(entity.DatePlanted.Day);
                 entity.YearOfPlanting = Convert.ToInt32(entity.DatePlanted.Year);
 
@@ -162,7 +162,7 @@ namespace KRNL.Services
             using (var ctx = new ApplicationDbContext())
             {
                 var entity = ctx.Locations.Single(e => e.LocationId == locId);
-                entity.IsStaked = stake.Yes;
+                entity.IsStaked = true;
 
                 return ctx.SaveChanges() == 1;
             }
@@ -173,7 +173,7 @@ namespace KRNL.Services
             using (var ctx = new ApplicationDbContext())
             {
                 var entity = ctx.Locations.Single(e => e.LocationId == locId);
-                entity.IsRowbanded = stake.Yes;
+                entity.IsRowbanded = true;
 
                 return ctx.SaveChanges() == 1;
             }
@@ -184,9 +184,9 @@ namespace KRNL.Services
             using (var ctx = new ApplicationDbContext())
             {
                 var entity = ctx.Locations.Single(e => e.LocationId == locId);
-                entity.IsHarvested = stake.Yes;
+                entity.IsHarvested = true;
                 entity.DateHarvested = DateTimeOffset.Now;
-                entity.MonthOfHarvest = (month)(Convert.ToInt32(entity.DateHarvested.Month));
+                entity.MonthOfHarvest = (Month)(Convert.ToInt32(entity.DateHarvested.Month));
                 entity.DayOfHarvest = Convert.ToInt32(entity.DateHarvested.Day);
                 entity.YearOfHarvest = Convert.ToInt32(entity.DateHarvested.Year);
 
@@ -199,9 +199,9 @@ namespace KRNL.Services
             using (var ctx = new ApplicationDbContext())
             {
                 var entity = ctx.Locations.Single(e => e.LocationId == locId);
-                entity.IsPlanted = stake.No;
+                entity.IsPlanted = false;
                 entity.DatePlanted = DateTimeOffset.Now;
-                entity.MonthOfPlanting = (month)(Convert.ToInt32(entity.DatePlanted.Month));
+                entity.MonthOfPlanting = (Month)(Convert.ToInt32(entity.DatePlanted.Month));
                 entity.DayOfPlanting = Convert.ToInt32(entity.DatePlanted.Day);
                 entity.YearOfPlanting = Convert.ToInt32(entity.DatePlanted.Year);
 
@@ -214,7 +214,7 @@ namespace KRNL.Services
             using (var ctx = new ApplicationDbContext())
             {
                 var entity = ctx.Locations.Single(e => e.LocationId == locId);
-                entity.IsStaked = stake.No;
+                entity.IsStaked = false;
 
                 return ctx.SaveChanges() == 1;
             }
@@ -225,7 +225,7 @@ namespace KRNL.Services
             using (var ctx = new ApplicationDbContext())
             {
                 var entity = ctx.Locations.Single(e => e.LocationId == locId);
-                entity.IsRowbanded = stake.No;
+                entity.IsRowbanded = false;
 
                 return ctx.SaveChanges() == 1;
             }
@@ -236,9 +236,9 @@ namespace KRNL.Services
             using (var ctx = new ApplicationDbContext())
             {
                 var entity = ctx.Locations.Single(e => e.LocationId == locId);
-                entity.IsHarvested = stake.No;
+                entity.IsHarvested = false;
                 entity.DateHarvested = DateTimeOffset.Now;
-                entity.MonthOfHarvest = (month)(Convert.ToInt32(entity.DateHarvested.Month));
+                entity.MonthOfHarvest = (Month)(Convert.ToInt32(entity.DateHarvested.Month));
                 entity.DayOfHarvest = Convert.ToInt32(entity.DateHarvested.Day);
                 entity.YearOfHarvest = Convert.ToInt32(entity.DateHarvested.Year);
 
@@ -251,9 +251,9 @@ namespace KRNL.Services
             using (var ctx = new ApplicationDbContext())
             {
                 var entity = ctx.Locations.Single(e => e.LocationId == locId);
-                entity.IsPlanted = stake.Yes;
+                entity.IsPlanted = true;
                 entity.DatePlanted = date.HasValue ? date.Value.DateTime : DateTime.MaxValue;
-                entity.MonthOfPlanting = (month)(Convert.ToInt32(entity.DatePlanted.Month));
+                entity.MonthOfPlanting = (Month)(Convert.ToInt32(entity.DatePlanted.Month));
                 entity.DayOfPlanting = Convert.ToInt32(entity.DatePlanted.Day);
                 entity.YearOfPlanting = Convert.ToInt32(entity.DatePlanted.Year);
 
@@ -266,9 +266,9 @@ namespace KRNL.Services
             using (var ctx = new ApplicationDbContext())
             {
                 var entity = ctx.Locations.Single(e => e.LocationId == locId);
-                entity.IsHarvested = stake.Yes;
+                entity.IsHarvested = true;
                 entity.DatePlanted = date.HasValue ? date.Value.DateTime : DateTime.MaxValue;
-                entity.MonthOfPlanting = (month)(Convert.ToInt32(entity.DatePlanted.Month));
+                entity.MonthOfPlanting = (Month)(Convert.ToInt32(entity.DatePlanted.Month));
                 entity.DayOfPlanting = Convert.ToInt32(entity.DatePlanted.Day);
                 entity.YearOfPlanting = Convert.ToInt32(entity.DatePlanted.Year);
 
@@ -472,7 +472,7 @@ namespace KRNL.Services
             {
                 foreach (Location x in ctx.Locations)
                 {
-                    if (x.IsPlanted == stake.Yes && x.IsHarvested == stake.No)
+                    if (x.IsPlanted == true && x.IsHarvested == false)
                     {
                         x.GDUs = SetGDUsForLocation(x).ToString();
                         x.CumulativePrecip = SetCumulativePrecipForLocation(x).ToString();
@@ -613,7 +613,7 @@ namespace KRNL.Services
                     {
                         switch (x.CRM)
                         {
-                            case crm.CRM85_90:
+                            case Crm.CRM85_90:
                                 {
                                     if (cumulativePrecip >= low && cumulativePrecip <= high)
                                     {
@@ -625,7 +625,7 @@ namespace KRNL.Services
                                     }
                                     break;
                                 }
-                            case crm.CRM91_95:
+                            case Crm.CRM91_95:
                                 {
                                     if (cumulativePrecip >= low && cumulativePrecip <= high)
                                     {
@@ -637,7 +637,7 @@ namespace KRNL.Services
                                     }
                                     break;
                                 }
-                            case crm.CRM96_100:
+                            case Crm.CRM96_100:
                                 {
                                     if (cumulativePrecip >= low && cumulativePrecip <= high)
                                     {
@@ -649,7 +649,7 @@ namespace KRNL.Services
                                     }
                                     break;
                                 }
-                            case crm.CRM101_105:
+                            case Crm.CRM101_105:
                                 {
                                     if (cumulativePrecip >= low && cumulativePrecip <= high)
                                     {
@@ -661,7 +661,7 @@ namespace KRNL.Services
                                     }
                                     break;
                                 }
-                            case crm.CRM106_110:
+                            case Crm.CRM106_110:
                                 {
                                     if (cumulativePrecip >= low && cumulativePrecip <= high)
                                     {
@@ -673,7 +673,7 @@ namespace KRNL.Services
                                     }
                                     break;
                                 }
-                            case crm.CRM111_115:
+                            case Crm.CRM111_115:
                                 {
                                     if (cumulativePrecip >= low && cumulativePrecip <= high)
                                     {
@@ -685,7 +685,7 @@ namespace KRNL.Services
                                     }
                                     break;
                                 }
-                            case crm.CRM116_120:
+                            case Crm.CRM116_120:
                                 {
                                     if (cumulativePrecip >= low && cumulativePrecip <= high)
                                     {

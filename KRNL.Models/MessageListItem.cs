@@ -27,12 +27,12 @@ namespace KRNL.Models
         public int? CooperatorId { get; set; }
         public string FullName { get; set; }
         public rating Rating { get; set; }
-        public stake IsStaked { get; set; }
+        public bool IsStaked { get; set; }
         public job JobOne { get; set; }
         public job JobTwo { get; set; }
         public job JobThree { get; set; }
-        public noYes IsDeleted { get; set; }
-        public noYes IsRequest { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsRequest { get; set; }
         public string SearchString { get; set; }
         public string DocString { get; set; }
         public virtual Document Documents { get; set; }

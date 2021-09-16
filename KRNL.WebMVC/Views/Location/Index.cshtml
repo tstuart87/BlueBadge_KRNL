@@ -112,19 +112,19 @@
                                 @Html.DisplayFor(modelItem => item.GrowthStage)
                             </td>
                             <td colspan="1" class="messageRightLocationCoop locStatusDots">
-                                @if (item.IsPlanted == KRNL.Data.stake.Yes && item.IsStaked == KRNL.Data.stake.No && item.IsRowbanded == KRNL.Data.stake.No && item.IsHarvested == KRNL.Data.stake.No)
+                                @if (item.IsPlanted == true && item.IsStaked == false && item.IsRowbanded == false && item.IsHarvested == false)
                                 {
                                     <img class="locStatusDots" src="/Content/krnlpics/dotsPLANTED.png" alt="KRNL">
                                 }
-                                else if (item.IsPlanted == KRNL.Data.stake.Yes && item.IsStaked == KRNL.Data.stake.Yes && item.IsRowbanded == KRNL.Data.stake.No && item.IsHarvested == KRNL.Data.stake.No)
+                                else if (item.IsPlanted == true && item.IsStaked == true && item.IsRowbanded == false && item.IsHarvested == false)
                                 {
                                     <img class="locStatusDots" src="/Content/krnlpics/dotsSTAKED.png" alt="KRNL">
                                 }
-                                else if (item.IsPlanted == KRNL.Data.stake.Yes && item.IsStaked == KRNL.Data.stake.Yes && item.IsRowbanded == KRNL.Data.stake.Yes && item.IsHarvested == KRNL.Data.stake.No)
+                                else if (item.IsPlanted == true && item.IsStaked == true && item.IsRowbanded == true && item.IsHarvested == false)
                                 {
                                     <img class="locStatusDots" src="/Content/krnlpics/dotsBANDED.png" alt="KRNL">
                                 }
-                                else if (item.IsPlanted == KRNL.Data.stake.Yes && item.IsStaked == KRNL.Data.stake.Yes && item.IsHarvested == KRNL.Data.stake.Yes)
+                                else if (item.IsPlanted == true && item.IsStaked == true && item.IsHarvested == true)
                                 {
                                     <img class="locStatusDots" src="/Content/krnlpics/dotsHARVESTED.png" alt="KRNL">
                                 }
@@ -487,19 +487,19 @@
                                 @Html.DisplayFor(modelItem => item.GrowthStage)
                             </td>
                             <td colspan="1" class="messageRightLocationCoop locStatusDots">
-                                @if (item.IsPlanted == KRNL.Data.stake.Yes && item.IsStaked == KRNL.Data.stake.No && item.IsRowbanded == KRNL.Data.stake.No && item.IsHarvested == KRNL.Data.stake.No)
+                                @if (item.IsPlanted == true && item.IsStaked == false && item.IsRowbanded == false && item.IsHarvested == false)
                                 {
                                     <img class="locStatusDots" src="/Content/krnlpics/dotsPLANTED.png" alt="KRNL">
                                 }
-                                else if (item.IsPlanted == KRNL.Data.stake.Yes && item.IsStaked == KRNL.Data.stake.Yes && item.IsRowbanded == KRNL.Data.stake.No && item.IsHarvested == KRNL.Data.stake.No)
+                                else if (item.IsPlanted == true && item.IsStaked == true && item.IsRowbanded == false && item.IsHarvested == false)
                                 {
                                     <img class="locStatusDots" src="/Content/krnlpics/dotsSTAKED.png" alt="KRNL">
                                 }
-                                else if (item.IsPlanted == KRNL.Data.stake.Yes && item.IsStaked == KRNL.Data.stake.Yes && item.IsRowbanded == KRNL.Data.stake.Yes && item.IsHarvested == KRNL.Data.stake.No)
+                                else if (item.IsPlanted == true && item.IsStaked == true && item.IsRowbanded == true && item.IsHarvested == false)
                                 {
                                     <img class="locStatusDots" src="/Content/krnlpics/dotsBANDED.png" alt="KRNL">
                                 }
-                                else if (item.IsPlanted == KRNL.Data.stake.Yes && item.IsStaked == KRNL.Data.stake.Yes && item.IsHarvested == KRNL.Data.stake.Yes)
+                                else if (item.IsPlanted == true && item.IsStaked == true && item.IsHarvested == true)
                                 {
                                     <img class="locStatusDots" src="/Content/krnlpics/dotsHARVESTED.png" alt="KRNL">
                                 }

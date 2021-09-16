@@ -12,11 +12,11 @@ namespace KRNL.Models
     {
         [Display(Name = "City")]
         public string LocationName { get; set; }
-        public state State { get; set; }
+        public State State { get; set; }
         [Display(Name = "LocID")]
         public string LocationCode { get; set; }
-        public crm CRM { get; set; }
+        public Crm CRM { get; set; }
         public string SearchString { get; set; }
-        public noYes IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

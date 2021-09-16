@@ -55,13 +55,13 @@ namespace KRNL.WebMVC.Controllers
             switch (ViewBag.ToggleRequestJob)
             {
                 case "jobView":
-                    model = model.Where(e => e.IsRequest == noYes.No);
+                    model = model.Where(e => e.IsRequest == false);
                     break;
                 case "requestView":
-                    model = model.Where(e => e.IsRequest == noYes.Yes);
+                    model = model.Where(e => e.IsRequest == true);
                     break;
                 default:
-                    model = model.Where(e => e.IsRequest == noYes.No);
+                    model = model.Where(e => e.IsRequest == false);
                     break;
             }
 
